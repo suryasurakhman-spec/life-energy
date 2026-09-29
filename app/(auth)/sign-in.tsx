@@ -45,7 +45,7 @@ export default function SignInScreen() {
 
       const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo)
       if (result.type === 'success' && result.url) {
-        await supabase.auth.getSessionFromUrl({ url: result.url })
+        await supabase.auth.exchangeCodeForSession(result.url)
         // onAuthStateChange in useSession handles the rest
       }
     } catch (err: unknown) {
