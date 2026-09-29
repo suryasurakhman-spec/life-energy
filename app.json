@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "beapp",
+    "slug": "beapp",
+    "version": "1.0.0",
+    "scheme": "beapp",
+    "orientation": "portrait",
+    "platforms": ["ios", "android"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.beapp.beapp",
+      "usesAppleSignIn": true
+    },
+    "android": {
+      "package": "com.beapp.beapp",
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow beapp to access your photos for avatar upload."
+        }
+      ],
+      "expo-apple-authentication"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
