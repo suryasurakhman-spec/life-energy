@@ -1,8 +1,9 @@
 import { Slot } from 'expo-router'
 import { ActivityIndicator, View } from 'react-native'
+import { SessionProvider } from '@/providers/SessionProvider'
 import { useSession } from '@/hooks/useSession'
 
-export default function RootLayout() {
+function RootLayoutInner() {
   const { loading } = useSession()
 
   if (loading) {
@@ -14,4 +15,12 @@ export default function RootLayout() {
   }
 
   return <Slot />
+}
+
+export default function RootLayout() {
+  return (
+    <SessionProvider>
+      <RootLayoutInner />
+    </SessionProvider>
+  )
 }

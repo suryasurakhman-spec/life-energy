@@ -1,25 +1,3 @@
-import { useEffect, useState } from 'react'
-import { type Session } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
-
-export function useSession() {
-  const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Get initial session from SecureStore (async on startup)
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setLoading(false)
-    })
-
-    // Subscribe to auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
-  return { session, loading }
-}
+// Re-exports useSession from SessionProvider.
+// All consumers share one auth subscription via React Context.
+export { useSession } from '@/providers/SessionProvider'
