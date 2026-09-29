@@ -1,7 +1,25 @@
+# Dependencies
 node_modules/
+
+# Expo
 .expo/
 dist/
+
+# Environment variables
 .env
+.env.local
+
+# Build artifacts
+android/build/
+android/.gradle/
+ios/Pods/
+ios/Podfile.lock
+
+# OS files
+.DS_Store
+*.log
+
+# Native signing / certificates
 *.jks
 *.p8
 *.p12
