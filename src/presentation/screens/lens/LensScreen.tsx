@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef } from 'react';
-import { View, Pressable } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
 import {
   Camera,
   useCameraDevice,
@@ -11,7 +11,7 @@ import { useTextRecognition } from 'react-native-vision-camera-text-recognition'
 import { Canvas, useFont } from '@shopify/react-native-skia';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
-import { useRealHourlyWage } from '@/presentation/hooks/useWage';
+import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
 import { parsePrice } from '@/domain/price/parser';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
@@ -20,6 +20,8 @@ import { lifeEnergy } from '@/domain/price/price';
 import { LabelChip } from '@/presentation/components/LabelChip';
 import { getTier } from '@/theme/chip-tiers';
 import { useTranslation } from '@/lib/i18n';
+import { LabelSheet } from '@/presentation/components/LabelSheet';
+import { QuickConvertModal } from './QuickConvertModal';
 
 const stabilizer = createStabilizer();
 
@@ -33,10 +35,13 @@ const IDLE_TIMEOUT_MS = 60_000;
 export function LensScreen() {
   const t = useTranslation();
   const realHourlyWage = useRealHourlyWage();
+  const { data: wage } = useCurrentWage();
   const device = useCameraDevice('back');
   const { hasPermission, requestPermission } = useCameraPermission();
   const { mode, torchOn, freeze, unfreeze, setPrices, stablePrices } = useLensStore();
   const font = useFont(require('../../../../assets/fonts/Inter_700Bold.ttf'), 15);
+  const [selectedPrice, setSelectedPrice] = useState<DetectedPrice | null>(null);
+  const [quickConvertVisible, setQuickConvertVisible] = useState(false);
   const textRecognition = useTextRecognition({ language: 'latin' });
 
   // ── Worklet-safe shared values ────────────────────────────────────────────
@@ -142,12 +147,37 @@ export function LensScreen() {
 
   if (!hasPermission) {
     return (
-      <Pressable
-        onPress={requestPermission}
-        style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#110F0D' }}
-        accessibilityRole="button"
-        accessibilityLabel={t.lens.noPermissionCta}
-      />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#110F0D', padding: 32, gap: 20 }}>
+        <Text style={{ color: '#FAF8F5', fontSize: 22, fontWeight: '700', textAlign: 'center' }}>
+          {t.lens.noPermissionTitle}
+        </Text>
+        <Text style={{ color: '#CFC5B8', fontSize: 15, textAlign: 'center', lineHeight: 22 }}>
+          {t.lens.noPermissionBody}
+        </Text>
+        <Pressable
+          onPress={requestPermission}
+          style={({ pressed }) => ({ marginTop: 8, paddingHorizontal: 32, paddingVertical: 16, backgroundColor: '#C9821F', borderRadius: 14, opacity: pressed ? 0.8 : 1 })}
+          accessibilityRole="button"
+          accessibilityLabel={t.lens.noPermissionCta}
+        >
+          <Text style={{ color: '#FFFFFF', fontWeight: '700', fontSize: 17 }}>{t.lens.noPermissionCta}</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => setQuickConvertVisible(true)}
+          style={({ pressed }) => ({ paddingHorizontal: 32, paddingVertical: 16, borderRadius: 14, borderWidth: 1, borderColor: '#4A433B', opacity: pressed ? 0.8 : 1 })}
+          accessibilityRole="button"
+        >
+          <Text style={{ color: '#CFC5B8', fontWeight: '600', fontSize: 15 }}>{'Type a price manually'}</Text>
+        </Pressable>
+        {quickConvertVisible && wage && (
+          <QuickConvertModal
+            realHourlyWage={realHourlyWage}
+            wageProfileId={wage.id}
+            visible={quickConvertVisible}
+            onClose={() => setQuickConvertVisible(false)}
+          />
+        )}
+      </View>
     );
   }
 
@@ -163,6 +193,8 @@ export function LensScreen() {
         torch={torchOn ? 'on' : 'off'}
         accessibilityLabel={t.lens.cameraLabel}
       />
+
+      {/* Skia overlay: chip visuals (pointerEvents none — taps fall through to Pressables below) */}
       <Canvas style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none">
         {stablePrices.map(p => {
           const energy = lifeEnergy({ priceMinor: p.minor, realHourlyWage });
@@ -181,6 +213,22 @@ export function LensScreen() {
         })}
       </Canvas>
 
+      {/* Transparent hit targets for each chip — sits above Skia canvas */}
+      {stablePrices.map(p => (
+        <Pressable
+          key={`hit-${p.id}`}
+          onPress={() => { freeze(); setSelectedPrice(p); }}
+          style={{
+            position: 'absolute',
+            left: (p.x ?? 0) + (p.width ?? 60) + 8 - 8,
+            top: (p.y ?? 0) + (p.height ?? 20) / 2 - 16,
+            minWidth: 60,
+            minHeight: 32,
+          }}
+          accessibilityRole="button"
+        />
+      ))}
+
       {/* Shutter + torch controls */}
       <View style={{ position: 'absolute', bottom: 40, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 24 }}>
         <Pressable
@@ -188,15 +236,46 @@ export function LensScreen() {
           style={{ minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t.lens.toggleTorch}
-        />
+        >
+          <Text style={{ fontSize: 22 }}>{torchOn ? '🔦' : '💡'}</Text>
+        </Pressable>
         <Pressable
           onPress={mode === 'live' ? freeze : unfreeze}
           style={{ width: 72, height: 72, borderRadius: 36, borderWidth: 4, borderColor: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.2)', alignItems: 'center', justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={mode === 'live' ? t.lens.freeze : t.lens.live}
         />
-        <View style={{ minHeight: 44, minWidth: 44 }} />
+        <Pressable
+          onPress={() => setQuickConvertVisible(true)}
+          style={{ minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel="Type a price"
+        >
+          <Text style={{ fontSize: 26, color: '#FFFFFF' }}>⌨</Text>
+        </Pressable>
       </View>
+
+      {/* LabelSheet: shown when a chip is tapped */}
+      {selectedPrice != null && wage && (
+        <LabelSheet
+          priceMinor={selectedPrice.minor}
+          currency="USD"
+          wageProfileId={wage.id}
+          source={mode === 'freeze' ? 'freeze' : 'lens'}
+          realHourlyWage={realHourlyWage}
+          onClose={() => setSelectedPrice(null)}
+        />
+      )}
+
+      {/* QuickConvert: manual keypad entry */}
+      {wage && (
+        <QuickConvertModal
+          realHourlyWage={realHourlyWage}
+          wageProfileId={wage.id}
+          visible={quickConvertVisible}
+          onClose={() => setQuickConvertVisible(false)}
+        />
+      )}
     </View>
   );
 }

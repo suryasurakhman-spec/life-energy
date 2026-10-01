@@ -5,6 +5,7 @@ import { useCurrentWage } from '@/presentation/hooks/useWage';
 import { useCustomerInfo } from '@/presentation/hooks/usePurchases';
 import { useTheme } from '@/theme';
 import { exportData } from '@/application/export-data';
+import { deleteAllData } from '@/application/delete-all-data';
 import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
 import { useTranslation } from '@/lib/i18n';
 
@@ -72,8 +73,11 @@ export function ProfileScreen() {
           text: t.profile.deleteAction,
           style: 'destructive',
           onPress: () => {
-            // TODO: wire up delete-all-data use case in v2
-            Alert.alert(t.profile.deleteTitle, t.profile.deleteConfirmed);
+            void deleteAllData(expenseRepo).then(() => {
+              Alert.alert(t.profile.deleteTitle, t.profile.deleteConfirmed);
+            }).catch(() => {
+              Alert.alert(t.common.error, 'Could not delete data. Please try again.');
+            });
           },
         },
       ],
