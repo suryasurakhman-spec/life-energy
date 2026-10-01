@@ -5,31 +5,49 @@
     "version": "1.0.0",
     "scheme": "beapp",
     "orientation": "portrait",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.beapp.beapp",
-      "usesAppleSignIn": true
+      "infoPlist": {
+        "NSCameraUsageDescription": "We read prices through your camera. Images never leave your phone."
+      }
     },
     "android": {
       "package": "com.beapp.beapp",
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "plugins": [
       "expo-router",
       "expo-secure-store",
       [
-        "expo-image-picker",
+        "react-native-vision-camera",
         {
-          "photosPermission": "Allow beapp to access your photos for avatar upload."
+          "cameraPermissionText": "We read prices through your camera. Images never leave your phone.",
+          "enableMicrophonePermission": false
         }
-      ],
-      "expo-apple-authentication"
+      ]
     ],
+    "userInterfaceStyle": "automatic",
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c79da0cc-e7da-41a0-878e-7307b386f448"
+      }
+    },
+    "owner": "suryazuran"
   }
 }
