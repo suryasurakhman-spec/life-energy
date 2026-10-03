@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
 
 export const wageProfiles = sqliteTable('wage_profiles', {
   id:               text('id').primaryKey(),
@@ -80,4 +80,15 @@ export const conversions = sqliteTable('conversions', {
   verdict:      text('verdict'),
   source:       text('source').notNull(),
   createdAt:    text('created_at').notNull(),
+});
+
+// Cached exchange rates — populated by syncing from Supabase fx_rates table.
+// base is always the user's home currency (e.g. 'USD').
+// rate = how many base units equal 1 quote unit  (e.g. USD/EUR: 1 EUR = 1.08 USD → rate 1.08)
+export const fxRates = sqliteTable('fx_rates', {
+  base:      text('base').notNull(),       // ISO 4217, e.g. 'USD'
+  quote:     text('quote').notNull(),      // ISO 4217, e.g. 'EUR'
+  rate:      real('rate').notNull(),       // quote → base conversion factor
+  asOf:      text('as_of').notNull(),      // ISO date string 'YYYY-MM-DD'
+  updatedAt: text('updated_at').notNull(),
 });

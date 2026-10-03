@@ -12,6 +12,7 @@ import { Canvas, useFont } from '@shopify/react-native-skia';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
+import { useFxRate, convertToBase } from '@/presentation/hooks/useFxRate';
 import { parsePrice } from '@/domain/price/parser';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
@@ -32,10 +33,56 @@ const MIN_FPS = 15;
 /** Auto-freeze after this many consecutive ms below MIN_FPS in a 1-sec window. */
 const IDLE_TIMEOUT_MS = 60_000;
 
+// Separate inner component so hooks can be called per-currency without Rules-of-Hooks issues
+function PriceChip({
+  p,
+  realHourlyWage,
+  homeCurrency,
+  font,
+}: {
+  p: DetectedPrice;
+  realHourlyWage: number;
+  homeCurrency: string;
+  font: ReturnType<typeof useFont>;
+}) {
+  const { data: fxRate } = useFxRate(homeCurrency, p.currency);
+  const baseMinor = convertToBase(p.minor, p.currency, homeCurrency, fxRate?.rate);
+
+  if (baseMinor === null) {
+    // Rate not cached yet — show "not [currency]" label
+    return (
+      <LabelChip
+        key={p.id}
+        label={`not ${homeCurrency}`}
+        x={(p.x ?? 0) + (p.width ?? 60) + 8}
+        y={(p.y ?? 0) + (p.height ?? 20) / 2}
+        tier="T0"
+        font={font}
+      />
+    );
+  }
+
+  const energy = lifeEnergy({ priceMinor: baseMinor, realHourlyWage });
+  const estimated = p.confidence < 0.9 || p.currency !== homeCurrency;
+  const label = formatHours(energy.totalMinutes, { estimated });
+  const tier = getTier(energy.totalMinutes);
+  return (
+    <LabelChip
+      key={p.id}
+      label={label}
+      x={(p.x ?? 0) + (p.width ?? 60) + 8}
+      y={(p.y ?? 0) + (p.height ?? 20) / 2}
+      tier={tier}
+      font={font}
+    />
+  );
+}
+
 export function LensScreen() {
   const t = useTranslation();
   const realHourlyWage = useRealHourlyWage();
   const { data: wage } = useCurrentWage();
+  const homeCurrency = wage?.currency ?? 'USD';
   const device = useCameraDevice('back');
   const { hasPermission, requestPermission } = useCameraPermission();
   const { mode, torchOn, freeze, unfreeze, setPrices, stablePrices } = useLensStore();
@@ -196,21 +243,15 @@ export function LensScreen() {
 
       {/* Skia overlay: chip visuals (pointerEvents none — taps fall through to Pressables below) */}
       <Canvas style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none">
-        {stablePrices.map(p => {
-          const energy = lifeEnergy({ priceMinor: p.minor, realHourlyWage });
-          const label  = formatHours(energy.totalMinutes, { estimated: p.confidence < 0.9 });
-          const tier   = getTier(energy.totalMinutes);
-          return (
-            <LabelChip
-              key={p.id}
-              label={label}
-              x={(p.x ?? 0) + (p.width ?? 60) + 8}
-              y={(p.y ?? 0) + (p.height ?? 20) / 2}
-              tier={tier}
-              font={font}
-            />
-          );
-        })}
+        {stablePrices.map(p => (
+          <PriceChip
+            key={p.id}
+            p={p}
+            realHourlyWage={realHourlyWage}
+            homeCurrency={homeCurrency}
+            font={font}
+          />
+        ))}
       </Canvas>
 
       {/* Transparent hit targets for each chip — sits above Skia canvas */}

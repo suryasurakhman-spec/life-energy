@@ -1,0 +1,2 @@
+[functions.fetch-fx-rates]
+schedule = "0 2 * * *"   # daily at 02:00 UTC
