@@ -1,0 +1,88 @@
+/* Life Energy · marketing site tokens
+ * Colour values are the app palette (src/theme/colors.ts, DESIGN.md §2) converted to OKLCH.
+ * Every colour and font on the page references a token below — never a raw value.
+ */
+
+:root {
+  color-scheme: light; /* the marketing site is light-only: cream paper, espresso ink */
+
+  /* Paper + ink — sand neutrals, hue ~75 */
+  --color-paper:        oklch(98%   0.005 78);  /* sand50  */
+  --color-paper-2:      oklch(95.4% 0.009 78);  /* sand100 */
+  --color-rule:         oklch(90.6% 0.015 77);  /* sand200 */
+  --color-rule-strong:  oklch(82.8% 0.021 75);  /* sand300 */
+  --color-muted:        oklch(50%   0.020 72);  /* secondary text, 5.4:1 on paper */
+  --color-ink:          oklch(20.7% 0.008 67);  /* sand900 */
+
+  /* Accent — amber, "life energy" */
+  --color-accent:       oklch(66.5% 0.136 69);  /* amber600 — rules, marks, large type */
+  --color-accent-ink:   oklch(54.5% 0.112 68);  /* amber700 — accent text, 4.8:1 on paper */
+  --color-accent-soft:  oklch(95.6% 0.040 85);  /* amber100 */
+  --color-focus:        oklch(54.5% 0.112 68);
+
+  /* Engraving — hairline guilloché in the accent, kept faint so text stays in front */
+  --color-engrave:         oklch(66.5% 0.136 69 / 0.30);
+  --color-medallion-ring:  oklch(66.5% 0.136 69 / 0.45);
+
+  /* Time-weight chip scale (DESIGN.md §2.2) — same hue, rising intensity */
+  --chip-t0-bg:   oklch(17%   0.005 67 / 0.72);
+  --chip-t0-ink:  oklch(98%   0.005 78);
+  --chip-t1-bg:   oklch(17%   0.005 67 / 0.80);
+  --chip-t1-ink:  oklch(98%   0.005 78);
+  --chip-t1-bar:  oklch(85.7% 0.116 81);        /* amber300 */
+  --chip-t2-bg:   oklch(85.7% 0.116 81);        /* amber300 */
+  --chip-t2-ink:  oklch(17%   0.005 67);
+  --chip-t3-bg:   oklch(76.1% 0.141 72);        /* amber500 */
+  --chip-t3-ink:  oklch(17%   0.005 67);
+  --chip-t4-bg:   oklch(54.5% 0.112 68);        /* amber700 */
+  --chip-t4-ink:  oklch(99%   0.003 78);
+  --chip-border:  oklch(98%   0.005 78 / 0.18);
+
+  /* Type — luxury pairing: classical display serif + the app's Inter for body and numbers */
+  --font-display: "Cormorant Garamond", "Cormorant", ui-serif, Georgia, serif;
+  --font-body:    "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Scale — five sizes on the page */
+  --text-sm:      0.875rem;
+  --text-base:    1.0625rem;                            /* 17px, the app's body size */
+  --text-md:      clamp(1.25rem, 0.6vw + 1.1rem, 1.5rem);
+  --text-xl:      clamp(2.25rem, 3.2vw + 1.2rem, 4rem);
+  --text-figure:  clamp(4.5rem, 13vw + 1rem, 11rem);
+
+  /* Space — 4pt scale */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+  --page-gutter: clamp(1rem, 5vw, 4.5rem);
+  --measure: 34rem;
+  --section-pad: clamp(3.5rem, 7vw, 6rem);   /* ~100px desktop, tighter on phones */
+
+  /* Rules + radius */
+  --rule-hair: 1px;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --color-shadow: oklch(30% 0.03 60 / 0.28);   /* warm, soft lift under screens and the store card */
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  --icon-stroke: 1.25;
+
+  --z-below:  -1;
+  --z-base:   1;
+  --z-raised: 10;
+  --z-sticky: 200;
+}

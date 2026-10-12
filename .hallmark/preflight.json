@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-10",
+  "design_md": "DESIGN.md (app design system, locked)",
+  "fonts": "Inter via @expo-google-fonts/inter (package.json L15)",
+  "palette": "sand neutrals + amber accent (src/theme/colors.ts)",
+  "motion": "react-native-reanimated (app only)",
+  "spacing": "4pt scale (src/theme/layout.ts)",
+  "framework": "Expo 52 / React Native 0.76; marketing site is static HTML in site/"
+}

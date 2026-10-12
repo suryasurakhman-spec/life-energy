@@ -1,0 +1,68 @@
+[
+  {
+    "date": "2026-10-12",
+    "macrostructure": "Split Studio (redesign of Stat-Led)",
+    "theme": "DESIGN.md (sand + amber, locked) · light-only",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "real app screenshots beside each claim · CC0 photos shown bright (hero shelf, bazaar behind a cream card) · SVG guilloché",
+    "brief": "Life Energy · redesign: user found too much empty space and black bands; tighter section padding, no dark bands"
+  },
+  {
+    "date": "2026-10-12",
+    "macrostructure": "Stat-Led",
+    "theme": "DESIGN.md (sand + amber, locked)",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal (over night band)",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "Real app screenshots (Android emulator, pre-release build) in hairline figures, no device chrome",
+    "brief": "Life Energy · iteration: 'The app, as it runs.' section; site numbers aligned to app (payslip $19.00, 18 h floor rounding)"
+  },
+  {
+    "date": "2026-10-10",
+    "macrostructure": "Stat-Led",
+    "theme": "DESIGN.md (sand + amber, locked)",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal (over night band)",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "CC0 photography (rawpixel olive-oil shelf, StockSnap bazaar) under scrim + CSS bokeh/grain/glow, parallax",
+    "brief": "Life Energy · iteration: real background photography in hero + closing band"
+  },
+  {
+    "date": "2026-10-10",
+    "macrostructure": "Stat-Led",
+    "theme": "DESIGN.md (sand + amber, locked)",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal (over night band)",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "Tier-A CSS night atmosphere (candle glow, two-depth bokeh, grain, vignette) + light CSS shelf scene; mood reference supplied by user (not copied)",
+    "brief": "Life Energy · iteration: dark candle-lit hero backdrop with bokeh parallax"
+  },
+  {
+    "date": "2026-10-10",
+    "macrostructure": "Stat-Led",
+    "theme": "DESIGN.md (sand + amber, locked)",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "Tier-B hand-built SVG guilloché engravings + fine-line icon set; scroll-linked parallax on engraving layers (user request)",
+    "brief": "Life Energy · iteration: background engravings, parallax, luxury icons"
+  },
+  {
+    "date": "2026-10-10",
+    "macrostructure": "Stat-Led",
+    "theme": "DESIGN.md (sand + amber, locked)",
+    "genre": "editorial",
+    "tone": "luxury",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "Tier-A CSS lens + price tag",
+    "brief": "Life Energy · single-page marketing site in site/, drives App Store + Google Play downloads (stores pending)"
+  }
+]
