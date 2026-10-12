@@ -40,16 +40,24 @@ function extractCurrency(t: string): [string, string] | null {
 }
 
 /** Parse a numeric string with optional thousands separators.
- *  Handles both "," thousands + "." decimal (US) and "." thousands + "," decimal (EU). */
+ *  US "1,299.00", EU "1.299,00", decimal comma "4,99", dot thousands "15.000" / "1.299.000". */
 function parseNumeric(s: string, currency: string): bigint | null {
-  // EU format: digits with dots as thousands, comma as decimal — e.g. "1.299,00"
-  // Detect: has comma AND dots where dots always come before the comma
-  const isEuFormat = /\d\.\d{3}/.test(s) && s.includes(',');
+  const lastDot = s.lastIndexOf('.');
+  const lastComma = s.lastIndexOf(',');
   let normalized: string;
-  if (isEuFormat) {
-    normalized = s.replace(/\./g, '').replace(',', '.');
+  if (lastDot >= 0 && lastComma >= 0) {
+    // Both present: whichever comes last is the decimal mark.
+    normalized = lastComma > lastDot
+      ? s.replace(/\./g, '').replace(',', '.')
+      : s.replace(/,/g, '');
+  } else if (lastComma >= 0) {
+    // Comma only: "4,99" is a decimal comma; "1,299" groups thousands.
+    normalized = /^\d+,\d{2}$/.test(s) ? s.replace(',', '.') : s.replace(/,/g, '');
+  } else if (/^\d{1,3}(\.\d{3})+$/.test(s)) {
+    // Dot only, in groups of three: "15.000", "1.299.000" are thousands, not decimals.
+    normalized = s.replace(/\./g, '');
   } else {
-    normalized = s.replace(/,/g, '');
+    normalized = s;
   }
   const val = parseFloat(normalized);
   if (isNaN(val)) return null;

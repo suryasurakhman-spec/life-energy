@@ -12,6 +12,14 @@ describe('parsePrice', () => {
   it('parses 2 for $5',   () => expect(parsePrice('2 for $5')).toMatchObject({ minor: 250n, currency: 'USD', note: 'per-item' }));
   it('parses 3/$10',       () => expect(parsePrice('3/$10')).toMatchObject({ minor: 333n, currency: 'USD', note: 'per-item' }));
 
+  // Foreign separators (FR-18)
+  it('parses €4,99 as a decimal comma',    () => expect(parsePrice('€4,99')).toMatchObject({ minor: 499n, currency: 'EUR' }));
+  it('parses €1.299,00 (EU thousands)',    () => expect(parsePrice('€1.299,00')).toMatchObject({ minor: 129900n, currency: 'EUR' }));
+  it('parses Rp15.000 as fifteen thousand', () => expect(parsePrice('Rp15.000')).toMatchObject({ minor: 1500000n, currency: 'IDR' }));
+  it('parses Rp1.299.000',                 () => expect(parsePrice('Rp1.299.000')).toMatchObject({ minor: 129900000n, currency: 'IDR' }));
+  it('parses £3.50 as a decimal point',    () => expect(parsePrice('£3.50')).toMatchObject({ minor: 350n, currency: 'GBP' }));
+  it('parses ¥1,299 with no minor units',  () => expect(parsePrice('¥1,299')).toMatchObject({ minor: 1299n, currency: 'JPY' }));
+
   it('returns null for unrecognised text', () => expect(parsePrice('hello world')).toBeNull());
 });
 
