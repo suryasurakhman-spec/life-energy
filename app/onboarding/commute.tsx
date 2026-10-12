@@ -17,7 +17,7 @@ export default function CommuteScreen() {
     const mins = parseInt(minutes || '0', 10);
     const costCents = Math.round(parseFloat(cost || '0') * 100);
     setCommute(mins, BigInt(costCents));
-    router.push('/onboarding/reveal');
+    router.push('/onboarding/choice');
   }
 
   return (

@@ -80,6 +80,27 @@ export interface Strings {
       cost:     string;
       next:     string;
     };
+    choice: {
+      title: string;
+      body:  string;
+      quick: string;
+      full:  string;
+    };
+    costs: {
+      title:         string;
+      subtitle:      string;
+      monthlyCosts:  string;
+      meals:         string;
+      clothes:       string;
+      childcare:     string;
+      decompression: string;
+      health:        string;
+      weeklyHours:   string;
+      gettingReady:  string;
+      decompressing: string;
+      overtime:      string;
+      next:          string;
+    };
     reveal: {
       title:           string;
       nominal:         string;
@@ -268,11 +289,32 @@ const en: Strings = {
       next:    'Next',
     },
     commute: {
-      title:    'Job costs',
-      subtitle: 'Round-trip commute time per day, and monthly costs for transport, lunches, work clothes, etc.',
+      title:    'Your commute',
+      subtitle: 'Round-trip time to work each day, and what getting there costs each month.',
       minutes:  'Commute (minutes/day)',
-      cost:     'Monthly job costs ($)',
+      cost:     'Commute cost per month',
       next:     'Next',
+    },
+    choice: {
+      title: 'Add more job costs?',
+      body:  'Work clothes, meals at work, childcare and time spent getting ready all lower your real wage. You can add them now or later in Profile.',
+      quick: 'Good enough for now',
+      full:  'Add more job costs',
+    },
+    costs: {
+      title:         'More job costs',
+      subtitle:      'Only what you spend or give because of the job. Leave a field at 0 if it does not apply.',
+      monthlyCosts:  'Costs per month',
+      meals:         'Meals and coffee at work',
+      clothes:       'Work clothes',
+      childcare:     'Childcare during work',
+      decompression: 'Spending to unwind after work',
+      health:        'Job-related health costs',
+      weeklyHours:   'Unpaid hours per week',
+      gettingReady:  'Getting ready for work',
+      decompressing: 'Unwinding after work',
+      overtime:      'Unpaid overtime',
+      next:          'See my real wage',
     },
     reveal: {
       title:          'Your real wage',
@@ -462,11 +504,32 @@ const id: Strings = {
       next:    'Lanjut',
     },
     commute: {
-      title:    'Biaya pekerjaan',
-      subtitle: 'Waktu perjalanan pulang-pergi per hari, dan biaya bulanan untuk transportasi, makan siang, pakaian kerja, dll.',
+      title:    'Perjalanan kerja',
+      subtitle: 'Waktu pulang-pergi ke tempat kerja per hari, dan biaya perjalanannya per bulan.',
       minutes:  'Perjalanan (menit/hari)',
-      cost:     'Biaya pekerjaan bulanan',
+      cost:     'Biaya perjalanan per bulan',
       next:     'Lanjut',
+    },
+    choice: {
+      title: 'Tambah biaya pekerjaan lain?',
+      body:  'Pakaian kerja, makan di tempat kerja, penitipan anak, dan waktu bersiap-siap menurunkan upah nyata Anda. Anda bisa menambahkannya sekarang atau nanti di Profil.',
+      quick: 'Cukup untuk sekarang',
+      full:  'Tambah biaya pekerjaan',
+    },
+    costs: {
+      title:         'Biaya pekerjaan lain',
+      subtitle:      'Hanya yang Anda keluarkan atau korbankan karena pekerjaan. Biarkan 0 jika tidak berlaku.',
+      monthlyCosts:  'Biaya per bulan',
+      meals:         'Makan dan kopi di tempat kerja',
+      clothes:       'Pakaian kerja',
+      childcare:     'Penitipan anak saat bekerja',
+      decompression: 'Pengeluaran untuk melepas penat',
+      health:        'Biaya kesehatan terkait pekerjaan',
+      weeklyHours:   'Jam tidak dibayar per minggu',
+      gettingReady:  'Bersiap-siap untuk bekerja',
+      decompressing: 'Melepas penat setelah bekerja',
+      overtime:      'Lembur tidak dibayar',
+      next:          'Lihat upah nyata saya',
     },
     reveal: {
       title:          'Upah nyata Anda',
@@ -656,11 +719,32 @@ const ja: Strings = {
       next:    '次へ',
     },
     commute: {
-      title:    '仕事関連費用',
-      subtitle: '1日の往復通勤時間、および交通費・昼食代・仕事用衣服代などの月次費用。',
+      title:    '通勤',
+      subtitle: '1日の往復通勤時間と、毎月の通勤費。',
       minutes:  '通勤時間（分/日）',
-      cost:     '月次仕事関連費用',
+      cost:     '月々の通勤費',
       next:     '次へ',
+    },
+    choice: {
+      title: 'ほかの仕事関連費用も追加しますか？',
+      body:  '仕事着、職場での食事、保育、身支度の時間も実質時給を下げます。今すぐ、またはあとでプロフィールから追加できます。',
+      quick: '今はこれで十分',
+      full:  '仕事関連費用を追加',
+    },
+    costs: {
+      title:         'ほかの仕事関連費用',
+      subtitle:      '仕事のために使うお金と時間だけを入力してください。当てはまらない項目は0のままで構いません。',
+      monthlyCosts:  '月々の費用',
+      meals:         '職場での食事・コーヒー',
+      clothes:       '仕事着',
+      childcare:     '勤務中の保育',
+      decompression: '仕事後の気晴らしの出費',
+      health:        '仕事関連の医療・健康費',
+      weeklyHours:   '週あたりの無給時間',
+      gettingReady:  '出勤の身支度',
+      decompressing: '仕事後の気分転換',
+      overtime:      'サービス残業',
+      next:          '実質時給を見る',
     },
     reveal: {
       title:          'あなたの本当の時給',
@@ -851,11 +935,32 @@ const ar: Strings = {
       next:    'التالي',
     },
     commute: {
-      title:    'تكاليف العمل',
-      subtitle: 'وقت التنقل ذهاباً وإياباً يومياً، والتكاليف الشهرية للمواصلات والغداء وملابس العمل وغيرها.',
+      title:    'التنقل إلى العمل',
+      subtitle: 'وقت التنقل ذهاباً وإياباً يومياً، وتكلفة التنقل الشهرية.',
       minutes:  'وقت التنقل (دقيقة/يوم)',
-      cost:     'تكاليف العمل الشهرية',
+      cost:     'تكلفة التنقل الشهرية',
       next:     'التالي',
+    },
+    choice: {
+      title: 'هل تريد إضافة تكاليف عمل أخرى؟',
+      body:  'ملابس العمل والوجبات في العمل ورعاية الأطفال ووقت الاستعداد كلها تخفض أجرك الحقيقي. يمكنك إضافتها الآن أو لاحقاً من الملف الشخصي.',
+      quick: 'يكفي الآن',
+      full:  'إضافة تكاليف عمل',
+    },
+    costs: {
+      title:         'تكاليف عمل أخرى',
+      subtitle:      'أدخل فقط ما تنفقه أو تبذله بسبب العمل. اترك الحقل 0 إذا لم ينطبق.',
+      monthlyCosts:  'التكاليف الشهرية',
+      meals:         'الوجبات والقهوة في العمل',
+      clothes:       'ملابس العمل',
+      childcare:     'رعاية الأطفال أثناء العمل',
+      decompression: 'الإنفاق للاسترخاء بعد العمل',
+      health:        'تكاليف صحية مرتبطة بالعمل',
+      weeklyHours:   'ساعات غير مدفوعة أسبوعياً',
+      gettingReady:  'الاستعداد للعمل',
+      decompressing: 'الاسترخاء بعد العمل',
+      overtime:      'العمل الإضافي غير المدفوع',
+      next:          'اعرض أجري الحقيقي',
     },
     reveal: {
       title:          'أجرك الحقيقي',

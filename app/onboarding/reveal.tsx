@@ -26,7 +26,8 @@ export default function RevealScreen() {
     store.workMealsMinor +
     store.workClothesMinor +
     store.childcareMinor +
-    store.decompressionMinor;
+    store.decompressionMinor +
+    store.healthMinor;
   const commuteHoursPerMonth = (commuteMinutesPerDay * 5 * 52) / 60 / 12;
   const jobHoursPerMonth = commuteHoursPerMonth + store.extraJobHoursPerMonth;
 
