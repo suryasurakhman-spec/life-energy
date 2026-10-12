@@ -5,13 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCurrentWage } from '@/presentation/hooks/useWage';
 import { useCustomerInfo } from '@/presentation/hooks/usePurchases';
 import { useTheme } from '@/theme';
-import { exportData } from '@/application/export-data';
+import { exportData, type ExportFormat } from '@/application/export-data';
 import { deleteAllData } from '@/application/delete-all-data';
-import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
+import { SqliteUserDataStore } from '@/infrastructure/sqlite/sqlite-user-data-store';
+import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 
-const expenseRepo = new SqliteExpenseRepository();
+const userData = new SqliteUserDataStore();
 
 interface RowProps {
   label: string;
@@ -54,15 +55,25 @@ export function ProfileScreen() {
   const realHourly = wage ? wage.realWageCached / 100 : null;
   const proStatus  = customerInfo?.isSubscribed ? t.profile.planPro : t.profile.planFree;
 
-  const handleExport = async () => {
+  const queryClient = useQueryClient();
+
+  const runExport = async (format: ExportFormat) => {
     setExporting(true);
     try {
-      await exportData(expenseRepo);
-    } catch (e) {
-      Alert.alert(t.common.error, 'Could not export your data. Please try again.');
+      await exportData(userData, format);
+    } catch {
+      Alert.alert(t.common.error, t.profile.exportFailed);
     } finally {
       setExporting(false);
     }
+  };
+
+  const handleExport = () => {
+    Alert.alert(t.profile.exportFormatTitle, t.profile.exportFormatBody, [
+      { text: t.common.cancel, style: 'cancel' },
+      { text: t.profile.exportCsv, onPress: () => void runExport('csv') },
+      { text: t.profile.exportJson, onPress: () => void runExport('json') },
+    ]);
   };
 
   const handleDeleteData = () => {
@@ -75,10 +86,12 @@ export function ProfileScreen() {
           text: t.profile.deleteAction,
           style: 'destructive',
           onPress: () => {
-            void deleteAllData(expenseRepo).then(() => {
+            void deleteAllData(userData).then(async () => {
+              // Drop cached wage/logs so every screen reads the now-empty database.
+              await queryClient.invalidateQueries();
               Alert.alert(t.profile.deleteTitle, t.profile.deleteConfirmed);
             }).catch(() => {
-              Alert.alert(t.common.error, 'Could not delete data. Please try again.');
+              Alert.alert(t.common.error, t.profile.deleteFailed);
             });
           },
         },

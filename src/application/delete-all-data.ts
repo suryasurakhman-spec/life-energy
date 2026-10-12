@@ -1,6 +1,6 @@
-import type { ExpenseRepository } from './ports/expense-repository.port';
+import type { UserDataStore } from './ports/user-data.port';
 
-export async function deleteAllData(repo: ExpenseRepository): Promise<void> {
-  const all = await repo.exportAll();
-  await Promise.all(all.map(e => repo.delete(e.id)));
+/** Permanently remove every user record on the device (FR-12). */
+export async function deleteAllData(store: UserDataStore): Promise<void> {
+  await store.wipeAll();
 }

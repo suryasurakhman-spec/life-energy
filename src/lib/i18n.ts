@@ -226,6 +226,12 @@ export interface Strings {
     deleteBody:          string;
     deleteAction:        string;
     deleteConfirmed:     string;
+    exportFormatTitle:   string;
+    exportFormatBody:    string;
+    exportJson:          string;
+    exportCsv:           string;
+    exportFailed:        string;
+    deleteFailed:        string;
     bookCredit:          string;
     notFinancialAdvice:  string;
     footer:              string;
@@ -441,6 +447,12 @@ const en: Strings = {
     deleteBody:          'This will permanently delete all your expenses, income, and profile data. This cannot be undone.',
     deleteAction:        'Delete',
     deleteConfirmed:     'All local data has been removed.',
+    exportFormatTitle:   'Export format',
+    exportFormatBody:    'Both include everything: wages, logs, reviews and scanned prices.',
+    exportJson:          'JSON',
+    exportCsv:           'CSV (spreadsheet)',
+    exportFailed:        'Could not export your data. Please try again.',
+    deleteFailed:        'Could not delete your data. Please try again.',
     bookCredit:          'Based on Your Money or Your Life',
     notFinancialAdvice:  'Not financial advice',
     footer:              'Life Energy · All calculations run on-device. Nothing leaves your phone.',
@@ -656,6 +668,12 @@ const id: Strings = {
     deleteBody:          'Ini akan menghapus permanen semua pengeluaran, penghasilan, dan data profil Anda. Tindakan ini tidak dapat dibatalkan.',
     deleteAction:        'Hapus',
     deleteConfirmed:     'Semua data lokal telah dihapus.',
+    exportFormatTitle:   'Format ekspor',
+    exportFormatBody:    'Keduanya berisi semua data: upah, catatan, tinjauan, dan harga yang dipindai.',
+    exportJson:          'JSON',
+    exportCsv:           'CSV (spreadsheet)',
+    exportFailed:        'Tidak dapat mengekspor data Anda. Silakan coba lagi.',
+    deleteFailed:        'Tidak dapat menghapus data Anda. Silakan coba lagi.',
     bookCredit:          'Berdasarkan Your Money or Your Life',
     notFinancialAdvice:  'Bukan saran keuangan',
     footer:              'Life Energy · Semua kalkulasi berjalan di perangkat. Tidak ada yang meninggalkan ponsel Anda.',
@@ -871,6 +889,12 @@ const ja: Strings = {
     deleteBody:          'これにより、すべての支出、収入、プロフィールデータが完全に削除されます。この操作は取り消せません。',
     deleteAction:        '削除',
     deleteConfirmed:     'すべてのローカルデータが削除されました。',
+    exportFormatTitle:   'エクスポート形式',
+    exportFormatBody:    'どちらにも、時給・記録・振り返り・スキャンした価格のすべてが含まれます。',
+    exportJson:          'JSON',
+    exportCsv:           'CSV（スプレッドシート）',
+    exportFailed:        'データをエクスポートできませんでした。もう一度お試しください。',
+    deleteFailed:        'データを削除できませんでした。もう一度お試しください。',
     bookCredit:          'Your Money or Your Lifeより',
     notFinancialAdvice:  '投資アドバイスではありません',
     footer:              'Life Energy · すべての計算はデバイス上で実行されます。何もあなたの電話から出ません。',
@@ -1087,6 +1111,12 @@ const ar: Strings = {
     deleteBody:          'سيؤدي هذا إلى حذف دائم لجميع مصروفاتك ودخلك وبيانات ملفك الشخصي. لا يمكن التراجع عن هذا الإجراء.',
     deleteAction:        'حذف',
     deleteConfirmed:     'تمت إزالة جميع البيانات المحلية.',
+    exportFormatTitle:   'صيغة التصدير',
+    exportFormatBody:    'كلتاهما تتضمن كل شيء: الأجور والسجلات والمراجعات والأسعار الممسوحة.',
+    exportJson:          'JSON',
+    exportCsv:           'CSV (جدول بيانات)',
+    exportFailed:        'تعذّر تصدير بياناتك. يرجى المحاولة مرة أخرى.',
+    deleteFailed:        'تعذّر حذف بياناتك. يرجى المحاولة مرة أخرى.',
     bookCredit:          'مستوحى من Your Money or Your Life',
     notFinancialAdvice:  'ليست نصيحة مالية',
     footer:              'Life Energy · جميع الحسابات تعمل على الجهاز. لا شيء يغادر هاتفك.',
