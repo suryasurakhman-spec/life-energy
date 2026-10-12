@@ -1,7 +1,7 @@
 // src/lib/format.ts
 // All number, currency, hours, and date formatting for Life Energy.
 // Never format numbers or dates inline in components — use this module.
-import { formatLifeEnergy as domainFormatLifeEnergy } from '@/domain/price/price';
+import { formatLifeEnergy } from '@/lib/calc';
 
 export function formatCurrency(amountMinor: bigint, currency: string): string {
   const amount = Number(amountMinor) / 100;
@@ -12,10 +12,7 @@ export function formatHours(
   totalMinutes: number,
   opts: { estimated?: boolean; workDayMinutes?: number } = {}
 ): string {
-  const args: { totalMinutes: number; workDayMinutes?: number } = { totalMinutes };
-  if (opts.workDayMinutes !== undefined) args.workDayMinutes = opts.workDayMinutes;
-  const label = domainFormatLifeEnergy(args);
-  return opts.estimated ? `≈ ${label}` : label;
+  return formatLifeEnergy(totalMinutes, opts);
 }
 
 export function formatDate(date: Date, style: 'short' | 'medium' = 'medium'): string {

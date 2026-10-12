@@ -216,17 +216,18 @@ export function formatLifeEnergy(
   const { estimated = false, workDayMinutes = 480 } = options;
   const prefix = estimated ? '≈ ' : '';
 
+  // Round to whole minutes first so 59.6 m reads "1 h", never "60 m" or "1 h 60 m".
+  const roundedMinutes = Math.round(totalMinutes);
   const totalHours = totalMinutes / 60;
 
-  if (totalHours < 1) {
+  if (roundedMinutes < 60) {
     // Under 1 hour: minutes only
-    const mins = Math.round(totalMinutes);
-    return `${prefix}${mins} m`;
+    return `${prefix}${roundedMinutes} m`;
   }
 
   if (totalHours <= 40) {
-    const wholeHours = Math.floor(totalHours);
-    const remainingMins = Math.round((totalHours - wholeHours) * 60);
+    const wholeHours = Math.floor(roundedMinutes / 60);
+    const remainingMins = roundedMinutes % 60;
 
     if (wholeHours >= 10 || remainingMins === 0) {
       // Drop minutes when >= 10 h or no remaining minutes

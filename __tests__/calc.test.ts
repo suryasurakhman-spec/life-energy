@@ -206,6 +206,11 @@ describe('formatLifeEnergy', () => {
     expect(formatLifeEnergy(60)).toBe('1 h');
   });
 
+  it('rounds up to the next hour instead of showing 60 minutes', () => {
+    expect(formatLifeEnergy(59.6)).toBe('1 h');
+    expect(formatLifeEnergy(119.7)).toBe('2 h');
+  });
+
   it('9 h 30 m → "9 h 30 m" (still < 10h, keep minutes)', () => {
     expect(formatLifeEnergy(9 * 60 + 30)).toBe('9 h 30 m');
   });

@@ -21,7 +21,7 @@ import { parsePrice as parseForeignPrice } from '@/domain/price/parser';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
 import { formatHours } from '@/lib/format';
-import { lifeEnergy } from '@/domain/price/price';
+import { lifeEnergy } from '@/lib/calc';
 import { LabelChip } from '@/presentation/components/LabelChip';
 import { getTier } from '@/theme/chip-tiers';
 import { useTranslation } from '@/lib/i18n';
@@ -94,7 +94,7 @@ function PriceChip({
     );
   }
 
-  const energy = lifeEnergy({ priceMinor: baseMinor, realHourlyWage });
+  const energy = lifeEnergy(baseMinor, realHourlyWage);
   const estimated = p.confidence < 0.9 || p.currency !== homeCurrency;
   const label = formatHours(energy.totalMinutes, { estimated });
   const tier = getTier(energy.totalMinutes);
