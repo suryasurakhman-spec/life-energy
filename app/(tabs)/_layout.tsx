@@ -1,10 +1,11 @@
 import React from 'react';
 import type { ComponentType } from 'react';
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { Camera, ClipboardList, BarChart2, User } from 'lucide-react-native';
 
 import { dark } from '@/theme/colors';
 import { useTranslation } from '@/lib/i18n';
+import { useCurrentWage } from '@/presentation/hooks/useWage';
 
 // react-native-svg is a native dep not present at typecheck time, so LucideProps
 // can't resolve SvgProps. Cast icons to accept stroke/size at the call site.
@@ -23,6 +24,11 @@ const TAB_BAR_STYLE = {
 
 export default function TabsLayout() {
   const t = useTranslation();
+  const { data: wage, isSuccess } = useCurrentWage();
+
+  // First run: no wage yet, so start the real-wage wizard (language picker first).
+  if (isSuccess && wage === null) return <Redirect href="/onboarding/locale" />;
+
   return (
     <Tabs
       screenOptions={{

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { router } from 'expo-router';
 import { View, Text, Pressable, ScrollView, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCurrentWage } from '@/presentation/hooks/useWage';
@@ -95,6 +96,7 @@ export function ProfileScreen() {
           <SettingsRow
             label={t.profile.realWageLabel}
             value={realHourly != null ? `$${realHourly.toFixed(2)}/hr` : t.common.notSet}
+            onPress={() => router.push('/onboarding/locale')}
             theme={theme}
           />
           {wage && (

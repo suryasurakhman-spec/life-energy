@@ -1,7 +1,11 @@
 import { View, Text, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useQueryClient } from '@tanstack/react-query';
 import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
+import { saveRealWage } from '@/application/calculate-real-wage';
+import { SqliteWageRepository } from '@/infrastructure/sqlite/sqlite-wage-repository';
+import { keys } from '@/lib/query-keys';
 import { calculateRealWage } from '@/domain/wage/wage';
 import { isOk } from '@/lib/result';
 import { useTranslation } from '@/lib/i18n';
@@ -10,6 +14,7 @@ import { palette } from '@/theme/colors';
 export default function RevealScreen() {
   const t = useTranslation();
   const store = useOnboardingStore();
+  const queryClient = useQueryClient();
 
   const netPayMinor = store.netPayMinor ?? 0n;
   const paidHoursPerWeek = store.paidHoursPerWeek ?? 40;
@@ -24,13 +29,21 @@ export default function RevealScreen() {
   const commuteHoursPerMonth = (commuteMinutesPerDay * 5 * 52) / 60 / 12;
   const jobHoursPerMonth = commuteHoursPerMonth + store.extraJobHoursPerMonth;
 
-  const result = calculateRealWage({
+  const wageInput = {
     netPayMinor,
     payPeriod: store.payPeriod,
     jobCostsMinor,
     paidHoursPerWeek,
     jobHoursPerMonth,
-  });
+  };
+  const result = calculateRealWage(wageInput);
+
+  async function handleStart() {
+    await saveRealWage(new SqliteWageRepository(), wageInput);
+    // refetchType 'all': the tabs' wage query is inactive here, and the first-run redirect reads it on mount.
+    await queryClient.invalidateQueries({ queryKey: keys.wage.current(), refetchType: 'all' });
+    router.replace('/(tabs)');
+  }
 
   if (!isOk(result)) {
     return (
@@ -95,7 +108,7 @@ export default function RevealScreen() {
         <View style={{ flex: 1 }} />
 
         <Pressable
-          onPress={() => router.replace('/(tabs)')}
+          onPress={handleStart}
           style={{ backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
           accessibilityRole="button"
         >
