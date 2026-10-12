@@ -11,6 +11,7 @@ import { SqliteUserDataStore } from '@/infrastructure/sqlite/sqlite-user-data-st
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
+import { fontSize } from '@/theme/typography';
 
 const userData = new SqliteUserDataStore();
 
@@ -187,14 +188,14 @@ export function ProfileScreen() {
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:     { flex: 1, backgroundColor: theme.bg },
   scroll:        { padding: 20, paddingBottom: 48 },
-  title:         { fontSize: 22, fontWeight: '700', color: theme.textPrimary, marginBottom: 20 },
-  sectionHeader: { fontSize: 12, fontWeight: '600', color: theme.textSecondary, letterSpacing: 0.8, marginBottom: 6, marginTop: 20, marginLeft: 4 },
+  title:         { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: 20 },
+  sectionHeader: { fontSize: fontSize.xs, fontWeight: '600', color: theme.textSecondary, letterSpacing: 0.8, marginBottom: 6, marginTop: 20, marginLeft: 4 },
   card:          { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: 4 },
   row:           { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 },
-  rowLabel:      { flex: 1, fontSize: 15, color: theme.textPrimary },
-  rowValue:      { fontSize: 14, color: theme.textSecondary },
-  chevron:       { fontSize: 20, color: theme.textSecondary },
+  rowLabel:      { flex: 1, fontSize: fontSize.callout, color: theme.textPrimary },
+  rowValue:      { fontSize: fontSize.md, color: theme.textSecondary },
+  chevron:       { fontSize: fontSize.xl, color: theme.textSecondary },
   destructive:   { color: theme.error },
   separator:     { height: 1, backgroundColor: theme.border, marginHorizontal: 16 },
-  footer:        { fontSize: 12, color: theme.textSecondary, textAlign: 'center', marginTop: 32, lineHeight: 18 },
+  footer:        { fontSize: fontSize.xs, color: theme.textSecondary, textAlign: 'center', marginTop: 32, lineHeight: 18 },
 });

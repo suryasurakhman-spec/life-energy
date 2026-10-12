@@ -7,6 +7,7 @@ import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 interface Props {
   realHourlyWage: number;
@@ -50,15 +51,15 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
           <View style={{ alignItems: 'center', marginBottom: 24, minHeight: 80 }}>
             {energy ? (
               <>
-                <Text style={{ fontSize: 48, fontWeight: '700', color: palette.sand900 }}>
+                <Text style={{ fontSize: fontSize.display, fontWeight: '700', color: palette.sand900 }}>
                   {formatHours(energy.totalMinutes)}
                 </Text>
-                <Text style={{ fontSize: 17, color: palette.sand500, marginTop: 4 }}>
+                <Text style={{ fontSize: fontSize.body, color: palette.sand500, marginTop: 4 }}>
                   {formatCurrency(priceMinor, currency)}
                 </Text>
               </>
             ) : (
-              <Text style={{ fontSize: 34, fontWeight: '700', color: palette.sand300 }}>0.00</Text>
+              <Text style={{ fontSize: fontSize.hero, fontWeight: '700', color: palette.sand300 }}>0.00</Text>
             )}
           </View>
 
@@ -70,7 +71,7 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
                 onPress={() => handleKey(key)}
                 style={{ width: '30%', aspectRatio: 1.5, borderRadius: 12, backgroundColor: key === '⌫' ? palette.amber100 : palette.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: palette.sand200 }}
               >
-                <Text style={{ fontSize: 22, fontWeight: '500', color: palette.sand900 }}>{key}</Text>
+                <Text style={{ fontSize: fontSize.title2, fontWeight: '500', color: palette.sand900 }}>{key}</Text>
               </Pressable>
             ))}
           </View>
@@ -93,7 +94,7 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
               }}
               style={{ flex: 2, padding: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
             >
-              <Text style={{ fontWeight: '600', color: palette.white, fontSize: 17 }}>{t.lens.logIt}</Text>
+              <Text style={{ fontWeight: '600', color: palette.white, fontSize: fontSize.body }}>{t.lens.logIt}</Text>
             </Pressable>
           </View>
         </View>

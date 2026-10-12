@@ -72,3 +72,26 @@ export const typography = {
 } as const satisfies Record<string, TypographyToken>;
 
 export type TypographyKey = keyof typeof typography;
+
+/**
+ * Raw font sizes for one-off text that doesn't take a whole typography token.
+ * Components use these names instead of numbers (CLAUDE.md: no hard-coded sizes).
+ */
+export const fontSize = {
+  tiny:    11,
+  xs:      12,
+  sm:      13,  // = caption
+  md:      14,
+  callout: 15,  // = callout, chip
+  input:   16,
+  body:    17,  // = body
+  lg:      18,
+  xl:      20,
+  title2:  22,  // = title2
+  title3:  24,
+  glyph:   26,
+  title1:  28,  // = title1
+  xxl:     32,
+  hero:    34,
+  display: 48,  // = display
+} as const;

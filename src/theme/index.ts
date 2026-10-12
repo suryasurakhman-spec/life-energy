@@ -5,7 +5,7 @@
 export { palette, light, dark } from './colors';
 export type { ColorTokens } from './colors';
 
-export { typography } from './typography';
+export { typography, fontSize } from './typography';
 export type { TypographyKey, TypographyToken } from './typography';
 
 export { space, radius, hitSlop, hitSlopRect, shadow, screenGutter, cardPadding, cardGap } from './layout';

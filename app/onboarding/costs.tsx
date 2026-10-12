@@ -7,6 +7,7 @@ import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
 import { toMonthlyHours } from '@/lib/calc';
 import { light, palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 type CostKey = 'meals' | 'clothes' | 'childcare' | 'decompression' | 'health';
 type HourKey = 'gettingReady' | 'decompressing' | 'overtime';
@@ -48,22 +49,22 @@ export default function CostsScreen() {
     router.push('/onboarding/reveal');
   }
 
-  const sectionLabel = { fontSize: 14, color: palette.sand500, fontWeight: '500' as const };
+  const sectionLabel = { fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' as const };
   const field = { flexDirection: 'row' as const, alignItems: 'center' as const, borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: light.surface };
-  const input = { flex: 1, fontSize: 18, paddingVertical: 12, color: palette.sand900 };
+  const input = { flex: 1, fontSize: fontSize.lg, paddingVertical: 12, color: palette.sand900 };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
       <ScrollView contentContainerStyle={{ padding: 24, gap: 20 }} keyboardShouldPersistTaps="handled">
-        <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900 }}>{t.onboarding.costs.title}</Text>
-        <Text style={{ fontSize: 17, color: palette.sand500, lineHeight: 26 }}>{t.onboarding.costs.subtitle}</Text>
+        <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>{t.onboarding.costs.title}</Text>
+        <Text style={{ fontSize: fontSize.body, color: palette.sand500, lineHeight: 26 }}>{t.onboarding.costs.subtitle}</Text>
 
         <Text style={sectionLabel}>{t.onboarding.costs.monthlyCosts.toUpperCase()}</Text>
         {COST_KEYS.map(k => (
           <View key={k} style={{ gap: 6 }}>
-            <Text style={{ fontSize: 15, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
+            <Text style={{ fontSize: fontSize.callout, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
             <View style={field}>
-              <Text style={{ fontSize: 18, color: palette.sand700, marginRight: 4 }}>{symbol}</Text>
+              <Text style={{ fontSize: fontSize.lg, color: palette.sand700, marginRight: 4 }}>{symbol}</Text>
               <TextInput
                 value={costs[k]}
                 onChangeText={v => setCosts(c => ({ ...c, [k]: v }))}
@@ -80,7 +81,7 @@ export default function CostsScreen() {
         <Text style={[sectionLabel, { marginTop: 8 }]}>{t.onboarding.costs.weeklyHours.toUpperCase()}</Text>
         {HOUR_KEYS.map(k => (
           <View key={k} style={{ gap: 6 }}>
-            <Text style={{ fontSize: 15, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
+            <Text style={{ fontSize: fontSize.callout, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
             <View style={field}>
               <TextInput
                 value={hours[k]}
@@ -91,7 +92,7 @@ export default function CostsScreen() {
                 style={input}
                 accessibilityLabel={t.onboarding.costs[k]}
               />
-              <Text style={{ fontSize: 15, color: palette.sand500 }}>{t.onboarding.hours.perWeek}</Text>
+              <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>{t.onboarding.hours.perWeek}</Text>
             </View>
           </View>
         ))}
@@ -102,7 +103,7 @@ export default function CostsScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.costs.next}
         >
-          <Text style={{ color: light.onAccent, fontSize: 17, fontWeight: '600' }}>{t.onboarding.costs.next}</Text>
+          <Text style={{ color: light.onAccent, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.costs.next}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

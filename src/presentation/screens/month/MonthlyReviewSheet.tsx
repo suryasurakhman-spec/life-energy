@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { saveMonthlyReview, type ReviewVerdict } from '@/application/save-monthly-review';
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
+import { fontSize } from '@/theme/typography';
 
 interface Props {
   month: string;
@@ -124,19 +125,19 @@ export function MonthlyReviewSheet({ month, categoryId, categoryName, onClose }:
 
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   content:              { flex: 1, paddingHorizontal: 20, paddingBottom: 32 },
-  title:                { fontSize: 20, fontWeight: '700', color: theme.textPrimary, marginBottom: 2 },
-  subtitle:             { fontSize: 13, color: theme.textSecondary, marginBottom: 20 },
+  title:                { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: 2 },
+  subtitle:             { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: 20 },
   questionBlock:        { marginBottom: 20 },
-  questionText:         { fontSize: 14, color: theme.textPrimary, lineHeight: 20, marginBottom: 10 },
+  questionText:         { fontSize: fontSize.md, color: theme.textPrimary, lineHeight: 20, marginBottom: 10 },
   verdictRow:           { flexDirection: 'row', gap: 10 },
   verdictButton:        { flex: 1, alignItems: 'center', paddingVertical: 10, borderRadius: 10, borderWidth: 1.5, borderColor: theme.border, backgroundColor: theme.surfaceAlt },
   verdictSelected:      { borderColor: theme.accent, backgroundColor: theme.accentSoft },
-  verdictEmoji:         { fontSize: 18, marginBottom: 2 },
-  verdictLabel:         { fontSize: 11, color: theme.textSecondary, fontWeight: '500' },
+  verdictEmoji:         { fontSize: fontSize.lg, marginBottom: 2 },
+  verdictLabel:         { fontSize: fontSize.tiny, color: theme.textSecondary, fontWeight: '500' },
   verdictLabelSelected: { color: theme.accent, fontWeight: '700' },
   saveButton:           { backgroundColor: theme.accent, borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
   saveButtonDisabled:   { opacity: 0.6 },
-  saveButtonText:       { color: theme.onAccent, fontSize: 16, fontWeight: '700' },
+  saveButtonText:       { color: theme.onAccent, fontSize: fontSize.input, fontWeight: '700' },
   cancelButton:         { alignItems: 'center', paddingVertical: 12 },
-  cancelText:           { color: theme.textSecondary, fontSize: 15 },
+  cancelText:           { color: theme.textSecondary, fontSize: fontSize.callout },
 });

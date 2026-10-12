@@ -8,6 +8,7 @@ import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 type Verdict = 'worth_it' | 'not_sure' | 'not_worth_it';
 
@@ -48,13 +49,13 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
     >
       <BottomSheetView style={{ paddingHorizontal: 24, paddingTop: 12, paddingBottom: 48 }}>
         {/* Hours display */}
-        <Text style={{ fontSize: 48, fontWeight: '700', lineHeight: 52, color: palette.sand900 }}>
+        <Text style={{ fontSize: fontSize.display, fontWeight: '700', lineHeight: 52, color: palette.sand900 }}>
           {hoursLabel}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
-          <Text style={{ fontSize: 15, color: palette.sand500 }}>$</Text>
+          <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>$</Text>
           <TextInput
-            style={{ fontSize: 15, color: palette.sand500, minWidth: 60 }}
+            style={{ fontSize: fontSize.callout, color: palette.sand500, minWidth: 60 }}
             value={(Number(editedMinor) / 100).toFixed(2)}
             keyboardType="decimal-pad"
             onChangeText={(v) => {
@@ -66,7 +67,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
         </View>
 
         {/* Worth it? */}
-        <Text style={{ fontWeight: '600', fontSize: 17, color: palette.sand900, marginTop: 24, marginBottom: 12 }}>
+        <Text style={{ fontWeight: '600', fontSize: fontSize.body, color: palette.sand900, marginTop: 24, marginBottom: 12 }}>
           {t.lens.worthItPrompt}
         </Text>
         <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -117,7 +118,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
           accessibilityRole="button"
           accessibilityLabel={t.lens.logIt}
         >
-          <Text style={{ fontWeight: '600', color: palette.white, fontSize: 17 }}>{t.lens.logIt}</Text>
+          <Text style={{ fontWeight: '600', color: palette.white, fontSize: fontSize.body }}>{t.lens.logIt}</Text>
         </Pressable>
       </BottomSheetView>
     </BottomSheet>

@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import { formatCurrency, formatHours } from '@/lib/format';
 import type { ExpenseRecord } from '@/application/ports/expense-repository.port';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 interface Props {
   expense: ExpenseRecord;
@@ -23,11 +24,11 @@ export function ExpenseRow({ expense, realHourlyWage }: Props) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, gap: 12 }}>
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 17, fontWeight: '500', color: palette.sand900 }}>{priceLabel}</Text>
-        {expense.note ? <Text style={{ fontSize: 13, color: palette.sand500, marginTop: 2 }}>{expense.note}</Text> : null}
+        <Text style={{ fontSize: fontSize.body, fontWeight: '500', color: palette.sand900 }}>{priceLabel}</Text>
+        {expense.note ? <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: 2 }}>{expense.note}</Text> : null}
       </View>
-      <Text style={{ fontSize: 15, color: palette.sand700, fontWeight: '500' }}>{hoursLabel}</Text>
-      {verdictLabel ? <Text style={{ fontSize: 17, color: palette.sand500, width: 20, textAlign: 'center' }}>{verdictLabel}</Text> : null}
+      <Text style={{ fontSize: fontSize.callout, color: palette.sand700, fontWeight: '500' }}>{hoursLabel}</Text>
+      {verdictLabel ? <Text style={{ fontSize: fontSize.body, color: palette.sand500, width: 20, textAlign: 'center' }}>{verdictLabel}</Text> : null}
     </View>
   );
 }

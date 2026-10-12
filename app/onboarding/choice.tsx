@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
 import { light, palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 /** PRD first-run step 5: quick path straight to the reveal, or the full job-cost path. */
 export default function ChoiceScreen() {
@@ -14,10 +15,10 @@ export default function ChoiceScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
       <View style={{ flex: 1, padding: 24, justifyContent: 'space-between' }}>
         <View style={{ flex: 1, justifyContent: 'center', gap: 16 }}>
-          <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900 }}>
+          <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
             {t.onboarding.choice.title}
           </Text>
-          <Text style={{ fontSize: 17, color: palette.sand500, lineHeight: 26 }}>
+          <Text style={{ fontSize: fontSize.body, color: palette.sand500, lineHeight: 26 }}>
             {t.onboarding.choice.body}
           </Text>
         </View>
@@ -29,7 +30,7 @@ export default function ChoiceScreen() {
             accessibilityRole="button"
             accessibilityLabel={t.onboarding.choice.full}
           >
-            <Text style={{ color: light.onAccent, fontSize: 17, fontWeight: '600' }}>{t.onboarding.choice.full}</Text>
+            <Text style={{ color: light.onAccent, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.choice.full}</Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -40,7 +41,7 @@ export default function ChoiceScreen() {
             accessibilityRole="button"
             accessibilityLabel={t.onboarding.choice.quick}
           >
-            <Text style={{ color: palette.amber700, fontSize: 17, fontWeight: '600' }}>{t.onboarding.choice.quick}</Text>
+            <Text style={{ color: palette.amber700, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.choice.quick}</Text>
           </Pressable>
         </View>
       </View>

@@ -5,6 +5,7 @@ import { useOfferings, usePurchasePackage, useRestorePurchases } from '@/present
 import { useTheme } from '@/theme';
 import type { Package } from '@/application/ports/purchase-service.port';
 import { useTranslation } from '@/lib/i18n';
+import { fontSize } from '@/theme/typography';
 
 interface PackageCardProps {
   pkg: Package;
@@ -137,26 +138,26 @@ const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:          { flex: 1, backgroundColor: theme.bg },
   scroll:             { padding: 24, paddingBottom: 48 },
   hero:               { alignItems: 'center', marginBottom: 28 },
-  heroEmoji:          { fontSize: 48, marginBottom: 12 },
-  heroTitle:          { fontSize: 24, fontWeight: '800', color: theme.textPrimary, textAlign: 'center', marginBottom: 8 },
-  heroSubtitle:       { fontSize: 15, color: theme.textSecondary, textAlign: 'center', lineHeight: 22 },
+  heroEmoji:          { fontSize: fontSize.display, marginBottom: 12 },
+  heroTitle:          { fontSize: fontSize.title3, fontWeight: '800', color: theme.textPrimary, textAlign: 'center', marginBottom: 8 },
+  heroSubtitle:       { fontSize: fontSize.callout, color: theme.textSecondary, textAlign: 'center', lineHeight: 22 },
   featureList:        { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, padding: 16, marginBottom: 24, gap: 14 },
   featureRow:         { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  featureEmoji:       { fontSize: 20, width: 28, textAlign: 'center' },
-  featureText:        { flex: 1, fontSize: 14, color: theme.textPrimary, lineHeight: 20 },
+  featureEmoji:       { fontSize: fontSize.xl, width: 28, textAlign: 'center' },
+  featureText:        { flex: 1, fontSize: fontSize.md, color: theme.textPrimary, lineHeight: 20 },
   packagesSection:    { gap: 12, marginBottom: 16 },
   packageCard:        { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1.5, borderColor: theme.accent, padding: 16, flexDirection: 'row', alignItems: 'center' },
   packageCardDisabled:{ opacity: 0.6 },
   packageInfo:        { flex: 1 },
-  packageTitle:       { fontSize: 16, fontWeight: '700', color: theme.textPrimary },
-  packageDescription: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
+  packageTitle:       { fontSize: fontSize.input, fontWeight: '700', color: theme.textPrimary },
+  packageDescription: { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: 2 },
   packagePrice:       { backgroundColor: theme.accent, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6 },
-  priceText:          { color: theme.onAccent, fontWeight: '700', fontSize: 15 },
+  priceText:          { color: theme.onAccent, fontWeight: '700', fontSize: fontSize.callout },
   placeholderCard:    { backgroundColor: theme.surfaceAlt, borderRadius: 14, padding: 20, marginBottom: 16 },
-  placeholderText:    { fontSize: 14, color: theme.textSecondary, textAlign: 'center', lineHeight: 20 },
+  placeholderText:    { fontSize: fontSize.md, color: theme.textSecondary, textAlign: 'center', lineHeight: 20 },
   restoreButton:      { alignItems: 'center', paddingVertical: 14 },
-  restoreText:        { color: theme.accent, fontSize: 15, fontWeight: '600' },
+  restoreText:        { color: theme.accent, fontSize: fontSize.callout, fontWeight: '600' },
   dismissButton:      { alignItems: 'center', paddingVertical: 10 },
-  dismissText:        { color: theme.textSecondary, fontSize: 15 },
-  legal:              { fontSize: 11, color: theme.textSecondary, textAlign: 'center', lineHeight: 16, marginTop: 16 },
+  dismissText:        { color: theme.textSecondary, fontSize: fontSize.callout },
+  legal:              { fontSize: fontSize.tiny, color: theme.textSecondary, textAlign: 'center', lineHeight: 16, marginTop: 16 },
 });

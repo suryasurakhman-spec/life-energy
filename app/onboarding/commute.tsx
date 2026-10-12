@@ -6,6 +6,7 @@ import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 export default function CommuteScreen() {
   const t = useTranslation();
@@ -23,15 +24,15 @@ export default function CommuteScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
       <View style={{ flex: 1, padding: 24, gap: 24 }}>
-        <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900 }}>
+        <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.commute.title}
         </Text>
-        <Text style={{ fontSize: 17, color: palette.sand500, lineHeight: 26 }}>
+        <Text style={{ fontSize: fontSize.body, color: palette.sand500, lineHeight: 26 }}>
           {t.onboarding.commute.subtitle}
         </Text>
 
         <View style={{ gap: 8 }}>
-          <Text style={{ fontSize: 14, color: palette.sand500, fontWeight: '500' }}>
+          <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.commute.minutes.toUpperCase()}
           </Text>
           <View style={{ borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
@@ -39,23 +40,23 @@ export default function CommuteScreen() {
               value={minutes}
               onChangeText={setMinutes}
               keyboardType="number-pad"
-              style={{ fontSize: 20, paddingVertical: 14, color: palette.sand900 }}
+              style={{ fontSize: fontSize.xl, paddingVertical: 14, color: palette.sand900 }}
               accessibilityLabel={t.onboarding.commute.minutes}
             />
           </View>
         </View>
 
         <View style={{ gap: 8 }}>
-          <Text style={{ fontSize: 14, color: palette.sand500, fontWeight: '500' }}>
+          <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.commute.cost.toUpperCase()}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
+            <Text style={{ fontSize: fontSize.xl, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
             <TextInput
               value={cost}
               onChangeText={setCost}
               keyboardType="decimal-pad"
-              style={{ flex: 1, fontSize: 20, paddingVertical: 14, color: palette.sand900 }}
+              style={{ flex: 1, fontSize: fontSize.xl, paddingVertical: 14, color: palette.sand900 }}
               accessibilityLabel={t.onboarding.commute.cost}
             />
           </View>
@@ -69,7 +70,7 @@ export default function CommuteScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.commute.next}
         >
-          <Text style={{ color: '#FFFFFF', fontSize: 17, fontWeight: '600' }}>{t.onboarding.commute.next}</Text>
+          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.commute.next}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

@@ -5,6 +5,7 @@ import { getCrossoverProjection } from '@/application/get-crossover-projection';
 import { formatCurrency, formatDate } from '@/lib/format';
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
+import { fontSize } from '@/theme/typography';
 
 function parseMinor(text: string): bigint {
   const n = parseFloat(text.replace(/[^0-9.]/g, ''));
@@ -154,21 +155,21 @@ function InputRow({ label, placeholder, value, onChangeText, theme }: InputRowPr
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:       { flex: 1, backgroundColor: theme.bg },
   scroll:          { padding: 20, paddingBottom: 48 },
-  title:           { fontSize: 22, fontWeight: '700', color: theme.textPrimary, marginBottom: 6 },
-  subtitle:        { fontSize: 14, color: theme.textSecondary, lineHeight: 20, marginBottom: 20 },
+  title:           { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: 6 },
+  subtitle:        { fontSize: fontSize.md, color: theme.textSecondary, lineHeight: 20, marginBottom: 20 },
   card:            { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: 20 },
   inputRow:        { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: theme.border },
-  inputLabel:      { fontSize: 14, color: theme.textPrimary, flex: 1 },
-  input:           { flex: 1, fontSize: 15, color: theme.textPrimary, textAlign: 'right' },
+  inputLabel:      { fontSize: fontSize.md, color: theme.textPrimary, flex: 1 },
+  input:           { flex: 1, fontSize: fontSize.callout, color: theme.textPrimary, textAlign: 'right' },
   resultCard:      { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, padding: 20, marginBottom: 20 },
   resultMain:      { alignItems: 'center', marginBottom: 16 },
-  resultLabel:     { fontSize: 13, color: theme.textSecondary, marginBottom: 4 },
-  resultValue:     { fontSize: 32, fontWeight: '800', color: theme.accent },
+  resultLabel:     { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: 4 },
+  resultValue:     { fontSize: fontSize.xxl, fontWeight: '800', color: theme.accent },
   divider:         { height: 1, backgroundColor: theme.border, marginBottom: 12 },
   resultRow:       { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
-  resultRowLabel:  { fontSize: 14, color: theme.textSecondary },
-  resultRowValue:  { fontSize: 14, fontWeight: '600', color: theme.textPrimary },
-  disclaimer:      { fontSize: 11, color: theme.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 },
+  resultRowLabel:  { fontSize: fontSize.md, color: theme.textSecondary },
+  resultRowValue:  { fontSize: fontSize.md, fontWeight: '600', color: theme.textPrimary },
+  disclaimer:      { fontSize: fontSize.tiny, color: theme.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 },
   emptyCard:       { backgroundColor: theme.surfaceAlt, borderRadius: 14, padding: 24, alignItems: 'center', marginBottom: 20 },
-  muted:           { color: theme.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 20 },
+  muted:           { color: theme.textSecondary, fontSize: fontSize.md, textAlign: 'center', lineHeight: 20 },
 });

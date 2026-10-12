@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 export default function HoursScreen() {
   const t = useTranslation();
@@ -21,10 +22,10 @@ export default function HoursScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
       <View style={{ flex: 1, padding: 24, gap: 24 }}>
-        <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900 }}>
+        <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.hours.title}
         </Text>
-        <Text style={{ fontSize: 17, color: palette.sand500, lineHeight: 26 }}>
+        <Text style={{ fontSize: fontSize.body, color: palette.sand500, lineHeight: 26 }}>
           {t.onboarding.hours.hint}
         </Text>
 
@@ -33,11 +34,11 @@ export default function HoursScreen() {
             value={hours}
             onChangeText={setHours}
             keyboardType="decimal-pad"
-            style={{ fontSize: 24, paddingVertical: 16, color: palette.sand900, textAlign: 'center' }}
+            style={{ fontSize: fontSize.title3, paddingVertical: 16, color: palette.sand900, textAlign: 'center' }}
             accessibilityLabel={t.onboarding.hours.label}
           />
         </View>
-        <Text style={{ fontSize: 14, color: palette.sand500, textAlign: 'center' }}>
+        <Text style={{ fontSize: fontSize.md, color: palette.sand500, textAlign: 'center' }}>
           {t.onboarding.hours.perWeek}
         </Text>
 
@@ -49,7 +50,7 @@ export default function HoursScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.hours.next}
         >
-          <Text style={{ color: '#FFFFFF', fontSize: 17, fontWeight: '600' }}>{t.onboarding.hours.next}</Text>
+          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.hours.next}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

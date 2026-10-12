@@ -30,6 +30,7 @@ import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { LabelSheet } from '@/presentation/components/LabelSheet';
 import { QuickConvertModal } from './QuickConvertModal';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 const stabilizer = createStabilizer();
 
@@ -314,10 +315,10 @@ export function LensScreen() {
   if (!hasPermission) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: palette.sand950, padding: 32, gap: 20 }}>
-        <Text style={{ color: palette.sand50, fontSize: 22, fontWeight: '700', textAlign: 'center' }}>
+        <Text style={{ color: palette.sand50, fontSize: fontSize.title2, fontWeight: '700', textAlign: 'center' }}>
           {t.lens.noPermissionTitle}
         </Text>
-        <Text style={{ color: palette.sand300, fontSize: 15, textAlign: 'center', lineHeight: 22 }}>
+        <Text style={{ color: palette.sand300, fontSize: fontSize.callout, textAlign: 'center', lineHeight: 22 }}>
           {t.lens.noPermissionBody}
         </Text>
         <TouchableOpacity
@@ -327,7 +328,7 @@ export function LensScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.lens.noPermissionCta}
         >
-          <Text style={{ color: palette.white, fontWeight: '700', fontSize: 17 }}>{t.lens.noPermissionCta}</Text>
+          <Text style={{ color: palette.white, fontWeight: '700', fontSize: fontSize.body }}>{t.lens.noPermissionCta}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setQuickConvertVisible(true)}
@@ -335,7 +336,7 @@ export function LensScreen() {
           style={{ paddingHorizontal: 32, paddingVertical: 16, borderRadius: 14, borderWidth: 1, borderColor: palette.sand700 }}
           accessibilityRole="button"
         >
-          <Text style={{ color: palette.sand300, fontWeight: '600', fontSize: 15 }}>{t.lens.typePriceManually}</Text>
+          <Text style={{ color: palette.sand300, fontWeight: '600', fontSize: fontSize.callout }}>{t.lens.typePriceManually}</Text>
         </TouchableOpacity>
         {quickConvertVisible && wage && (
           <QuickConvertModal
@@ -412,7 +413,7 @@ export function LensScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.lens.toggleTorch}
         >
-          <Text style={{ fontSize: 22 }}>{torchOn ? '🔦' : '💡'}</Text>
+          <Text style={{ fontSize: fontSize.title2 }}>{torchOn ? '🔦' : '💡'}</Text>
         </Pressable>
         <Pressable
           onPress={mode === 'live' ? freeze : unfreeze}
@@ -426,7 +427,7 @@ export function LensScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.lens.typePrice}
         >
-          <Text style={{ fontSize: 26, color: palette.white }}>⌨</Text>
+          <Text style={{ fontSize: fontSize.glyph, color: palette.white }}>⌨</Text>
         </Pressable>
       </View>
 

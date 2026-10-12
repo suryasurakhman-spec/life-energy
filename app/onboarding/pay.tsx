@@ -6,6 +6,7 @@ import { useOnboardingStore, type PayPeriod } from '@/presentation/stores/onboar
 import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
+import { fontSize } from '@/theme/typography';
 
 export default function PayScreen() {
   const t = useTranslation();
@@ -29,22 +30,22 @@ export default function PayScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
       <View style={{ flex: 1, padding: 24, gap: 24 }}>
-        <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900 }}>
+        <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.pay.title}
         </Text>
 
         <View style={{ gap: 8 }}>
-          <Text style={{ fontSize: 14, color: palette.sand500, fontWeight: '500' }}>
+          <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.pay.netPay.toUpperCase()}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
+            <Text style={{ fontSize: fontSize.xl, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
             <TextInput
               value={amount}
               onChangeText={setAmount}
               keyboardType="decimal-pad"
               placeholder="0.00"
-              style={{ flex: 1, fontSize: 20, paddingVertical: 16, color: palette.sand900 }}
+              style={{ flex: 1, fontSize: fontSize.xl, paddingVertical: 16, color: palette.sand900 }}
               placeholderTextColor={palette.sand300}
               accessibilityLabel={t.onboarding.pay.netPay}
             />
@@ -52,7 +53,7 @@ export default function PayScreen() {
         </View>
 
         <View style={{ gap: 8 }}>
-          <Text style={{ fontSize: 14, color: palette.sand500, fontWeight: '500' }}>
+          <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.pay.period.toUpperCase()}
           </Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
@@ -87,7 +88,7 @@ export default function PayScreen() {
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.pay.next}
         >
-          <Text style={{ color: '#FFFFFF', fontSize: 17, fontWeight: '600' }}>{t.onboarding.pay.next}</Text>
+          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.pay.next}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

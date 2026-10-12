@@ -9,6 +9,7 @@ import { SqliteIncomeRepository } from '@/infrastructure/sqlite/sqlite-income-re
 import { formatCurrency } from '@/lib/format';
 import { useTheme, palette } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
+import { fontSize } from '@/theme/typography';
 
 const expenseRepo = new SqliteExpenseRepository();
 const incomeRepo  = new SqliteIncomeRepository();
@@ -180,21 +181,21 @@ const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:          { flex: 1, backgroundColor: theme.bg },
   center:             { flex: 1, alignItems: 'center', justifyContent: 'center' },
   scroll:             { padding: 20, paddingBottom: 48 },
-  title:              { fontSize: 22, fontWeight: '700', color: theme.textPrimary },
-  subtitle:           { fontSize: 14, color: theme.textSecondary, marginBottom: 16 },
+  title:              { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary },
+  subtitle:           { fontSize: fontSize.md, color: theme.textSecondary, marginBottom: 16 },
   summaryRow:         { flexDirection: 'row', gap: 8, marginBottom: 16 },
   summaryCell:        { flex: 1, backgroundColor: theme.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: theme.border },
-  summaryLabel:       { fontSize: 11, color: theme.textSecondary, marginBottom: 4 },
-  summaryValue:       { fontSize: 15, fontWeight: '700' },
+  summaryLabel:       { fontSize: fontSize.tiny, color: theme.textSecondary, marginBottom: 4 },
+  summaryValue:       { fontSize: fontSize.callout, fontWeight: '700' },
   crossoverBanner:    { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: theme.accentSoft, borderRadius: 10, padding: 12, marginBottom: 16 },
-  crossoverEmoji:     { fontSize: 20 },
-  crossoverText:      { fontSize: 14, color: theme.textPrimary },
+  crossoverEmoji:     { fontSize: fontSize.xl },
+  crossoverText:      { fontSize: fontSize.md, color: theme.textPrimary },
   crossoverHighlight: { fontWeight: '700', color: theme.accent },
   chartWrapper:       { height: 260, marginBottom: 16 },
   emptyChart:         { height: 160, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.surfaceAlt, borderRadius: 12, marginBottom: 16, padding: 20 },
   legend:             { flexDirection: 'row', flexWrap: 'wrap', gap: 16, marginTop: 4 },
   legendItem:         { flexDirection: 'row', alignItems: 'center', gap: 6 },
   legendDot:          { width: 10, height: 10, borderRadius: 5 },
-  legendLabel:        { fontSize: 13, color: theme.textSecondary },
-  muted:              { color: theme.textSecondary, fontSize: 15, textAlign: 'center' },
+  legendLabel:        { fontSize: fontSize.sm, color: theme.textSecondary },
+  muted:              { color: theme.textSecondary, fontSize: fontSize.callout, textAlign: 'center' },
 });
