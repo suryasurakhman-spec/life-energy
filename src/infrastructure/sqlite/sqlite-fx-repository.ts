@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import { db } from './db';
 import { fxRates } from './drizzle/schema';
 
@@ -37,7 +37,8 @@ export class SqliteFxRepository {
       )
       .onConflictDoUpdate({
         target: [fxRates.base, fxRates.quote],
-        set: { rate: fxRates.rate, asOf: fxRates.asOf, updatedAt: fxRates.updatedAt },
+        // excluded.* is the incoming row; setting a column to itself would keep the stale rate.
+        set: { rate: sql`excluded.rate`, asOf: sql`excluded.as_of`, updatedAt: sql`excluded.updated_at` },
       });
   }
 }

@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, real, primaryKey } from 'drizzle-orm/sqlite-core';
 
 export const wageProfiles = sqliteTable('wage_profiles', {
   id:               text('id').primaryKey(),
@@ -91,4 +91,7 @@ export const fxRates = sqliteTable('fx_rates', {
   rate:      real('rate').notNull(),       // quote → base conversion factor
   asOf:      text('as_of').notNull(),      // ISO date string 'YYYY-MM-DD'
   updatedAt: text('updated_at').notNull(),
-});
+}, (t) => [
+  // One rate per currency pair; upsertRates conflicts on it.
+  primaryKey({ columns: [t.base, t.quote] }),
+]);

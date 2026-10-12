@@ -8,6 +8,13 @@
       "when": 1790740189034,
       "tag": "0000_steep_gauntlet",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791817608558,
+      "tag": "0001_fx_rates",
+      "breakpoints": true
     }
   ]
 }
