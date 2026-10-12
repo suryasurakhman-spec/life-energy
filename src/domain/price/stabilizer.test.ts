@@ -41,4 +41,27 @@ describe('createStabilizer', () => {
     expect(s.stableItems()).toHaveLength(1);
     expect(s.stableItems()[0]!.id).toBe('p1');
   });
+
+  it('keeps one label when the box jitters between frames', () => {
+    const s = createStabilizer();
+    // Same $64.00 tag; the caller's position-based id changes as the box moves a few px.
+    s.addFrame([{ minor: 6400n, currency: 'USD', confidence: 1, id: '9-37', x: 214, y: 890, width: 120, height: 40 }]);
+    s.addFrame([{ minor: 6400n, currency: 'USD', confidence: 1, id: '10-37', x: 229, y: 893, width: 120, height: 40 }]);
+    s.addFrame([{ minor: 6400n, currency: 'USD', confidence: 1, id: '9-38', x: 220, y: 905, width: 118, height: 41 }]);
+
+    const stable = s.stableItems();
+    expect(stable).toHaveLength(1);
+    expect(stable[0]!.id).toBe('9-37');   // identity kept from the first sighting
+    expect(stable[0]!.x).toBe(220);       // position follows the latest frame
+  });
+
+  it('does not merge different prices or far-apart tags', () => {
+    const s = createStabilizer();
+    const a = { minor: 6400n, currency: 'USD', confidence: 1, id: 'a', x: 100, y: 100, width: 100, height: 40 };
+    const b = { minor: 1400n, currency: 'USD', confidence: 1, id: 'b', x: 110, y: 100, width: 100, height: 40 };
+    const c = { minor: 6400n, currency: 'USD', confidence: 1, id: 'c', x: 100, y: 600, width: 100, height: 40 };
+    s.addFrame([a, b, c]);
+    s.addFrame([a, b, c]);
+    expect(s.stableItems().map(p => p.id).sort()).toEqual(['a', 'b', 'c']);
+  });
 });
