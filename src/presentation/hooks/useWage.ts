@@ -15,3 +15,11 @@ export function useRealHourlyWage(): number {
   const { data } = useCurrentWage();
   return data ? data.realWageCached / 100 : 0;
 }
+
+/** Every wage profile, newest first — past logs are costed at the wage in force when they were made. */
+export function useWageHistory() {
+  return useQuery({
+    queryKey: keys.wage.history(),
+    queryFn: () => repo.findAll(),
+  });
+}

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, SectionList, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useExpenses } from '@/presentation/hooks/useExpenses';
 import { ExpenseRow } from '@/presentation/components/ExpenseRow';
 import type { ExpenseRecord } from '@/application/ports/expense-repository.port';
 import { useTranslation } from '@/lib/i18n';
-import { useCurrentWage } from '@/presentation/hooks/useWage';
+import { useCurrentWage, useWageHistory } from '@/presentation/hooks/useWage';
 import { QuickConvertModal } from '@/presentation/screens/lens/QuickConvertModal';
 
 function toMonthStr(date: Date): string {
@@ -31,6 +31,12 @@ export function LogScreen({ realHourlyWage }: Props) {
   const month = toMonthStr(new Date());
   const { data: expenses = [], isLoading } = useExpenses(month);
   const { data: wage } = useCurrentWage();
+  const { data: wageHistory = [] } = useWageHistory();
+  // Real wage (dollars/hour) per wage profile, so a log keeps the wage in force when it was made (FR-9).
+  const wageById = useMemo(
+    () => new Map(wageHistory.map(w => [w.id, w.realWageCached / 100])),
+    [wageHistory],
+  );
   const sections = groupByDay(expenses);
   const [addVisible, setAddVisible] = useState(false);
 
@@ -57,7 +63,9 @@ export function LogScreen({ realHourlyWage }: Props) {
         <SectionList
           sections={sections}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <ExpenseRow expense={item} realHourlyWage={realHourlyWage} />}
+          renderItem={({ item }) => (
+            <ExpenseRow expense={item} realHourlyWage={wageById.get(item.wageProfileId) ?? realHourlyWage} />
+          )}
           renderSectionHeader={({ section }) => (
             <View style={{ paddingHorizontal: 16, paddingVertical: 8, backgroundColor: '#F3EFE9' }}>
               <Text style={{ fontSize: 13, fontWeight: '600', color: '#8C8174', textTransform: 'uppercase', letterSpacing: 0.5 }}>

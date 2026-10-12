@@ -42,6 +42,7 @@ export default function RevealScreen() {
     await saveRealWage(new SqliteWageRepository(), wageInput);
     // refetchType 'all': the tabs' wage query is inactive here, and the first-run redirect reads it on mount.
     await queryClient.invalidateQueries({ queryKey: keys.wage.current(), refetchType: 'all' });
+    await queryClient.invalidateQueries({ queryKey: keys.wage.history(), refetchType: 'all' });
     router.replace('/(tabs)');
   }
 
