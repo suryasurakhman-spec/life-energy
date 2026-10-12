@@ -26,6 +26,7 @@ import { lifeEnergy } from '@/lib/calc';
 import { LabelChip } from '@/presentation/components/LabelChip';
 import { getTier } from '@/theme/chip-tiers';
 import { useTranslation } from '@/lib/i18n';
+import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { LabelSheet } from '@/presentation/components/LabelSheet';
 import { QuickConvertModal } from './QuickConvertModal';
 
@@ -130,6 +131,9 @@ export function LensScreen() {
 
   // ── Idle timeout ──────────────────────────────────────────────────────────
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Prices already written to `conversions` during this live session (minor:currency).
+  const recordedRef = useRef(new Set<string>());
+  const recordConversion = useRecordConversion();
 
   // ── Tap to focus (FR-6) ───────────────────────────────────────────────────
   const cameraRef = useRef<Camera>(null);
@@ -155,6 +159,7 @@ export function LensScreen() {
       // Start a fresh fps window; a stale one from before the freeze would re-freeze on the first frame.
       fpsWindowStart.value = 0;
       fpsFrameCount.value = 0;
+      recordedRef.current.clear();
       resetIdleTimer();
     } else {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
@@ -206,10 +211,27 @@ export function LensScreen() {
         }
       }
       stabilizer.addFrame(detected);
-      setPrices(stabilizer.stableItems());
+      const stable = stabilizer.stableItems();
+      setPrices(stable);
+
+      // Keep each home-currency price once per live session in `conversions`;
+      // foreign prices need an FX rate first and are recorded when logged.
+      if (realHourlyWage > 0) {
+        for (const p of stable) {
+          const key = `${p.minor}:${p.currency}`;
+          if (p.currency !== homeCurrency || recordedRef.current.has(key)) continue;
+          recordedRef.current.add(key);
+          recordConversion({
+            priceMinor: p.minor,
+            currency: p.currency,
+            hoursMinutes: Math.round(lifeEnergy(p.minor, realHourlyWage).totalMinutes),
+            source: 'lens',
+          });
+        }
+      }
       if (detected.length > 0) resetIdleTimer();
     },
-    [setPrices, resetIdleTimer],
+    [setPrices, resetIdleTimer, realHourlyWage, homeCurrency, recordConversion],
   );
 
   const runFpsTooLow = useRunOnJS(onFpsTooLow, [onFpsTooLow]);

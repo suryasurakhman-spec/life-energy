@@ -3,6 +3,7 @@ import { View, Text, Pressable, TextInput } from 'react-native';
 import { useRef, useState, useMemo } from 'react';
 import { formatCurrency, formatHours } from '@/lib/format';
 import { lifeEnergy } from '@/lib/calc';
+import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useTranslation } from '@/lib/i18n';
@@ -24,6 +25,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
   const [editedMinor, setEditedMinor] = useState(priceMinor);
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const logExpense = useLogExpense();
+  const recordConversion = useRecordConversion();
   const snapPoints = useMemo(() => ['45%', '90%'], []);
 
   const energy = lifeEnergy(editedMinor, realHourlyWage);
@@ -102,6 +104,13 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
             };
             if (verdict !== null) input.verdict = verdict;
             logExpense.mutate(input);
+            recordConversion({
+              priceMinor: editedMinor,
+              currency,
+              hoursMinutes: Math.round(energy.totalMinutes),
+              source,
+              ...(verdict !== null ? { verdict } : {}),
+            });
             onClose();
           }}
           accessibilityRole="button"

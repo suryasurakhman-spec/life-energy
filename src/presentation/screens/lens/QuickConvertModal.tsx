@@ -3,6 +3,7 @@ import { View, Text, Pressable, Modal } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { formatHours, formatCurrency } from '@/lib/format';
 import { lifeEnergy } from '@/lib/calc';
+import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 
 interface Props {
@@ -17,6 +18,7 @@ const KEYS = ['1','2','3','4','5','6','7','8','9','.','0','⌫'] as const;
 export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onClose }: Props) {
   const [input, setInput] = useState('');
   const logExpense = useLogExpense();
+  const recordConversion = useRecordConversion();
 
   const priceMinor = BigInt(Math.round(parseFloat(input || '0') * 100));
   const energy = input ? lifeEnergy(priceMinor, realHourlyWage) : null;
@@ -80,6 +82,7 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onCl
               onPress={() => {
                 if (!energy) return;
                 logExpense.mutate({ amountMinor: priceMinor, currency: 'USD', wageProfileId, source: 'keypad', spentAt: new Date() });
+                recordConversion({ priceMinor, currency: 'USD', hoursMinutes: Math.round(energy.totalMinutes), source: 'keypad' });
                 setInput('');
                 onClose();
               }}
