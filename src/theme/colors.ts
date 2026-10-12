@@ -22,6 +22,12 @@ export const palette = {
   sage500:  '#5E8C6A',   // positive: "worth it", crossover progress
   slate500: '#5B6B7F',   // info
   error500: '#C2412D',   // errors ONLY (misread, failed sync) — never prices
+
+  // Absolutes and overlays
+  white:    '#FFFFFF',
+  black:    '#000000',
+  scrim:    'rgba(0,0,0,0.4)',        // behind modal sheets
+  glass:    'rgba(255,255,255,0.2)',  // shutter button fill over the camera
 } as const;
 
 export interface ColorTokens {

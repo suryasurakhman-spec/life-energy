@@ -130,11 +130,15 @@ export interface Strings {
     worthIt:           string;
     notSure:           string;
     notWorthIt:        string;
+    typePriceManually: string;
+    typePrice:         string;
+    notHomeCurrency:   string; // contains "{currency}" placeholder
   };
   log: {
     title:    string;
     empty:    string;
     emptyCta: string;
+    addExpense: string;
   };
   month: {
     wallChart:   string;
@@ -351,11 +355,15 @@ const en: Strings = {
     worthIt:           'Worth it',
     notSure:           'Not sure',
     notWorthIt:        'Not worth it',
+    typePriceManually: 'Type a price manually',
+    typePrice:         'Type a price',
+    notHomeCurrency:   'not {currency}', // contains "{currency}" placeholder
   },
   log: {
     title:    'This month',
     empty:    'No expenses yet.\nScan something with the lens!',
     emptyCta: 'Open Lens',
+    addExpense: 'Add expense',
   },
   month: {
     wallChart:  'Wall Chart →',
@@ -572,11 +580,15 @@ const id: Strings = {
     worthIt:           'Sepadan',
     notSure:           'Tidak yakin',
     notWorthIt:        'Tidak sepadan',
+    typePriceManually: 'Ketik harga secara manual',
+    typePrice:         'Ketik harga',
+    notHomeCurrency:   'bukan {currency}',
   },
   log: {
     title:    'Bulan ini',
     empty:    'Belum ada pengeluaran.\nPindai sesuatu dengan lensa!',
     emptyCta: 'Buka Lensa',
+    addExpense: 'Tambah pengeluaran',
   },
   month: {
     wallChart:  'Grafik Dinding →',
@@ -793,11 +805,15 @@ const ja: Strings = {
     worthIt:           '価値あり',
     notSure:           '不明',
     notWorthIt:        '価値なし',
+    typePriceManually: '価格を手入力',
+    typePrice:         '価格を入力',
+    notHomeCurrency:   '{currency}以外',
   },
   log: {
     title:    '今月',
     empty:    'まだ支出がありません。\nレンズで何かスキャンしてみましょう！',
     emptyCta: 'レンズを開く',
+    addExpense: '支出を追加',
   },
   month: {
     wallChart:  'ウォールチャート →',
@@ -1015,11 +1031,15 @@ const ar: Strings = {
     worthIt:           'يستحق',
     notSure:           'غير متأكد',
     notWorthIt:        'لا يستحق',
+    typePriceManually: 'اكتب السعر يدوياً',
+    typePrice:         'اكتب سعراً',
+    notHomeCurrency:   'ليس {currency}',
   },
   log: {
     title:    'هذا الشهر',
     empty:    'لا توجد مصروفات حتى الآن.\nامسح شيئاً بالعدسة!',
     emptyCta: 'فتح العدسة',
+    addExpense: 'إضافة مصروف',
   },
   month: {
     wallChart:  'مخطط الجدار ←',

@@ -2,20 +2,25 @@ import { useState } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { formatHours, formatCurrency } from '@/lib/format';
+import { useTranslation } from '@/lib/i18n';
 import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
+import { palette } from '@/theme/colors';
 
 interface Props {
   realHourlyWage: number;
   wageProfileId: string;
+  /** Home currency of the wage profile; typed prices are in it. */
+  currency: string;
   visible: boolean;
   onClose: () => void;
 }
 
 const KEYS = ['1','2','3','4','5','6','7','8','9','.','0','⌫'] as const;
 
-export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onClose }: Props) {
+export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, visible, onClose }: Props) {
+  const t = useTranslation();
   const [input, setInput] = useState('');
   const logExpense = useLogExpense();
   const recordConversion = useRecordConversion();
@@ -39,21 +44,21 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onCl
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
-      <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.4)' }}>
-        <View style={{ backgroundColor: '#FAF8F5', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, paddingBottom: 48 }}>
+      <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: palette.scrim }}>
+        <View style={{ backgroundColor: palette.sand50, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, paddingBottom: 48 }}>
           {/* Result display */}
           <View style={{ alignItems: 'center', marginBottom: 24, minHeight: 80 }}>
             {energy ? (
               <>
-                <Text style={{ fontSize: 48, fontWeight: '700', color: '#1A1714' }}>
+                <Text style={{ fontSize: 48, fontWeight: '700', color: palette.sand900 }}>
                   {formatHours(energy.totalMinutes)}
                 </Text>
-                <Text style={{ fontSize: 17, color: '#8C8174', marginTop: 4 }}>
-                  {formatCurrency(priceMinor, 'USD')}
+                <Text style={{ fontSize: 17, color: palette.sand500, marginTop: 4 }}>
+                  {formatCurrency(priceMinor, currency)}
                 </Text>
               </>
             ) : (
-              <Text style={{ fontSize: 34, fontWeight: '700', color: '#CFC5B8' }}>0.00</Text>
+              <Text style={{ fontSize: 34, fontWeight: '700', color: palette.sand300 }}>0.00</Text>
             )}
           </View>
 
@@ -63,9 +68,9 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onCl
               <Pressable
                 key={key}
                 onPress={() => handleKey(key)}
-                style={{ width: '30%', aspectRatio: 1.5, borderRadius: 12, backgroundColor: key === '⌫' ? '#FDEFD3' : '#FFFFFF', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#E6DFD5' }}
+                style={{ width: '30%', aspectRatio: 1.5, borderRadius: 12, backgroundColor: key === '⌫' ? palette.amber100 : palette.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: palette.sand200 }}
               >
-                <Text style={{ fontSize: 22, fontWeight: '500', color: '#1A1714' }}>{key}</Text>
+                <Text style={{ fontSize: 22, fontWeight: '500', color: palette.sand900 }}>{key}</Text>
               </Pressable>
             ))}
           </View>
@@ -74,21 +79,21 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, visible, onCl
           <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
             <Pressable
               onPress={onClose}
-              style={{ flex: 1, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: '#E6DFD5', alignItems: 'center' }}
+              style={{ flex: 1, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: palette.sand200, alignItems: 'center' }}
             >
-              <Text style={{ fontWeight: '600', color: '#4A433B' }}>Cancel</Text>
+              <Text style={{ fontWeight: '600', color: palette.sand700 }}>{t.common.cancel}</Text>
             </Pressable>
             <Pressable
               onPress={() => {
                 if (!energy) return;
-                logExpense.mutate({ amountMinor: priceMinor, currency: 'USD', wageProfileId, source: 'keypad', spentAt: new Date() });
-                recordConversion({ priceMinor, currency: 'USD', hoursMinutes: Math.round(energy.totalMinutes), source: 'keypad' });
+                logExpense.mutate({ amountMinor: priceMinor, currency, wageProfileId, source: 'keypad', spentAt: new Date() });
+                recordConversion({ priceMinor, currency, hoursMinutes: Math.round(energy.totalMinutes), source: 'keypad' });
                 setInput('');
                 onClose();
               }}
-              style={{ flex: 2, padding: 16, borderRadius: 12, backgroundColor: '#C9821F', alignItems: 'center' }}
+              style={{ flex: 2, padding: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
             >
-              <Text style={{ fontWeight: '600', color: '#FFFFFF', fontSize: 17 }}>Log it</Text>
+              <Text style={{ fontWeight: '600', color: palette.white, fontSize: 17 }}>{t.lens.logIt}</Text>
             </Pressable>
           </View>
         </View>

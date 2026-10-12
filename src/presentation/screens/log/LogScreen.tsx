@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { View, Text, SectionList, Pressable } from 'react-native';
+import { View, Text, SectionList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useExpenses } from '@/presentation/hooks/useExpenses';
 import { ExpenseRow } from '@/presentation/components/ExpenseRow';
@@ -7,6 +7,7 @@ import type { ExpenseRecord } from '@/application/ports/expense-repository.port'
 import { useTranslation } from '@/lib/i18n';
 import { useCurrentWage, useWageHistory } from '@/presentation/hooks/useWage';
 import { QuickConvertModal } from '@/presentation/screens/lens/QuickConvertModal';
+import { palette } from '@/theme/colors';
 
 function toMonthStr(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
@@ -42,20 +43,20 @@ export function LogScreen({ realHourlyWage }: Props) {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#FAF8F5' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: '#8C8174' }}>{t.common.loading}</Text>
+          <Text style={{ color: palette.sand500 }}>{t.common.loading}</Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FAF8F5' }}>
-      <Text style={{ fontSize: 28, fontWeight: '700', color: '#1A1714', padding: 16 }}>{t.log.title}</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
+      <Text style={{ fontSize: 28, fontWeight: '700', color: palette.sand900, padding: 16 }}>{t.log.title}</Text>
       {sections.length === 0 ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-          <Text style={{ fontSize: 17, color: '#8C8174', textAlign: 'center' }}>
+          <Text style={{ fontSize: 17, color: palette.sand500, textAlign: 'center' }}>
             {t.log.empty}
           </Text>
         </View>
@@ -67,46 +68,47 @@ export function LogScreen({ realHourlyWage }: Props) {
             <ExpenseRow expense={item} realHourlyWage={wageById.get(item.wageProfileId) ?? realHourlyWage} />
           )}
           renderSectionHeader={({ section }) => (
-            <View style={{ paddingHorizontal: 16, paddingVertical: 8, backgroundColor: '#F3EFE9' }}>
-              <Text style={{ fontSize: 13, fontWeight: '600', color: '#8C8174', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+            <View style={{ paddingHorizontal: 16, paddingVertical: 8, backgroundColor: palette.sand100 }}>
+              <Text style={{ fontSize: 13, fontWeight: '600', color: palette.sand500, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                 {section.title}
               </Text>
             </View>
           )}
-          ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: '#E6DFD5', marginLeft: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: palette.sand200, marginLeft: 16 }} />}
         />
       )}
 
       {/* FAB — manual expense entry */}
-      <Pressable
+      <TouchableOpacity
         onPress={() => setAddVisible(true)}
-        style={({ pressed }) => ({
+        activeOpacity={0.8}
+        style={{
           position: 'absolute',
           bottom: 24,
           right: 24,
           width: 56,
           height: 56,
           borderRadius: 28,
-          backgroundColor: '#C9821F',
+          backgroundColor: palette.amber600,
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: pressed ? 0.8 : 1,
-          shadowColor: '#000',
+          shadowColor: palette.black,
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 0.25,
           shadowRadius: 8,
           elevation: 6,
-        })}
+        }}
         accessibilityRole="button"
-        accessibilityLabel="Add expense"
+        accessibilityLabel={t.log.addExpense}
       >
-        <Text style={{ color: '#FFFFFF', fontSize: 28, lineHeight: 32 }}>+</Text>
-      </Pressable>
+        <Text style={{ color: palette.white, fontSize: 28, lineHeight: 32 }}>+</Text>
+      </TouchableOpacity>
 
       {wage && (
         <QuickConvertModal
           realHourlyWage={realHourlyWage}
           wageProfileId={wage.id}
+          currency={wage.currency}
           visible={addVisible}
           onClose={() => setAddVisible(false)}
         />

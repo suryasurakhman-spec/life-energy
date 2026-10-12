@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, Pressable, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCurrentWage } from '@/presentation/hooks/useWage';
 import { useCustomerInfo } from '@/presentation/hooks/usePurchases';
@@ -25,8 +25,10 @@ interface RowProps {
 function SettingsRow({ label, value, onPress, destructive = false, theme }: RowProps) {
   const s = styles(theme);
   return (
-    <Pressable
-      style={({ pressed }) => [s.row, pressed && { opacity: 0.7 }]}
+    // Static style: NativeWind drops function-form Pressable styles, which left rows unpadded.
+    <TouchableOpacity
+      style={s.row}
+      activeOpacity={0.7}
       onPress={onPress}
       disabled={!onPress}
       accessibilityRole={onPress ? 'button' : 'text'}
@@ -35,7 +37,7 @@ function SettingsRow({ label, value, onPress, destructive = false, theme }: RowP
       <Text style={[s.rowLabel, destructive && s.destructive]}>{label}</Text>
       {value ? <Text style={s.rowValue}>{value}</Text> : null}
       {onPress && !value ? <Text style={s.chevron}>›</Text> : null}
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 

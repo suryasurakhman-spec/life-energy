@@ -7,6 +7,7 @@ import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useTranslation } from '@/lib/i18n';
+import { palette } from '@/theme/colors';
 
 type Verdict = 'worth_it' | 'not_sure' | 'not_worth_it';
 
@@ -47,13 +48,13 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
     >
       <BottomSheetView style={{ paddingHorizontal: 24, paddingTop: 12, paddingBottom: 48 }}>
         {/* Hours display */}
-        <Text style={{ fontSize: 48, fontWeight: '700', lineHeight: 52, color: '#1A1714' }}>
+        <Text style={{ fontSize: 48, fontWeight: '700', lineHeight: 52, color: palette.sand900 }}>
           {hoursLabel}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
-          <Text style={{ fontSize: 15, color: '#8C8174' }}>$</Text>
+          <Text style={{ fontSize: 15, color: palette.sand500 }}>$</Text>
           <TextInput
-            style={{ fontSize: 15, color: '#8C8174', minWidth: 60 }}
+            style={{ fontSize: 15, color: palette.sand500, minWidth: 60 }}
             value={(Number(editedMinor) / 100).toFixed(2)}
             keyboardType="decimal-pad"
             onChangeText={(v) => {
@@ -65,7 +66,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
         </View>
 
         {/* Worth it? */}
-        <Text style={{ fontWeight: '600', fontSize: 17, color: '#1A1714', marginTop: 24, marginBottom: 12 }}>
+        <Text style={{ fontWeight: '600', fontSize: 17, color: palette.sand900, marginTop: 24, marginBottom: 12 }}>
           {t.lens.worthItPrompt}
         </Text>
         <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -77,14 +78,14 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
                 paddingVertical: 12,
                 borderRadius: 12,
                 alignItems: 'center',
-                backgroundColor: verdict === key ? '#C9821F' : '#F3EFE9',
+                backgroundColor: verdict === key ? palette.amber600 : palette.sand100,
               }}
               onPress={() => setVerdict(key)}
               accessibilityRole="radio"
               accessibilityState={{ checked: verdict === key }}
               accessibilityLabel={label}
             >
-              <Text style={{ fontWeight: '600', color: verdict === key ? '#FFFFFF' : '#1A1714' }}>
+              <Text style={{ fontWeight: '600', color: verdict === key ? palette.white : palette.sand900 }}>
                 {label}
               </Text>
             </Pressable>
@@ -93,7 +94,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
 
         {/* Log it */}
         <Pressable
-          style={{ marginTop: 24, paddingVertical: 16, borderRadius: 12, backgroundColor: '#C9821F', alignItems: 'center' }}
+          style={{ marginTop: 24, paddingVertical: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
           onPress={() => {
             const input: Parameters<typeof logExpense.mutate>[0] = {
               amountMinor: editedMinor,
@@ -116,7 +117,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
           accessibilityRole="button"
           accessibilityLabel={t.lens.logIt}
         >
-          <Text style={{ fontWeight: '600', color: '#FFFFFF', fontSize: 17 }}>{t.lens.logIt}</Text>
+          <Text style={{ fontWeight: '600', color: palette.white, fontSize: 17 }}>{t.lens.logIt}</Text>
         </Pressable>
       </BottomSheetView>
     </BottomSheet>

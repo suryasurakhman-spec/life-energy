@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import {
   Camera,
@@ -29,6 +29,7 @@ import { useTranslation } from '@/lib/i18n';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { LabelSheet } from '@/presentation/components/LabelSheet';
 import { QuickConvertModal } from './QuickConvertModal';
+import { palette } from '@/theme/colors';
 
 const stabilizer = createStabilizer();
 
@@ -79,6 +80,7 @@ function PriceChip({
   homeCurrency: string;
   font: ReturnType<typeof useFont>;
 }) {
+  const t = useTranslation(); // Zustand-backed, so it works inside the Skia renderer
   const { data: fxRate } = useFxRate(homeCurrency, p.currency);
   const baseMinor = convertToBase(p.minor, p.currency, homeCurrency, fxRate?.rate);
 
@@ -87,7 +89,7 @@ function PriceChip({
     return (
       <LabelChip
         key={p.id}
-        label={`not ${homeCurrency}`}
+        label={t.lens.notHomeCurrency.replace('{currency}', homeCurrency)}
         x={(p.x ?? 0) + (p.width ?? 60) + 8}
         y={(p.y ?? 0) + (p.height ?? 20) / 2}
         tier="T0"
@@ -311,32 +313,35 @@ export function LensScreen() {
 
   if (!hasPermission) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#110F0D', padding: 32, gap: 20 }}>
-        <Text style={{ color: '#FAF8F5', fontSize: 22, fontWeight: '700', textAlign: 'center' }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: palette.sand950, padding: 32, gap: 20 }}>
+        <Text style={{ color: palette.sand50, fontSize: 22, fontWeight: '700', textAlign: 'center' }}>
           {t.lens.noPermissionTitle}
         </Text>
-        <Text style={{ color: '#CFC5B8', fontSize: 15, textAlign: 'center', lineHeight: 22 }}>
+        <Text style={{ color: palette.sand300, fontSize: 15, textAlign: 'center', lineHeight: 22 }}>
           {t.lens.noPermissionBody}
         </Text>
-        <Pressable
+        <TouchableOpacity
           onPress={requestPermission}
-          style={({ pressed }) => ({ marginTop: 8, paddingHorizontal: 32, paddingVertical: 16, backgroundColor: '#C9821F', borderRadius: 14, opacity: pressed ? 0.8 : 1 })}
+          activeOpacity={0.8}
+          style={{ marginTop: 8, paddingHorizontal: 32, paddingVertical: 16, backgroundColor: palette.amber600, borderRadius: 14 }}
           accessibilityRole="button"
           accessibilityLabel={t.lens.noPermissionCta}
         >
-          <Text style={{ color: '#FFFFFF', fontWeight: '700', fontSize: 17 }}>{t.lens.noPermissionCta}</Text>
-        </Pressable>
-        <Pressable
+          <Text style={{ color: palette.white, fontWeight: '700', fontSize: 17 }}>{t.lens.noPermissionCta}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => setQuickConvertVisible(true)}
-          style={({ pressed }) => ({ paddingHorizontal: 32, paddingVertical: 16, borderRadius: 14, borderWidth: 1, borderColor: '#4A433B', opacity: pressed ? 0.8 : 1 })}
+          activeOpacity={0.8}
+          style={{ paddingHorizontal: 32, paddingVertical: 16, borderRadius: 14, borderWidth: 1, borderColor: palette.sand700 }}
           accessibilityRole="button"
         >
-          <Text style={{ color: '#CFC5B8', fontWeight: '600', fontSize: 15 }}>{'Type a price manually'}</Text>
-        </Pressable>
+          <Text style={{ color: palette.sand300, fontWeight: '600', fontSize: 15 }}>{t.lens.typePriceManually}</Text>
+        </TouchableOpacity>
         {quickConvertVisible && wage && (
           <QuickConvertModal
             realHourlyWage={realHourlyWage}
             wageProfileId={wage.id}
+            currency={homeCurrency}
             visible={quickConvertVisible}
             onClose={() => setQuickConvertVisible(false)}
           />
@@ -349,7 +354,7 @@ export function LensScreen() {
 
   return (
     <View
-      style={{ flex: 1, backgroundColor: '#000' }}
+      style={{ flex: 1, backgroundColor: palette.black }}
       onLayout={(e) => {
         viewWidth.value = e.nativeEvent.layout.width;
         viewHeight.value = e.nativeEvent.layout.height;
@@ -411,7 +416,7 @@ export function LensScreen() {
         </Pressable>
         <Pressable
           onPress={mode === 'live' ? freeze : unfreeze}
-          style={{ width: 72, height: 72, borderRadius: 36, borderWidth: 4, borderColor: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.2)', alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 72, height: 72, borderRadius: 36, borderWidth: 4, borderColor: palette.white, backgroundColor: palette.glass, alignItems: 'center', justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={mode === 'live' ? t.lens.freeze : t.lens.live}
         />
@@ -419,9 +424,9 @@ export function LensScreen() {
           onPress={() => setQuickConvertVisible(true)}
           style={{ minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center' }}
           accessibilityRole="button"
-          accessibilityLabel="Type a price"
+          accessibilityLabel={t.lens.typePrice}
         >
-          <Text style={{ fontSize: 26, color: '#FFFFFF' }}>⌨</Text>
+          <Text style={{ fontSize: 26, color: palette.white }}>⌨</Text>
         </Pressable>
       </View>
 
@@ -429,7 +434,7 @@ export function LensScreen() {
       {selectedPrice != null && wage && (
         <LabelSheet
           priceMinor={selectedPrice.minor}
-          currency="USD"
+          currency={homeCurrency}
           wageProfileId={wage.id}
           source={mode === 'freeze' ? 'freeze' : 'lens'}
           realHourlyWage={realHourlyWage}
@@ -442,6 +447,7 @@ export function LensScreen() {
         <QuickConvertModal
           realHourlyWage={realHourlyWage}
           wageProfileId={wage.id}
+          currency={homeCurrency}
           visible={quickConvertVisible}
           onClose={() => setQuickConvertVisible(false)}
         />
