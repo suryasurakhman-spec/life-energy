@@ -16,7 +16,8 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
 import { useFxRate, convertToBase } from '@/presentation/hooks/useFxRate';
-import { parsePrice } from '@/domain/price/parser';
+import { parsePrice } from '@/lib/priceParser';
+import { parsePrice as parseForeignPrice } from '@/domain/price/parser';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
 import { formatHours } from '@/lib/format';
@@ -29,13 +30,29 @@ import { QuickConvertModal } from './QuickConvertModal';
 
 const stabilizer = createStabilizer();
 
-/** One OCR word with its box already mapped to view coordinates. */
-interface OcrWord {
+/** OCR text with its box already mapped to view coordinates. */
+interface OcrBox {
   text: string;
   x: number;
   y: number;
   width: number;
   height: number;
+}
+
+/** One OCR line plus its words: multi-word tags ("$3 99", "Was $5 Now $3") only parse as a line. */
+interface OcrLine extends OcrBox {
+  words: OcrBox[];
+}
+
+/**
+ * US tags go through the full parser (FR-2). When it flags a non-USD price, or can't read
+ * the text at all, the currency-aware parser gets a chance (FR-18 foreign prices).
+ */
+function parseTag(text: string): Omit<DetectedPrice, 'id' | 'x' | 'y' | 'width' | 'height'> | null {
+  const usd = parsePrice(text);
+  if (usd && usd.currency !== 'NOT_USD') return usd;
+  const foreign = parseForeignPrice(text);
+  return foreign && foreign.currency !== 'USD' ? foreign : null;
 }
 
 // ML Kit text recognition (native plugin registered by react-native-vision-camera-text-recognition).
@@ -148,19 +165,30 @@ export function LensScreen() {
   // Price parsing runs here on the JS thread: the parser's regex tables and bigint results
   // don't cross the worklet boundary, so the frame processor only sends text + view boxes.
   const onTextDetected = useCallback(
-    (words: OcrWord[]) => {
+    (lines: OcrLine[]) => {
       const detected: DetectedPrice[] = [];
-      for (const w of words) {
-        const parsed = parsePrice(w.text);
-        if (!parsed) continue;
+      const add = (box: OcrBox, parsed: NonNullable<ReturnType<typeof parseTag>>) => {
         detected.push({
-          id: `${Math.round(w.x / 24)}-${Math.round(w.y / 24)}`,
+          id: `${Math.round(box.x / 24)}-${Math.round(box.y / 24)}`,
           ...parsed,
-          x: w.x,
-          y: w.y,
-          width: w.width,
-          height: w.height,
+          x: box.x,
+          y: box.y,
+          width: box.width,
+          height: box.height,
         });
+      };
+      for (const line of lines) {
+        // Whole line first, so split-cent, sale and "with card" tags read as one price.
+        const singleWord = line.words.length === 1 && line.words[0]!.text === line.text.trim();
+        const whole = singleWord ? null : parseTag(line.text);
+        if (whole) {
+          add(line, whole);
+          continue;
+        }
+        for (const w of line.words) {
+          const parsed = parseTag(w.text);
+          if (parsed) add(w, parsed);
+        }
       }
       stabilizer.addFrame(detected);
       setPrices(stabilizer.stableItems());
@@ -213,28 +241,33 @@ export function LensScreen() {
       const scale = Math.max(viewWidth.value / imgW, viewHeight.value / imgH);
       const offsetX = (viewWidth.value - imgW * scale) / 2;
       const offsetY = (viewHeight.value - imgH * scale) / 2;
-      const words: OcrWord[] = [];
+      const toView = (f: any, text: string): OcrBox => {
+        const width = (f?.width ?? 0) * scale;
+        const height = (f?.height ?? 0) * scale;
+        return {
+          text,
+          x: (f?.x ?? 0) * scale + offsetX - width / 2,
+          y: (f?.y ?? 0) * scale + offsetY - height / 2,
+          width,
+          height,
+        };
+      };
+      const lines: OcrLine[] = [];
       for (const block of blocks) {
-        const lines: any[] = block?.lines ?? [];
-        for (const line of lines) {
+        const blockLines: any[] = block?.lines ?? [];
+        for (const line of blockLines) {
+          const lineText: string = line?.lineText ?? '';
+          if (!/\d/.test(lineText)) continue; // a price always has a digit
           const elements: any[] = line?.elements ?? [];
+          const words: OcrBox[] = [];
           for (const el of elements) {
             const text: string = el?.elementText ?? '';
-            if (!/\d/.test(text)) continue; // a price always has a digit
-            const f = el.elementFrame ?? {};
-            const width = (f.width ?? 0) * scale;
-            const height = (f.height ?? 0) * scale;
-            words.push({
-              text,
-              x: (f.x ?? 0) * scale + offsetX - width / 2,
-              y: (f.y ?? 0) * scale + offsetY - height / 2,
-              width,
-              height,
-            });
+            if (/\d/.test(text)) words.push(toView(el.elementFrame, text));
           }
+          lines.push({ ...toView(line.lineFrame, lineText), words });
         }
       }
-      runTextDetected(words);
+      runTextDetected(lines);
     },
     [mode, lastOcrMs, fpsWindowStart, fpsFrameCount, viewWidth, viewHeight, runFpsTooLow, runTextDetected],
   );
