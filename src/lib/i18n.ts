@@ -289,7 +289,7 @@ const en: Strings = {
   },
   lens: {
     noPermissionTitle: 'Camera access needed',
-    noPermissionBody:  'Life Energy needs camera access to read price tags.',
+    noPermissionBody:  'Life Energy needs camera access to read price tags. Frames are read in memory; nothing leaves your phone.',
     noPermissionCta:   'Grant access',
     noCamera:          'No back camera found.',
     freeze:            'Freeze',
@@ -483,7 +483,7 @@ const id: Strings = {
   },
   lens: {
     noPermissionTitle: 'Akses kamera diperlukan',
-    noPermissionBody:  'Life Energy membutuhkan akses kamera untuk membaca label harga.',
+    noPermissionBody:  'Life Energy membutuhkan akses kamera untuk membaca label harga. Gambar hanya dibaca di memori; tidak ada yang keluar dari ponsel Anda.',
     noPermissionCta:   'Izinkan akses',
     noCamera:          'Kamera belakang tidak ditemukan.',
     freeze:            'Bekukan',
@@ -677,7 +677,7 @@ const ja: Strings = {
   },
   lens: {
     noPermissionTitle: 'カメラのアクセスが必要です',
-    noPermissionBody:  'Life Energyが価格タグを読み取るためにカメラのアクセスが必要です。',
+    noPermissionBody:  'Life Energyが価格タグを読み取るためにカメラのアクセスが必要です。映像はメモリ上で読み取るだけで、端末の外には何も送信されません。',
     noPermissionCta:   'アクセスを許可',
     noCamera:          'バックカメラが見つかりません。',
     freeze:            '静止',
@@ -872,7 +872,7 @@ const ar: Strings = {
   },
   lens: {
     noPermissionTitle: 'مطلوب الوصول إلى الكاميرا',
-    noPermissionBody:  'يحتاج Life Energy إلى الوصول إلى الكاميرا لقراءة بطاقات الأسعار.',
+    noPermissionBody:  'يحتاج Life Energy إلى الوصول إلى الكاميرا لقراءة بطاقات الأسعار. تُقرأ الصور في الذاكرة فقط، ولا يغادر أي شيء هاتفك.',
     noPermissionCta:   'منح الإذن',
     noCamera:          'لم يتم العثور على كاميرا خلفية.',
     freeze:            'تجميد',
