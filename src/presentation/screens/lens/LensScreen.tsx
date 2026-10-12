@@ -5,10 +5,13 @@ import {
   useCameraDevice,
   useCameraPermission,
   useFrameProcessor,
+  VisionCameraProxy,
 } from 'react-native-vision-camera';
-import { runOnJS, useSharedValue } from 'react-native-reanimated';
-import { useTextRecognition } from 'react-native-vision-camera-text-recognition';
+// Frame processors run on react-native-worklets-core, not Reanimated's runtime.
+import { useRunOnJS, useSharedValue } from 'react-native-worklets-core';
 import { Canvas, useFont } from '@shopify/react-native-skia';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/lib/query-client';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
@@ -25,6 +28,18 @@ import { LabelSheet } from '@/presentation/components/LabelSheet';
 import { QuickConvertModal } from './QuickConvertModal';
 
 const stabilizer = createStabilizer();
+
+/** One OCR word with its box already mapped to view coordinates. */
+interface OcrWord {
+  text: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+// ML Kit text recognition (native plugin registered by react-native-vision-camera-text-recognition).
+const scanTextPlugin = VisionCameraProxy.initFrameProcessorPlugin('scanText', { language: 'latin' });
 
 /** OCR runs at most this often (ms) — ~10 runs/sec. */
 const OCR_MIN_INTERVAL_MS = 100;
@@ -89,7 +104,6 @@ export function LensScreen() {
   const font = useFont(require('../../../../assets/fonts/Inter_700Bold.ttf'), 15);
   const [selectedPrice, setSelectedPrice] = useState<DetectedPrice | null>(null);
   const [quickConvertVisible, setQuickConvertVisible] = useState(false);
-  const textRecognition = useTextRecognition({ language: 'latin' });
 
   // ── Worklet-safe shared values ────────────────────────────────────────────
   const lastOcrMs      = useSharedValue(0); // timestamp of last OCR run
@@ -106,6 +120,9 @@ export function LensScreen() {
 
   useEffect(() => {
     if (mode === 'live') {
+      // Start a fresh fps window; a stale one from before the freeze would re-freeze on the first frame.
+      fpsWindowStart.value = 0;
+      fpsFrameCount.value = 0;
       resetIdleTimer();
     } else {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
@@ -113,7 +130,7 @@ export function LensScreen() {
     return () => {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     };
-  }, [mode, resetIdleTimer]);
+  }, [mode, resetIdleTimer, fpsWindowStart, fpsFrameCount]);
 
   // ── Keep screen awake while live ──────────────────────────────────────────
   useEffect(() => {
@@ -125,11 +142,26 @@ export function LensScreen() {
     return () => { deactivateKeepAwake(); };
   }, [mode]);
 
-  // ── JS callbacks (invoked from worklet via runOnJS) ───────────────────────
+  // ── JS callbacks (invoked from the frame processor via useRunOnJS) ───────────────────────
   const onFpsTooLow = useCallback(() => freeze(), [freeze]);
 
-  const onPricesDetected = useCallback(
-    (detected: DetectedPrice[]) => {
+  // Price parsing runs here on the JS thread: the parser's regex tables and bigint results
+  // don't cross the worklet boundary, so the frame processor only sends text + view boxes.
+  const onTextDetected = useCallback(
+    (words: OcrWord[]) => {
+      const detected: DetectedPrice[] = [];
+      for (const w of words) {
+        const parsed = parsePrice(w.text);
+        if (!parsed) continue;
+        detected.push({
+          id: `${Math.round(w.x / 24)}-${Math.round(w.y / 24)}`,
+          ...parsed,
+          x: w.x,
+          y: w.y,
+          width: w.width,
+          height: w.height,
+        });
+      }
       stabilizer.addFrame(detected);
       setPrices(stabilizer.stableItems());
       if (detected.length > 0) resetIdleTimer();
@@ -137,7 +169,13 @@ export function LensScreen() {
     [setPrices, resetIdleTimer],
   );
 
+  const runFpsTooLow = useRunOnJS(onFpsTooLow, [onFpsTooLow]);
+  const runTextDetected = useRunOnJS(onTextDetected, [onTextDetected]);
+
   // ── Frame processor ───────────────────────────────────────────────────────
+  const viewWidth  = useSharedValue(0);
+  const viewHeight = useSharedValue(0);
+
   const frameProcessor = useFrameProcessor(
     (frame) => {
       'worklet';
@@ -150,7 +188,7 @@ export function LensScreen() {
         fpsWindowStart.value = now;
       } else if (now - fpsWindowStart.value >= 1000) {
         if (fpsFrameCount.value < MIN_FPS) {
-          runOnJS(onFpsTooLow)();
+          runFpsTooLow();
         }
         fpsWindowStart.value = now;
         fpsFrameCount.value = 0;
@@ -162,34 +200,43 @@ export function LensScreen() {
       lastOcrMs.value = now;
 
       // ── OCR ────────────────────────────────────────────────────────────────
-      const results = textRecognition.scanText(frame);
-      const detected: DetectedPrice[] = [];
-      for (const result of (results as any[])) {
-        const blocks: any[] = result.blocks ?? [];
-        for (const block of blocks) {
-          const lines: any[] = block.lines ?? block[2] ?? [];
-          for (const line of lines) {
-            const elements: any[] = line.elements ?? line[1] ?? [];
-            for (const el of elements) {
-              const elFrame = el.frame ?? el[1] ?? {};
-              const elText: string = el.text ?? el[2] ?? '';
-              const parsed = parsePrice(elText);
-              if (!parsed) continue;
-              detected.push({
-                id: `${Math.round(elFrame.x ?? 0)}-${Math.round(elFrame.y ?? 0)}`,
-                ...parsed,
-                x: elFrame.x ?? 0,
-                y: elFrame.y ?? 0,
-                width: elFrame.width,
-                height: elFrame.height,
-              });
-            }
+      // The plugin returns one { resultText, blocks } map (or null when nothing is found).
+      // Element frames are centre points in upright image space; map them to view space
+      // using the preview's "cover" scaling so chips land on the tag.
+      // Native side returns null when ML Kit fails (e.g. model still downloading); skip the frame.
+      if (scanTextPlugin == null) return;
+      const result: any = scanTextPlugin.call(frame);
+      const blocks: any[] = result?.blocks ?? [];
+      const portraitView = viewHeight.value >= viewWidth.value;
+      const imgW = portraitView ? Math.min(frame.width, frame.height) : Math.max(frame.width, frame.height);
+      const imgH = portraitView ? Math.max(frame.width, frame.height) : Math.min(frame.width, frame.height);
+      const scale = Math.max(viewWidth.value / imgW, viewHeight.value / imgH);
+      const offsetX = (viewWidth.value - imgW * scale) / 2;
+      const offsetY = (viewHeight.value - imgH * scale) / 2;
+      const words: OcrWord[] = [];
+      for (const block of blocks) {
+        const lines: any[] = block?.lines ?? [];
+        for (const line of lines) {
+          const elements: any[] = line?.elements ?? [];
+          for (const el of elements) {
+            const text: string = el?.elementText ?? '';
+            if (!/\d/.test(text)) continue; // a price always has a digit
+            const f = el.elementFrame ?? {};
+            const width = (f.width ?? 0) * scale;
+            const height = (f.height ?? 0) * scale;
+            words.push({
+              text,
+              x: (f.x ?? 0) * scale + offsetX - width / 2,
+              y: (f.y ?? 0) * scale + offsetY - height / 2,
+              width,
+              height,
+            });
           }
         }
       }
-      runOnJS(onPricesDetected)(detected);
+      runTextDetected(words);
     },
-    [mode, lastOcrMs, fpsWindowStart, fpsFrameCount, onFpsTooLow, onPricesDetected, textRecognition],
+    [mode, lastOcrMs, fpsWindowStart, fpsFrameCount, viewWidth, viewHeight, runFpsTooLow, runTextDetected],
   );
 
   if (!hasPermission) {
@@ -231,7 +278,13 @@ export function LensScreen() {
   if (!device) return null;
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#000' }}>
+    <View
+      style={{ flex: 1, backgroundColor: '#000' }}
+      onLayout={(e) => {
+        viewWidth.value = e.nativeEvent.layout.width;
+        viewHeight.value = e.nativeEvent.layout.height;
+      }}
+    >
       <Camera
         style={{ flex: 1 }}
         device={device}
@@ -243,15 +296,18 @@ export function LensScreen() {
 
       {/* Skia overlay: chip visuals (pointerEvents none — taps fall through to Pressables below) */}
       <Canvas style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none">
-        {stablePrices.map(p => (
-          <PriceChip
-            key={p.id}
-            p={p}
-            realHourlyWage={realHourlyWage}
-            homeCurrency={homeCurrency}
-            font={font}
-          />
-        ))}
+        {/* Skia's Canvas is a separate React renderer, so context must be provided again inside it. */}
+        <QueryClientProvider client={queryClient}>
+          {stablePrices.map(p => (
+            <PriceChip
+              key={p.id}
+              p={p}
+              realHourlyWage={realHourlyWage}
+              homeCurrency={homeCurrency}
+              font={font}
+            />
+          ))}
+        </QueryClientProvider>
       </Canvas>
 
       {/* Transparent hit targets for each chip — sits above Skia canvas */}
