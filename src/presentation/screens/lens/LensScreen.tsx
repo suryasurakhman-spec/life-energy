@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import {
   Camera,
   useCameraDevice,
@@ -129,6 +130,20 @@ export function LensScreen() {
 
   // ── Idle timeout ──────────────────────────────────────────────────────────
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // ── Tap to focus (FR-6) ───────────────────────────────────────────────────
+  const cameraRef = useRef<Camera>(null);
+  const tapToFocus = useMemo(
+    () =>
+      Gesture.Tap()
+        .runOnJS(true)
+        .onEnd(({ x, y }) => {
+          if (!device?.supportsFocus || mode !== 'live') return;
+          // Focus can be rejected while a previous request is settling; the next tap retries.
+          cameraRef.current?.focus({ x, y }).catch(() => {});
+        }),
+    [device, mode],
+  );
 
   const resetIdleTimer = useCallback(() => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
@@ -318,14 +333,17 @@ export function LensScreen() {
         viewHeight.value = e.nativeEvent.layout.height;
       }}
     >
-      <Camera
-        style={{ flex: 1 }}
-        device={device}
-        isActive={mode === 'live'}
-        frameProcessor={frameProcessor}
-        torch={torchOn ? 'on' : 'off'}
-        accessibilityLabel={t.lens.cameraLabel}
-      />
+      <GestureDetector gesture={tapToFocus}>
+        <Camera
+          ref={cameraRef}
+          style={{ flex: 1 }}
+          device={device}
+          isActive={mode === 'live'}
+          frameProcessor={frameProcessor}
+          torch={torchOn ? 'on' : 'off'}
+          accessibilityLabel={t.lens.cameraLabel}
+        />
+      </GestureDetector>
 
       {/* Skia overlay: chip visuals (pointerEvents none — taps fall through to Pressables below) */}
       <Canvas style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none">
