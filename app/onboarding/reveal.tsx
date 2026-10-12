@@ -9,6 +9,7 @@ import { keys } from '@/lib/query-keys';
 import { calculateRealWage } from '@/domain/wage/wage';
 import { isOk } from '@/lib/result';
 import { useTranslation } from '@/lib/i18n';
+import { formatHourlyWage } from '@/lib/format';
 import { palette } from '@/theme/colors';
 
 export default function RevealScreen() {
@@ -39,7 +40,7 @@ export default function RevealScreen() {
   const result = calculateRealWage(wageInput);
 
   async function handleStart() {
-    await saveRealWage(new SqliteWageRepository(), wageInput);
+    await saveRealWage(new SqliteWageRepository(), wageInput, store.currency);
     // refetchType 'all': the tabs' wage query is inactive here, and the first-run redirect reads it on mount.
     await queryClient.invalidateQueries({ queryKey: keys.wage.current(), refetchType: 'all' });
     await queryClient.invalidateQueries({ queryKey: keys.wage.history(), refetchType: 'all' });
@@ -83,7 +84,7 @@ export default function RevealScreen() {
               {t.onboarding.reveal.nominal}
             </Text>
             <Text style={{ fontSize: 32, fontWeight: '700', color: palette.sand900 }}>
-              ${nominalHourly.toFixed(2)}
+              {formatHourlyWage(nominalHourly, store.currency)}
             </Text>
             <Text style={{ fontSize: 14, color: palette.sand500 }}>{t.onboarding.reveal.perHour}</Text>
           </View>
@@ -93,7 +94,7 @@ export default function RevealScreen() {
               {t.onboarding.reveal.real}
             </Text>
             <Text style={{ fontSize: 32, fontWeight: '700', color: palette.amber700 }}>
-              ${realHourly.toFixed(2)}
+              {formatHourlyWage(realHourly, store.currency)}
             </Text>
             <Text style={{ fontSize: 14, color: palette.amber700 }}>{t.onboarding.reveal.perHour}</Text>
           </View>

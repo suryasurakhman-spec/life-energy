@@ -4,11 +4,12 @@ import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
+import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
 
 export default function CommuteScreen() {
   const t = useTranslation();
-  const { setCommute } = useOnboardingStore();
+  const { setCommute, currency } = useOnboardingStore();
   const [minutes, setMinutes] = useState('0');
   const [cost, setCost] = useState('0');
 
@@ -49,7 +50,7 @@ export default function CommuteScreen() {
             {t.onboarding.commute.cost.toUpperCase()}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>$</Text>
+            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
             <TextInput
               value={cost}
               onChangeText={setCost}

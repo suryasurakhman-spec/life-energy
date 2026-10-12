@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { detectHomeCurrency } from '@/infrastructure/device/home-currency';
 
 export type PayPeriod = 'weekly' | 'biweekly' | 'semimonthly' | 'monthly';
 
@@ -27,7 +28,7 @@ interface OnboardingState {
 }
 
 const defaults = {
-  currency: 'USD',
+  currency: detectHomeCurrency(), // expo-localization; USD when the device reports none
   payPeriod: 'monthly' as PayPeriod,
   netPayMinor: null,
   paidHoursPerWeek: null,

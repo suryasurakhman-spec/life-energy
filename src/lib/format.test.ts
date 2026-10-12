@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatCurrency, formatHours, formatDate } from './format';
+import { formatCurrency, formatHours, formatDate, currencySymbol, formatHourlyWage } from './format';
 
 describe('formatCurrency', () => {
   it('formats USD cents as $X.XX', () => {
@@ -35,5 +35,18 @@ describe('formatDate', () => {
   it('formats short style', () => {
     const d = new Date('2026-09-30T00:00:00Z');
     expect(formatDate(d, 'short')).toMatch(/\d{2}\/\d{2}\/\d{4}/);
+  });
+});
+
+describe('currencySymbol', () => {
+  it('returns the symbol for the home currency', () => {
+    expect(currencySymbol('USD')).toBe('$');
+    expect(currencySymbol('EUR')).toBe('€');
+  });
+});
+
+describe('formatHourlyWage', () => {
+  it('formats a real wage in its currency, to the cent', () => {
+    expect(formatHourlyWage(13.4375, 'USD')).toBe('$13.44');
   });
 });

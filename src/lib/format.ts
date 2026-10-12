@@ -8,6 +8,17 @@ export function formatCurrency(amountMinor: bigint, currency: string): string {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
 }
 
+/** The symbol a currency is written with, e.g. "USD" → "$", "IDR" → "IDR", "EUR" → "€". */
+export function currencySymbol(currency: string): string {
+  const parts = new Intl.NumberFormat('en-US', { style: 'currency', currency }).formatToParts(0);
+  return parts.find(p => p.type === 'currency')?.value ?? currency;
+}
+
+/** An hourly wage given in major units (dollars/hour), formatted in its currency. */
+export function formatHourlyWage(perHour: number, currency: string): string {
+  return formatCurrency(BigInt(Math.round(perHour * 100)), currency);
+}
+
 export function formatHours(
   totalMinutes: number,
   opts: { estimated?: boolean; workDayMinutes?: number } = {}

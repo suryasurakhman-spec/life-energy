@@ -9,6 +9,7 @@ import { exportData } from '@/application/export-data';
 import { deleteAllData } from '@/application/delete-all-data';
 import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
 import { useTranslation } from '@/lib/i18n';
+import { formatHourlyWage } from '@/lib/format';
 
 const expenseRepo = new SqliteExpenseRepository();
 
@@ -95,7 +96,7 @@ export function ProfileScreen() {
         <View style={s.card}>
           <SettingsRow
             label={t.profile.realWageLabel}
-            value={realHourly != null ? `$${realHourly.toFixed(2)}/hr` : t.common.notSet}
+            value={realHourly != null && wage ? `${formatHourlyWage(realHourly, wage.currency)}/hr` : t.common.notSet}
             onPress={() => router.push('/onboarding/locale')}
             theme={theme}
           />

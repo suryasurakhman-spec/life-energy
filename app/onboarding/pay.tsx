@@ -4,11 +4,12 @@ import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore, type PayPeriod } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
+import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
 
 export default function PayScreen() {
   const t = useTranslation();
-  const { payPeriod, setPayPeriod, setNetPay } = useOnboardingStore();
+  const { payPeriod, setPayPeriod, setNetPay, currency } = useOnboardingStore();
   const [amount, setAmount] = useState('');
 
   const PERIODS: { key: PayPeriod; label: string }[] = [
@@ -37,7 +38,7 @@ export default function PayScreen() {
             {t.onboarding.pay.netPay.toUpperCase()}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>$</Text>
+            <Text style={{ fontSize: 20, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
             <TextInput
               value={amount}
               onChangeText={setAmount}

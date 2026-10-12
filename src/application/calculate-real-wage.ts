@@ -8,6 +8,7 @@ export type { WageInput };
 export async function saveRealWage(
   repo: WageRepository,
   input: WageInput,
+  currency = 'USD',
 ): Promise<number> {
   const result = domainCalc(input);
   if (!isOk(result)) throw result.error;
@@ -18,7 +19,7 @@ export async function saveRealWage(
     id:               randomUUID(),
     effectiveFrom:    new Date(),
     netPayMinor:      input.netPayMinor,
-    currency:         'USD',
+    currency,
     payPeriod:        input.payPeriod ?? 'monthly',
     paidHoursPerWeek: input.paidHoursPerWeek ?? 40,
     jobCostsMinor:    input.jobCostsMinor,
