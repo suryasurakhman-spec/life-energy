@@ -1,6 +1,6 @@
 import { db } from './db';
 import { wageProfiles } from './drizzle/schema';
-import { isNull, desc } from 'drizzle-orm';
+import { isNull, desc, eq } from 'drizzle-orm';
 import type { WageRepository, WageProfileInput, WageProfileRecord } from '@/application/ports/wage-repository.port';
 import type { PayPeriod } from '@/domain/wage/wage';
 
@@ -33,6 +33,12 @@ export class SqliteWageRepository implements WageRepository {
       .limit(1);
     if (rows.length === 0) return null;
     return toRecord(rows[0]!);
+  }
+
+  async setCurrency(id: string, currency: string): Promise<void> {
+    await db.update(wageProfiles)
+      .set({ currency, updatedAt: new Date().toISOString() })
+      .where(eq(wageProfiles.id, id));
   }
 
   async findAll(): Promise<WageProfileRecord[]> {

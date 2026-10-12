@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore, type PayPeriod } from '@/presentation/stores/onboarding.store';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
@@ -10,7 +11,12 @@ import { fontSize } from '@/theme/typography';
 
 export default function PayScreen() {
   const t = useTranslation();
-  const { payPeriod, setPayPeriod, setNetPay, currency } = useOnboardingStore();
+  const { payPeriod, setPayPeriod, setNetPay, currency, setCurrency } = useOnboardingStore();
+
+  // The saved currency override loads asynchronously; read it when the wizard reaches pay.
+  useEffect(() => {
+    setCurrency(homeCurrency());
+  }, [setCurrency]);
   const [amount, setAmount] = useState('');
 
   const PERIODS: { key: PayPeriod; label: string }[] = [

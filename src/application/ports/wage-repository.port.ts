@@ -22,4 +22,6 @@ export interface WageRepository {
   save(profile: WageProfileInput): Promise<void>;
   findCurrent(): Promise<WageProfileRecord | null>;
   findAll(): Promise<WageProfileRecord[]>;
+  /** Relabel a wage profile's currency (amounts unchanged) — fixes a wrong detection. */
+  setCurrency(id: string, currency: string): Promise<void>;
 }

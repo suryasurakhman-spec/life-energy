@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { detectHomeCurrency } from '@/infrastructure/device/home-currency';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 
 /** Monthly job costs on the wizard's full path, in minor units. */
 export interface ExtraJobCosts {
@@ -40,7 +40,7 @@ interface OnboardingState {
 }
 
 const defaults = {
-  currency: detectHomeCurrency(), // expo-localization; USD when the device reports none
+  currency: homeCurrency(), // Profile override, else expo-localization; USD when neither
   payPeriod: 'monthly' as PayPeriod,
   netPayMinor: null,
   paidHoursPerWeek: null,

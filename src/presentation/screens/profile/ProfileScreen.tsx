@@ -11,6 +11,7 @@ import { SqliteUserDataStore } from '@/infrastructure/sqlite/sqlite-user-data-st
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { fontSize } from '@/theme/typography';
 
 const userData = new SqliteUserDataStore();
@@ -114,6 +115,12 @@ export function ProfileScreen() {
             label={t.profile.realWageLabel}
             value={realHourly != null && wage ? `${formatHourlyWage(realHourly, wage.currency)}/hr` : t.common.notSet}
             onPress={() => router.push('/onboarding/locale')}
+            theme={theme}
+          />
+          <SettingsRow
+            label={t.profile.currencyLabel}
+            value={wage?.currency ?? homeCurrency()}
+            onPress={() => router.push('/currency')}
             theme={theme}
           />
           {wage && (

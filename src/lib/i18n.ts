@@ -217,6 +217,9 @@ export interface Strings {
     sectionData:         string;
     sectionAbout:        string;
     realWageLabel:       string;
+    currencyLabel:       string;
+    currencyTitle:       string;
+    currencyBody:        string;
     payPeriodLabel:      string;
     effectiveFromLabel:  string;
     planLabel:           string;
@@ -442,6 +445,9 @@ const en: Strings = {
     sectionData:         'DATA',
     sectionAbout:        'ABOUT',
     realWageLabel:       'Real hourly wage',
+    currencyLabel:       'Currency',
+    currencyTitle:       'Your currency',
+    currencyBody:        'Your wage and the prices you scan are read in this currency. Changing it keeps your wage amounts and relabels them.',
     payPeriodLabel:      'Pay period',
     effectiveFromLabel:  'Effective from',
     planLabel:           'Plan',
@@ -667,6 +673,9 @@ const id: Strings = {
     sectionData:         'DATA',
     sectionAbout:        'TENTANG',
     realWageLabel:       'Upah nyata per jam',
+    currencyLabel:       'Mata uang',
+    currencyTitle:       'Mata uang Anda',
+    currencyBody:        'Upah Anda dan harga yang dipindai dibaca dalam mata uang ini. Mengubahnya tidak mengubah angka upah, hanya label mata uangnya.',
     payPeriodLabel:      'Periode gaji',
     effectiveFromLabel:  'Berlaku sejak',
     planLabel:           'Paket',
@@ -892,6 +901,9 @@ const ja: Strings = {
     sectionData:         'データ',
     sectionAbout:        'について',
     realWageLabel:       '実質時給',
+    currencyLabel:       '通貨',
+    currencyTitle:       'あなたの通貨',
+    currencyBody:        '時給とスキャンした価格はこの通貨で扱われます。変更しても金額の数字はそのままで、通貨の表示だけが変わります。',
     payPeriodLabel:      '給与サイクル',
     effectiveFromLabel:  '適用開始日',
     planLabel:           'プラン',
@@ -1118,6 +1130,9 @@ const ar: Strings = {
     sectionData:         'البيانات',
     sectionAbout:        'حول',
     realWageLabel:       'الأجر الحقيقي بالساعة',
+    currencyLabel:       'العملة',
+    currencyTitle:       'عملتك',
+    currencyBody:        'يُقرأ أجرك والأسعار التي تمسحها بهذه العملة. تغييرها يُبقي أرقام أجرك كما هي ويغيّر العملة فقط.',
     payPeriodLabel:      'فترة الرواتب',
     effectiveFromLabel:  'ساري منذ',
     planLabel:           'الخطة',
