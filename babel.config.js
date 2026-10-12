@@ -3,6 +3,8 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo', 'nativewind/babel'],
     plugins: [
+      // Inline drizzle .sql migrations as strings
+      ['inline-import', { extensions: ['.sql'] }],
       [
         'module-resolver',
         {
