@@ -114,6 +114,24 @@ export interface Strings {
       goBack:          string;
     };
   };
+  auth: {
+    title: string;
+    body: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    send: string;
+    sending: string;
+    invalidEmail: string;
+    sentTitle: string;
+    sentBody: string; // contains "{email}" placeholder
+    resend: string;
+    useDifferent: string;
+    sendFailed: string;
+    linkFailed: string;
+    completing: string;
+    section: string;
+    signOut: string;
+  };
   lens: {
     noPermissionTitle: string;
     noPermissionBody:  string;
@@ -343,6 +361,24 @@ const en: Strings = {
       goBack:         'Go back',
     },
   },
+  auth: {
+    title:             'Sign in',
+    body:              'We email you a link — no password. We only keep your sign-in; prices, wages and logs stay on this phone.',
+    emailLabel:        'Email',
+    emailPlaceholder:  'you@example.com',
+    send:              'Email me a sign-in link',
+    sending:           'Sending…',
+    invalidEmail:      'Enter a valid email address.',
+    sentTitle:         'Check your email',
+    sentBody:          'We sent a sign-in link to {email}. Open it on this phone.',
+    resend:            'Send again',
+    useDifferent:      'Use a different email',
+    sendFailed:        'Couldn\'t send the link. Check your connection and try again.',
+    linkFailed:        'That link didn\'t work. It may have expired — request a new one.',
+    completing:        'Signing you in…',
+    section:           'Account',
+    signOut:           'Sign out',
+  },
   lens: {
     noPermissionTitle: 'Camera access needed',
     noPermissionBody:  'Life Energy needs camera access to read price tags. Frames are read in memory; nothing leaves your phone.',
@@ -471,7 +507,7 @@ const en: Strings = {
     deleteFailed:        'Could not delete your data. Please try again.',
     bookCredit:          'Based on Your Money or Your Life',
     notFinancialAdvice:  'Not financial advice',
-    footer:              'Life Energy · All calculations run on-device. Nothing leaves your phone.',
+    footer:              'Life Energy · All calculations run on-device. Your prices, wages and logs never leave your phone.',
   },
 };
 
@@ -571,6 +607,24 @@ const id: Strings = {
       errorNegative:  'Biaya pekerjaan melebihi gaji Anda. Periksa kembali input Anda.',
       goBack:         'Kembali',
     },
+  },
+  auth: {
+    title:             'Masuk',
+    body:              'Kami kirim tautan lewat email — tanpa kata sandi. Kami hanya menyimpan data masuk Anda; harga, gaji, dan catatan tetap di ponsel ini.',
+    emailLabel:        'Email',
+    emailPlaceholder:  'anda@contoh.com',
+    send:              'Kirim tautan masuk',
+    sending:           'Mengirim…',
+    invalidEmail:      'Masukkan alamat email yang valid.',
+    sentTitle:         'Periksa email Anda',
+    sentBody:          'Kami mengirim tautan masuk ke {email}. Buka di ponsel ini.',
+    resend:            'Kirim lagi',
+    useDifferent:      'Gunakan email lain',
+    sendFailed:        'Tautan gagal dikirim. Periksa koneksi lalu coba lagi.',
+    linkFailed:        'Tautan itu tidak berfungsi. Mungkin sudah kedaluwarsa — minta tautan baru.',
+    completing:        'Sedang masuk…',
+    section:           'Akun',
+    signOut:           'Keluar',
   },
   lens: {
     noPermissionTitle: 'Akses kamera diperlukan',
@@ -700,7 +754,7 @@ const id: Strings = {
     deleteFailed:        'Tidak dapat menghapus data Anda. Silakan coba lagi.',
     bookCredit:          'Berdasarkan Your Money or Your Life',
     notFinancialAdvice:  'Bukan saran keuangan',
-    footer:              'Life Energy · Semua kalkulasi berjalan di perangkat. Tidak ada yang meninggalkan ponsel Anda.',
+    footer:              'Life Energy · Semua kalkulasi berjalan di perangkat. Harga, gaji, dan catatan Anda tidak pernah meninggalkan ponsel.',
   },
 };
 
@@ -800,6 +854,24 @@ const ja: Strings = {
       errorNegative:  '仕事関連費用が給与を上回っています。入力内容をご確認ください。',
       goBack:         '戻る',
     },
+  },
+  auth: {
+    title:             'サインイン',
+    body:              'パスワード不要のリンクをメールでお送りします。保存するのはサインイン情報だけで、価格・給与・記録はこの端末に残ります。',
+    emailLabel:        'メールアドレス',
+    emailPlaceholder:  'you@example.com',
+    send:              'サインインリンクを送信',
+    sending:           '送信中…',
+    invalidEmail:      '有効なメールアドレスを入力してください。',
+    sentTitle:         'メールを確認してください',
+    sentBody:          '{email} にサインインリンクを送りました。この端末で開いてください。',
+    resend:            'もう一度送信',
+    useDifferent:      '別のメールアドレスを使う',
+    sendFailed:        'リンクを送信できませんでした。接続を確認して、もう一度お試しください。',
+    linkFailed:        'このリンクは使えませんでした。期限切れの可能性があります。新しいリンクを送信してください。',
+    completing:        'サインインしています…',
+    section:           'アカウント',
+    signOut:           'サインアウト',
   },
   lens: {
     noPermissionTitle: 'カメラのアクセスが必要です',
@@ -929,7 +1001,7 @@ const ja: Strings = {
     deleteFailed:        'データを削除できませんでした。もう一度お試しください。',
     bookCredit:          'Your Money or Your Lifeより',
     notFinancialAdvice:  '投資アドバイスではありません',
-    footer:              'Life Energy · すべての計算はデバイス上で実行されます。何もあなたの電話から出ません。',
+    footer:              'Life Energy · すべての計算は端末上で行われます。価格・給与・記録が端末の外に出ることはありません。',
   },
 };
 
@@ -1030,6 +1102,24 @@ const ar: Strings = {
       errorNegative:  'تكاليف عملك تتجاوز راتبك. يرجى مراجعة مدخلاتك.',
       goBack:         'رجوع',
     },
+  },
+  auth: {
+    title:             'تسجيل الدخول',
+    body:              'نرسل إليك رابطًا عبر البريد الإلكتروني — بلا كلمة مرور. نحتفظ ببيانات الدخول فقط؛ الأسعار والأجور والسجلات تبقى على هذا الهاتف.',
+    emailLabel:        'البريد الإلكتروني',
+    emailPlaceholder:  'you@example.com',
+    send:              'أرسل لي رابط الدخول',
+    sending:           'جارٍ الإرسال…',
+    invalidEmail:      'أدخل بريدًا إلكترونيًا صالحًا.',
+    sentTitle:         'تحقّق من بريدك',
+    sentBody:          'أرسلنا رابط الدخول إلى {email}. افتحه على هذا الهاتف.',
+    resend:            'أرسل مرة أخرى',
+    useDifferent:      'استخدم بريدًا آخر',
+    sendFailed:        'تعذّر إرسال الرابط. تحقّق من الاتصال وحاول مجددًا.',
+    linkFailed:        'لم يعمل هذا الرابط. ربما انتهت صلاحيته — اطلب رابطًا جديدًا.',
+    completing:        'جارٍ تسجيل الدخول…',
+    section:           'الحساب',
+    signOut:           'تسجيل الخروج',
   },
   lens: {
     noPermissionTitle: 'مطلوب الوصول إلى الكاميرا',
@@ -1159,7 +1249,7 @@ const ar: Strings = {
     deleteFailed:        'تعذّر حذف بياناتك. يرجى المحاولة مرة أخرى.',
     bookCredit:          'مستوحى من Your Money or Your Life',
     notFinancialAdvice:  'ليست نصيحة مالية',
-    footer:              'Life Energy · جميع الحسابات تعمل على الجهاز. لا شيء يغادر هاتفك.',
+    footer:              'Life Energy · جميع الحسابات تعمل على الجهاز. أسعارك وأجورك وسجلاتك لا تغادر هاتفك أبدًا.',
   },
 };
 

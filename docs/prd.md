@@ -218,8 +218,8 @@ The app opens straight into the camera; the first session must end with the user
 
 **First-run flow**
 
-1. Welcome: one line on money as life energy, credit to the book.
-1a. Sign in (required): email link, Apple or Google; a line explains that only the sign-in is stored, not prices or wages.
+0. Sign in (required, before anything else): email link, Apple or Google; a line explains that only the sign-in is stored, not prices or wages.
+1. Language, then Welcome: one line on money as life energy, credit to the book.
 2. Currency auto-detected as USD, and pay frequency (weekly, biweekly, semimonthly or monthly).
 3. Net pay and paid hours per week.
 4. Commute time and cost.
@@ -349,12 +349,12 @@ Sign-in moved into the MVP on 2026-10-13 (required, no sync). Groundwork exists 
 
 - [ ] **(v2) Sync design.** `src/infrastructure/repository-factory.ts` swaps expenses from SQLite to Supabase once signed in, which breaks local-first (logging fails offline while signed in). Replace with a sync engine: SQLite stays the source of truth and Supabase is a backup that syncs in the background.
 - [ ] **(v2) Server schema and RLS.** Not needed for sign-in alone, since Supabase Auth keeps accounts in its own schema. `supabase/migrations/` and `supabase/policies/` are empty. Create the user tables with `user_id`, enable RLS on each, and add `user_id = auth.uid()` policies before any client writes.
-- [ ] **(MVP) Magic-link return.** Nothing handles the link from the email back into the app (`detectSessionInUrl: false`, no redirect route). Add `emailRedirectTo` with the app scheme and a route that completes the session.
-- [ ] **(MVP) Session storage size.** expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
+- [x] **(MVP) Magic-link return.** Done 2026-10-13: `emailRedirectTo` = `beapp://auth/callback` (PKCE), handled by `app/auth/callback.tsx`. Add that URL to Supabase Auth → URL Configuration → Redirect URLs.
+- [x] **(MVP) Session storage size.** Done 2026-10-13 by chunking the session across secure-store keys (no new native module). expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
 - [ ] **(v2) One FX source.** The app fetches ECB daily rates on the phone (FR-18, pulled into MVP); the unused Edge Function `supabase/functions/fetch-fx-rates` uses Open Exchange Rates with a USD base. Pick one source for v2 so rates match across devices.
 - [ ] **(MVP) Apple and Google sign-in** are not started; Apple is required on iOS if Google is offered. Needs an Apple Services ID, a Google OAuth client, and both configured in Supabase.
 - [ ] **(MVP) Account deletion.** Deleting the Supabase user needs the service key, which never ships in the app: add an Edge Function the signed-in user calls to delete their own account (FR-12).
-- [ ] **(MVP) Sign-in gate.** Route to sign-in before onboarding when there is no session; keep the session offline (no forced refresh).
+- [x] **(MVP) Sign-in gate.** Done 2026-10-13 for email: the root layout routes to `/sign-in` without a session; the stored session keeps the app usable offline. Development builds skip the gate while `.env` holds the example Supabase project.
 - [ ] Optional app lock (expo-local-authentication is installed, unused): decide which release.
 
 **Milestones** (estimates for one full-time developer)

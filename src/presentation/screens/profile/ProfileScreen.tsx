@@ -12,6 +12,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 import { homeCurrency } from '@/presentation/stores/currency.store';
+import { useAuthStore } from '@/presentation/stores/auth.store';
+import { signOut } from '@/infrastructure/supabase/supabase-auth';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
 
@@ -56,6 +58,7 @@ export function ProfileScreen() {
   const { data: wage } = useCurrentWage();
   const { data: customerInfo } = useCustomerInfo();
   const [exporting, setExporting] = useState(false);
+  const user = useAuthStore((st) => st.user);
 
   const realHourly = wage ? wage.realWageCached / 100 : null;
   const proStatus  = customerInfo?.isSubscribed ? t.profile.planPro : t.profile.planFree;
@@ -161,6 +164,18 @@ export function ProfileScreen() {
             </>
           )}
         </View>
+
+        {/* Account (FR-13): sign out keeps the data on this phone; the auth gate returns to sign-in. */}
+        {user && (
+          <>
+            <SectionHeader title={t.auth.section} theme={theme} />
+            <View style={s.card}>
+              <SettingsRow label={user.email ?? ''} theme={theme} />
+              <View style={s.separator} />
+              <SettingsRow label={t.auth.signOut} onPress={() => { void signOut(); }} theme={theme} />
+            </View>
+          </>
+        )}
 
         {/* Data */}
         <SectionHeader title={t.profile.sectionData} theme={theme} />
