@@ -417,3 +417,14 @@ describe('parsePrice — currency sign after the amount', () => {
     expect(parsePrice('4,99€')).toMatchObject({ currency: 'NOT_USD', note: 'not-usd' });
   });
 });
+
+describe('parsePrice — remaining branches', () => {
+  it('returns the lower price when the "was" price is the lower one', () => {
+    expect(parsePrice('Was $3.00 Now $5.00')).toMatchObject({ minor: 300n, note: 'sale-lower' });
+  });
+
+  it('isPriceToken accepts multi-buy forms', () => {
+    expect(isPriceToken('2 for $5')).toBe(true);
+    expect(isPriceToken('3/$10')).toBe(true);
+  });
+});

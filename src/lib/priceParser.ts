@@ -57,8 +57,10 @@ function dollarStringToCents(s: string): bigint | null {
   // A comma before exactly two final digits is a decimal comma ("22,90"); other commas group thousands.
   const clean = /^\d+,\d{2}$/.test(s) ? s.replace(',', '.') : s.replace(/,/g, '');
   const match = clean.match(/^(\d+)(?:\.(\d{1,2}))?$/);
+  // Callers pass regex captures that always match; the null path is a safety net only.
+  /* v8 ignore next */
   if (!match) return null;
-  const dollars = BigInt(match[1] ?? '0');
+  const dollars = BigInt(match[1]!);
   const centsStr = (match[2] ?? '00').padEnd(2, '0');
   const cents = BigInt(centsStr);
   return dollars * 100n + cents;
@@ -81,12 +83,10 @@ export function isPriceToken(text: string): boolean {
     return false;
   if (RE_PHONE.test(text)) return false;
 
-  // Positive signals
+  // Positive signals ("2 for $5" and "3/$10" carry a "$", so the first check covers them)
   if (/\$/.test(text)) return true;
   if (/¢/.test(text)) return true;
   if (/^\s*\.\d{2}\s*$/.test(text)) return true;
-  if (/\b\d+\s+for\s+\$/i.test(text)) return true;
-  if (/\d+\/\$/.test(text)) return true;
 
   return false;
 }
@@ -219,7 +219,7 @@ export function parsePrice(text: string): ParsedPrice | null {
     /(\d+)\s+for\s+\$(\d[\d,]*(?:\.\d{1,2})?)/i,
   );
   if (nForMatch) {
-    const count = parseInt(nForMatch[1] ?? '1', 10);
+    const count = parseInt(nForMatch[1]!, 10);
     const totalStr = nForMatch[2];
     if (totalStr && count > 0) {
       const totalCents = dollarStringToCents(totalStr);
@@ -240,7 +240,7 @@ export function parsePrice(text: string): ParsedPrice | null {
     /(\d+)\s*\/\s*\$(\d[\d,]*(?:\.\d{1,2})?)/,
   );
   if (nSlashMatch) {
-    const count = parseInt(nSlashMatch[1] ?? '1', 10);
+    const count = parseInt(nSlashMatch[1]!, 10);
     const totalStr = nSlashMatch[2];
     if (totalStr && count > 0) {
       const totalCents = dollarStringToCents(totalStr);
