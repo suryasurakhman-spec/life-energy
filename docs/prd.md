@@ -340,6 +340,18 @@ The biggest risks are misread prices on real store tags and slow phones; a week-
 - [ ] Should the crossover rate default to 4% or ask the user?
 - [ ] Household mode: shared account or linked accounts?
 
+**v2 sign-in and sync — gaps found in the code (2026-10-13)**
+
+The MVP has no sign-in, as planned (FR-11). Groundwork exists but nothing in the app loads it: a Supabase client storing tokens in expo-secure-store, magic-link sign-in/sign-out functions, and an auth store that is never started. Before FR-13 ships:
+
+- [ ] **Sync design.** `src/infrastructure/repository-factory.ts` swaps expenses from SQLite to Supabase once signed in, which breaks local-first (logging fails offline while signed in). Replace with a sync engine: SQLite stays the source of truth and Supabase is a backup that syncs in the background.
+- [ ] **Server schema and RLS.** `supabase/migrations/` and `supabase/policies/` are empty. Create the user tables with `user_id`, enable RLS on each, and add `user_id = auth.uid()` policies before any client writes.
+- [ ] **Magic-link return.** Nothing handles the link from the email back into the app (`detectSessionInUrl: false`, no redirect route). Add `emailRedirectTo` with the app scheme and a route that completes the session.
+- [ ] **Session storage size.** expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
+- [ ] **One FX source.** The app fetches ECB daily rates on the phone (FR-18, pulled into MVP); the unused Edge Function `supabase/functions/fetch-fx-rates` uses Open Exchange Rates with a USD base. Pick one source for v2 so rates match across devices.
+- [ ] Sign in with Apple and Google are not started; Apple is required on iOS if Google is offered.
+- [ ] Optional app lock (expo-local-authentication is installed, unused): decide which release.
+
 **Milestones** (estimates for one full-time developer)
 
 1. Week 1: technical spike — Vision Camera + ML Kit + Skia overlay in an Expo dev build; pinned versions; fps on the reference phone.
