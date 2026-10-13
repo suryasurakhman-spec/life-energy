@@ -49,4 +49,24 @@ describe('deleteAllData', () => {
     await deleteAllData(store);
     expect(store.wipeAll).toHaveBeenCalledOnce();
   });
+
+  it('deletes the account first, then the data, then signs out', async () => {
+    const calls: string[] = [];
+    const store: UserDataStore = { dumpAll: vi.fn(), wipeAll: vi.fn(async () => { calls.push('wipe'); }) };
+    await deleteAllData(store, {
+      deleteAccount: async () => { calls.push('account'); },
+      signOut: async () => { calls.push('signOut'); },
+    });
+    expect(calls).toEqual(['account', 'wipe', 'signOut']);
+  });
+
+  it('keeps the data on the phone when the account could not be deleted', async () => {
+    const store: UserDataStore = { dumpAll: vi.fn(), wipeAll: vi.fn() };
+    const signOut = vi.fn();
+    await expect(
+      deleteAllData(store, { deleteAccount: async () => { throw new Error('offline'); }, signOut }),
+    ).rejects.toThrow('offline');
+    expect(store.wipeAll).not.toHaveBeenCalled();
+    expect(signOut).not.toHaveBeenCalled();
+  });
 });

@@ -31,3 +31,5 @@ ios/Podfile.lock
 
 expo-env.d.ts
 # @end expo-cli
+
+supabase/.temp/

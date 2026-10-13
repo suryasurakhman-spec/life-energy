@@ -26,6 +26,12 @@ export async function signOut(): Promise<void> {
   if (error) throw error;
 }
 
+/** Delete the signed-in account on the server (FR-12), through the delete-account Edge Function. */
+export async function deleteAccount(): Promise<void> {
+  const { error } = await supabase.functions.invoke('delete-account', { method: 'POST' });
+  if (error) throw error;
+}
+
 export async function getSession(): Promise<Session | null> {
   const { data } = await supabase.auth.getSession();
   return data.session;

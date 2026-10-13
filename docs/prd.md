@@ -353,7 +353,8 @@ Sign-in moved into the MVP on 2026-10-13 (required, no sync). Groundwork exists 
 - [x] **(MVP) Session storage size.** Done 2026-10-13 by chunking the session across secure-store keys (no new native module). expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
 - [ ] **(v2) One FX source.** The app fetches ECB daily rates on the phone (FR-18, pulled into MVP); the unused Edge Function `supabase/functions/fetch-fx-rates` uses Open Exchange Rates with a USD base. Pick one source for v2 so rates match across devices.
 - [ ] **(MVP) Apple and Google sign-in** are not started; Apple is required on iOS if Google is offered. Needs an Apple Services ID, a Google OAuth client, and both configured in Supabase.
-- [ ] **(MVP) Account deletion.** Deleting the Supabase user needs the service key, which never ships in the app: add an Edge Function the signed-in user calls to delete their own account (FR-12).
+- [x] **(MVP) Account deletion.** Done 2026-10-13: Profile → Delete all data calls the `delete-account` Edge Function, which deletes the account the access token belongs to, then wipes the phone and signs out. Offline, nothing is deleted and the user is asked to retry (FR-12).
+- [ ] **(MVP) Apple token revocation.** Apple requires revoking Sign in with Apple tokens when an account is deleted; needs the sign-in authorization code and an Apple key on the server.
 - [x] **(MVP) Sign-in gate.** Done 2026-10-13 for email: the root layout routes to `/sign-in` without a session; the stored session keeps the app usable offline. Development builds skip the gate while `.env` holds the example Supabase project.
 - [ ] Optional app lock (expo-local-authentication is installed, unused): decide which release.
 

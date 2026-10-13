@@ -13,7 +13,7 @@ import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useAuthStore } from '@/presentation/stores/auth.store';
-import { signOut } from '@/infrastructure/supabase/supabase-auth';
+import { deleteAccount, signOut } from '@/infrastructure/supabase/supabase-auth';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
 
@@ -58,6 +58,7 @@ export function ProfileScreen() {
   const { data: wage } = useCurrentWage();
   const { data: customerInfo } = useCustomerInfo();
   const [exporting, setExporting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const user = useAuthStore((st) => st.user);
 
   const realHourly = wage ? wage.realWageCached / 100 : null;
@@ -84,25 +85,28 @@ export function ProfileScreen() {
     ]);
   };
 
+  // Signed in: the account goes too (FR-12). Without a session (dev builds) only local data exists.
+  const runDelete = async () => {
+    setDeleting(true);
+    try {
+      await deleteAllData(userData, user ? { deleteAccount, signOut } : undefined);
+      // Drop cached wage/logs so every screen reads the now-empty database.
+      await queryClient.invalidateQueries();
+      Alert.alert(t.profile.deleteTitle, user ? t.profile.deleteAccountDone : t.profile.deleteConfirmed);
+    } catch {
+      Alert.alert(t.common.error, user ? t.profile.deleteAccountFailed : t.profile.deleteFailed);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const handleDeleteData = () => {
     Alert.alert(
       t.profile.deleteTitle,
-      t.profile.deleteBody,
+      user ? t.profile.deleteBodyAccount : t.profile.deleteBody,
       [
         { text: t.common.cancel, style: 'cancel' },
-        {
-          text: t.profile.deleteAction,
-          style: 'destructive',
-          onPress: () => {
-            void deleteAllData(userData).then(async () => {
-              // Drop cached wage/logs so every screen reads the now-empty database.
-              await queryClient.invalidateQueries();
-              Alert.alert(t.profile.deleteTitle, t.profile.deleteConfirmed);
-            }).catch(() => {
-              Alert.alert(t.common.error, t.profile.deleteFailed);
-            });
-          },
-        },
+        { text: t.profile.deleteAction, style: 'destructive', onPress: () => void runDelete() },
       ],
     );
   };
@@ -187,8 +191,8 @@ export function ProfileScreen() {
           />
           <View style={s.separator} />
           <SettingsRow
-            label={t.profile.deleteData}
-            onPress={handleDeleteData}
+            label={deleting ? t.profile.deleting : t.profile.deleteData}
+            {...(!deleting ? { onPress: handleDeleteData } : {})}
             destructive
             theme={theme}
           />

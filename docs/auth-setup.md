@@ -16,6 +16,13 @@ After changing `.env`, restart Metro (`yarn start`) so the new values are bundle
 3. **Authentication → URL Configuration → Redirect URLs**: add `beapp://auth/callback`.
 4. **Authentication → Sign In / Providers → Email**: leave enabled.
 
+5. Deploy the account-deletion function (FR-12, Profile → Delete all data):
+   ```
+   supabase login
+   supabase functions deploy delete-account --project-ref <project-ref>
+   ```
+   It uses the service-role key that Supabase provides to every function, so there is nothing to configure. The key stays on the server.
+
 Email sign-in now works. Supabase's built-in mailer sends only a few emails per hour; before launch, set up a real SMTP provider under **Authentication → Emails → SMTP Settings** (e.g. Resend, Postmark, Amazon SES).
 
 ## 2. Google
@@ -70,4 +77,5 @@ Nothing goes in `.env` for Apple. Test on a real iPhone or a simulator signed in
 - [ ] Real SMTP provider for the email link.
 - [ ] Google OAuth consent screen moved from **Testing** to **In production** (otherwise only test users can sign in).
 - [ ] Release and Play App Signing SHA-1s added as Android OAuth clients.
-- [ ] Account deletion (FR-12): a Supabase Edge Function that deletes the signed-in user, called from Profile → Delete all data. Not built yet.
+- [ ] `delete-account` function deployed (step 1.5). Without it, Delete all data fails for signed-in users and deletes nothing.
+- [ ] Sign in with Apple token revocation. Apple requires apps that offer Sign in with Apple to revoke the user's Apple tokens when the account is deleted. Supabase does not do this. It needs the authorization code from sign-in and an Apple Sign in with Apple key on the server. Not built yet.

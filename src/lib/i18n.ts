@@ -263,6 +263,10 @@ export interface Strings {
     exportCsv:           string;
     exportFailed:        string;
     deleteFailed:        string;
+    deleting:            string;
+    deleteBodyAccount:   string;
+    deleteAccountDone:   string;
+    deleteAccountFailed: string;
     bookCredit:          string;
     notFinancialAdvice:  string;
     footer:              string;
@@ -515,6 +519,10 @@ const en: Strings = {
     exportCsv:           'CSV (spreadsheet)',
     exportFailed:        'Could not export your data. Please try again.',
     deleteFailed:        'Could not delete your data. Please try again.',
+    deleting:            'Deleting…',
+    deleteBodyAccount:   'This will permanently delete your account and everything on this phone: wage, expenses, income and logs. This cannot be undone.',
+    deleteAccountDone:   'Your account and all data on this phone have been deleted.',
+    deleteAccountFailed: 'Could not delete your account. Check your connection and try again. Nothing was deleted.',
     bookCredit:          'Based on Your Money or Your Life',
     notFinancialAdvice:  'Not financial advice',
     footer:              'Life Energy · All calculations run on-device. Your prices, wages and logs never leave your phone.',
@@ -767,6 +775,10 @@ const id: Strings = {
     exportCsv:           'CSV (spreadsheet)',
     exportFailed:        'Tidak dapat mengekspor data Anda. Silakan coba lagi.',
     deleteFailed:        'Tidak dapat menghapus data Anda. Silakan coba lagi.',
+    deleting:            'Menghapus…',
+    deleteBodyAccount:   'Ini akan menghapus permanen akun Anda dan semua data di ponsel ini: upah, pengeluaran, penghasilan, dan catatan. Tindakan ini tidak dapat dibatalkan.',
+    deleteAccountDone:   'Akun Anda dan semua data di ponsel ini telah dihapus.',
+    deleteAccountFailed: 'Tidak dapat menghapus akun Anda. Periksa koneksi lalu coba lagi. Tidak ada yang dihapus.',
     bookCredit:          'Berdasarkan Your Money or Your Life',
     notFinancialAdvice:  'Bukan saran keuangan',
     footer:              'Life Energy · Semua kalkulasi berjalan di perangkat. Harga, gaji, dan catatan Anda tidak pernah meninggalkan ponsel.',
@@ -1019,6 +1031,10 @@ const ja: Strings = {
     exportCsv:           'CSV（スプレッドシート）',
     exportFailed:        'データをエクスポートできませんでした。もう一度お試しください。',
     deleteFailed:        'データを削除できませんでした。もう一度お試しください。',
+    deleting:            '削除中…',
+    deleteBodyAccount:   'アカウントと、この端末のすべてのデータ（賃金、支出、収入、記録）が完全に削除されます。この操作は取り消せません。',
+    deleteAccountDone:   'アカウントとこの端末のすべてのデータを削除しました。',
+    deleteAccountFailed: 'アカウントを削除できませんでした。接続を確認して、もう一度お試しください。何も削除されていません。',
     bookCredit:          'Your Money or Your Lifeより',
     notFinancialAdvice:  '投資アドバイスではありません',
     footer:              'Life Energy · すべての計算は端末上で行われます。価格・給与・記録が端末の外に出ることはありません。',
@@ -1272,6 +1288,10 @@ const ar: Strings = {
     exportCsv:           'CSV (جدول بيانات)',
     exportFailed:        'تعذّر تصدير بياناتك. يرجى المحاولة مرة أخرى.',
     deleteFailed:        'تعذّر حذف بياناتك. يرجى المحاولة مرة أخرى.',
+    deleting:            'جارٍ الحذف…',
+    deleteBodyAccount:   'سيؤدي هذا إلى حذف حسابك وكل البيانات على هذا الهاتف نهائيًا: الأجر والمصروفات والدخل والسجلات. لا يمكن التراجع عن هذا الإجراء.',
+    deleteAccountDone:   'تم حذف حسابك وكل البيانات على هذا الهاتف.',
+    deleteAccountFailed: 'تعذّر حذف حسابك. تحقّق من الاتصال وحاول مرة أخرى. لم يُحذف أي شيء.',
     bookCredit:          'مستوحى من Your Money or Your Life',
     notFinancialAdvice:  'ليست نصيحة مالية',
     footer:              'Life Energy · جميع الحسابات تعمل على الجهاز. أسعارك وأجورك وسجلاتك لا تغادر هاتفك أبدًا.',
