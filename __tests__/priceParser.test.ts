@@ -381,3 +381,39 @@ describe('parsePrice — edge cases', () => {
     expect(r!.note).toBe('sale-lower');
   });
 });
+
+describe('parsePrice — exam fixes (bare, decimal comma, raised cents)', () => {
+  it('reads a bare amount with cents at lower confidence', () => {
+    expect(parsePrice('3.99')).toMatchObject({ minor: 399n, currency: 'USD', confidence: 0.8 });
+    expect(parsePrice('1249.99')).toMatchObject({ minor: 124999n });
+  });
+
+  it('reads a bare decimal comma', () => {
+    expect(parsePrice('23,00')).toMatchObject({ minor: 2300n, confidence: 0.8 });
+  });
+
+  it('keeps bare numbers without cents, or with three decimals, out', () => {
+    expect(parsePrice('349')).toBeNull();
+    expect(parsePrice('5.154')).toBeNull();
+    expect(parsePrice('12345.99')).toBeNull();
+  });
+
+  it('reads "$22,90" as $22.90, not $2,290', () => {
+    expect(parsePrice('$22,90')).toMatchObject({ minor: 2290n });
+    expect(parsePrice('$1,299')).toMatchObject({ minor: 129900n });
+  });
+
+  it('reads merged raised cents "$4990" as $49.90, flagged as an estimate', () => {
+    expect(parsePrice('$4990')).toMatchObject({ minor: 4990n, confidence: 0.7 });
+  });
+
+  it('keeps round four-digit amounts as dollars', () => {
+    expect(parsePrice('$1500')).toMatchObject({ minor: 150000n, confidence: 1 });
+  });
+});
+
+describe('parsePrice — currency sign after the amount', () => {
+  it('flags "4,99€" as not USD', () => {
+    expect(parsePrice('4,99€')).toMatchObject({ currency: 'NOT_USD', note: 'not-usd' });
+  });
+});

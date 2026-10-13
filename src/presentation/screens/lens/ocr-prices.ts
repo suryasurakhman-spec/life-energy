@@ -22,12 +22,25 @@ type ParsedTag = Omit<DetectedPrice, 'id' | 'x' | 'y' | 'width' | 'height'>;
 const CURRENCY_MARK = /[$¢€£¥₩₹]|Rp|zł/i;
 
 /**
+ * ML Kit often reads a "$" as "S" or "s" ("S22,90", "s99.90"). Only a full amount with
+ * cents is corrected, so words and codes that start with S stay as they are.
+ * Japanese tags end a price with a dash or tilde ("¥4,600-", "¥7,600~"), which is dropped.
+ */
+function fixOcrNoise(text: string): string {
+  return text
+    .trim()
+    .replace(/(\d)[-~)]+$/, '$1')
+    .replace(/^[Ss](?=\d{1,4}[.,]\d{2}$)/, '$');
+}
+
+/**
  * US tags go through the full parser (FR-2). When it flags a non-USD price, or can't read
  * the text at all, the currency-aware parser gets a chance (FR-18 foreign prices).
  * The US parser reports unmarked amounts (".99") as dollars; a tag with no currency
  * marker is in the shopper's own currency, so those are re-read in `homeCurrency`.
  */
-export function parseTag(text: string, homeCurrency = 'USD'): ParsedTag | null {
+export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | null {
+  const text = fixOcrNoise(rawText);
   const usd = parsePrice(text);
   if (usd && usd.currency !== 'NOT_USD') {
     if (homeCurrency === 'USD' || CURRENCY_MARK.test(text)) return usd;
@@ -38,8 +51,23 @@ export function parseTag(text: string, homeCurrency = 'USD'): ParsedTag | null {
   return foreign && foreign.currency !== 'USD' ? foreign : null;
 }
 
+/** Grade names on a fuel price board. */
+const FUEL_WORDS =
+  /\b(?:UNL|UNLEADED|REG|REGULAR|MID|MIDGRADE|PLUS|PREM|PREMIUM|SUPER|ULTRA|DIESEL|GAS|GASOLINE|E85)\b/i;
+
+/**
+ * Fuel boards print "$3.39⁹" with a small tenth-of-a-cent 9, and OCR drops the dot:
+ * "3399", "349", "2.891". Read as dollars, cents dropped past the second place.
+ * Only used when a grade name is in view, since bare 3–4 digit numbers are usually codes.
+ */
+function parseFuelPrice(text: string, homeCurrency: string): ParsedTag | null {
+  const m = text.match(/^([1-9])\.?(\d{2})\d?$/);
+  return m ? parseTag(`${m[1]}.${m[2]}`, homeCurrency) : null;
+}
+
 /** Every price in one OCR pass, each with the box it was read from. */
 export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedPrice[] {
+  const fuelBoard = lines.some((l) => FUEL_WORDS.test(l.text));
   const detected: DetectedPrice[] = [];
   const add = (box: OcrBox, parsed: ParsedTag) => {
     detected.push({
@@ -60,7 +88,8 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
       continue;
     }
     for (const w of line.words) {
-      const parsed = parseTag(w.text, homeCurrency);
+      const parsed =
+        (fuelBoard ? parseFuelPrice(w.text, homeCurrency) : null) ?? parseTag(w.text, homeCurrency);
       if (parsed) add(w, parsed);
     }
   }

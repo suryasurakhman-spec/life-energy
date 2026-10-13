@@ -54,8 +54,8 @@ const RE_NOT_USD = /^(?:C\$|CA\$|£|€|A\$|AU\$|NZ\$|HK\$|MX\$)/i;
 // ---------------------------------------------------------------------------
 
 function dollarStringToCents(s: string): bigint | null {
-  // Remove thousands commas
-  const clean = s.replace(/,/g, '');
+  // A comma before exactly two final digits is a decimal comma ("22,90"); other commas group thousands.
+  const clean = /^\d+,\d{2}$/.test(s) ? s.replace(',', '.') : s.replace(/,/g, '');
   const match = clean.match(/^(\d+)(?:\.(\d{1,2}))?$/);
   if (!match) return null;
   const dollars = BigInt(match[1] ?? '0');
@@ -328,6 +328,21 @@ export function parsePrice(text: string): ParsedPrice | null {
   }
 
   // ------------------------------------------------------------------
+  // 9b. Raised cents read as one number: "$49⁹⁰" comes out of OCR as "$4990".
+  //     Four digits not ending in 00 are dollars + cents; "$1500" stays $1,500.
+  //     Low confidence, so the label shows "≈": "$2499" could be a $2,499 price.
+  // ------------------------------------------------------------------
+
+  const raisedCentMatch = trimmed.match(/^\$(\d{2})(\d{2})$/);
+  if (raisedCentMatch?.[1] && raisedCentMatch[2] && raisedCentMatch[2] !== '00') {
+    return {
+      minor: BigInt(raisedCentMatch[1]) * 100n + BigInt(raisedCentMatch[2]),
+      currency: 'USD',
+      confidence: 0.7,
+    };
+  }
+
+  // ------------------------------------------------------------------
   // 10. Standard dollar price: $4.99, $1,299.00, $5 (no cents)
   // ------------------------------------------------------------------
 
@@ -363,6 +378,20 @@ export function parsePrice(text: string): ParsedPrice | null {
         };
       }
     }
+  }
+
+  // ------------------------------------------------------------------
+  // 11. Bare amount with cents and no sign: "3.99", "23,00". Most shelf tags
+  //     print no "$"; two decimal places keep codes and counts out.
+  // ------------------------------------------------------------------
+
+  const bareMatch = trimmed.match(/^(\d{1,4}[.,]\d{2})$/);
+  if (bareMatch?.[1]) {
+    return {
+      minor: dollarStringToCents(bareMatch[1])!,
+      currency: 'USD',
+      confidence: 0.8,
+    };
   }
 
   return null;

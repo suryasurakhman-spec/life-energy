@@ -615,7 +615,9 @@
     "$129.90 crossed out"
    ],
    "also_ok": [
-    "129.90"
+    "129.90",
+    "99.90",
+    "99.90"
    ],
    "source": {
     "page": "https://commons.wikimedia.org/wiki/File:HK_CWB_Park_Lane_basement_shop_IKEA_Sheepskin_carpet_display_price_label_Dec-2015_DSC.JPG",

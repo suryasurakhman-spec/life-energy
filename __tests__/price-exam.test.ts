@@ -115,16 +115,18 @@ describe.skipIf(!existsSync(OCR_FILE))('price-tag exam', () => {
   const rows = [...groups.entries()].map(
     ([name, s]) =>
       `${name.padEnd(16)} ${String(s.photos).padStart(3)} photos  ${String(s.tags).padStart(3)} tags  ` +
-      `found ${pct(s.found, s.tags).padStart(4)}  wrong chips ${String(s.wrong).padStart(3)}  ` +
+      `found ${String(s.found).padStart(3)} (${pct(s.found, s.tags).padStart(4)})  wrong chips ${String(s.wrong).padStart(3)}  ` +
       `every tag on photo ${pct(s.allFound, s.photos).padStart(4)}`,
   );
   console.log(
     [`Engine: ${ocr.engine}   OCR time p90 ${p90} ms`, ...rows, '', ...misses].join('\n'),
   );
 
-  // Baseline from the first run (2026-10-13): 17 of 127 tags. Raise this as the parser improves.
-  it('finds at least the recorded share of tags', () => {
+  // First run (2026-10-13) found 17 of 127 tags; parser fixes took it to 48 with 5 wrong chips.
+  // Raise these as the parser improves, so a change can't quietly lose ground.
+  it('finds at least the recorded number of tags without adding wrong chips', () => {
     const all = groups.get('all')!;
-    expect(all.found).toBeGreaterThanOrEqual(17);
+    expect(all.found).toBeGreaterThanOrEqual(48);
+    expect(all.wrong).toBeLessThanOrEqual(5);
   });
 });

@@ -20,11 +20,44 @@ describe('parseTag home currency', () => {
   });
 });
 
+describe('parseTag OCR noise', () => {
+  it('reads an S or s before a full amount as a dollar sign', () => {
+    expect(parseTag('S22,90')).toMatchObject({ minor: 2290n, currency: 'USD', confidence: 1 });
+    expect(parseTag('s99.90')).toMatchObject({ minor: 9990n, currency: 'USD' });
+  });
+
+  it('leaves S-codes alone', () => {
+    expect(parseTag('S412122')).toBeNull();
+  });
+
+  it('drops a Japanese trailing dash or tilde', () => {
+    expect(parseTag('¥4,600-')).toMatchObject({ minor: 4600n, currency: 'JPY' });
+    expect(parseTag('¥7,600~)')).toMatchObject({ minor: 7600n, currency: 'JPY' });
+  });
+});
+
+const word = (text: string, x = 0) => ({ text, x, y: 0, width: 10, height: 10 });
+const line = (text: string, words = [word(text)]) => ({ ...word(text), words });
+
+describe('pricesInLines fuel boards', () => {
+  it('reads grade prices when a grade name is in view', () => {
+    const lines = [
+      line('REG 349', [word('349')]),
+      line('PREM 3699', [word('3699')]),
+      line('2.891'),
+    ];
+    expect(pricesInLines(lines).map((p) => p.minor)).toEqual([349n, 369n, 289n]);
+  });
+
+  it('leaves bare numbers alone without a grade name', () => {
+    expect(pricesInLines([line('3399'), line('1090')])).toEqual([]);
+  });
+});
+
 describe('pricesInLines', () => {
   it('reads a multi-word line as one price before trying single words', () => {
-    const word = (text: string, x: number) => ({ text, x, y: 0, width: 10, height: 10 });
-    const line = { ...word('$3 99', 0), words: [word('$3', 0), word('99', 12)] };
-    expect(pricesInLines([line]).map((p) => p.minor)).toEqual([399n]);
+    const split = line('$3 99', [word('$3'), word('99', 12)]);
+    expect(pricesInLines([split]).map((p) => p.minor)).toEqual([399n]);
   });
 });
 
