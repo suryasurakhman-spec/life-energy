@@ -18,7 +18,7 @@ Based on *Your Money or Your Life* (Vicki Robin & Joe Dominguez). Credits the bo
 
 | Release | What's in | Out until later |
 |---------|-----------|-----------------|
-| **MVP** | Live price lens (live + freeze modes), real-wage wizard, manual quick convert, "Worth it?", log from scan, local SQLite storage | Supabase sync, sign-in, categories, tabulation, Wall Chart, crossover |
+| **MVP** | Live price lens (live + freeze modes), real-wage wizard, manual quick convert, "Worth it?", log from scan, foreign prices with daily cached rates, local SQLite storage | Supabase sync, sign-in, categories, tabulation, Wall Chart, crossover |
 | **v2** | Optional sign-in, Supabase sync, categories, monthly tabulation, Three Questions review, Wall Chart, crossover projection | Receipt scan, menu mode, widget, CSV import, household mode |
 | **v3** | Receipt scan, menu mode, share sheet, home-screen widget, CSV import, household mode | — |
 
@@ -64,7 +64,7 @@ Do not scope-creep MVP with v2/v3 features mid-session.
 | `conversions` | Every scanned or typed price; `source = lens / freeze / keypad` |
 | `monthly_reviews` | Three Questions marks per category per month (v2) |
 | `capital_snapshots` | Monthly invested capital for crossover projection (v2) |
-| `fx_rates` | Shared, read-only; populated by daily Edge Function cron |
+| `fx_rates` | Daily exchange rates. MVP: fetched by the phone from the ECB and cached here; v2: populated by a daily Edge Function cron |
 
 All user tables carry `created_at`, `updated_at`, `deleted_at` (for sync).
 

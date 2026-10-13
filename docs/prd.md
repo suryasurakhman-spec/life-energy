@@ -155,7 +155,7 @@ The lens runs entirely on-device: each camera frame is read by ML Kit, prices ar
 | Sale tag, two prices | Was $5.99 Now $3.99 · Reg. $5.99 | Label both; highlight the lower as the price paid |
 | Loyalty-card price | $2.99 with card | Label and mark "with card" |
 | Unit price | $0.25/oz · $3.49/lb | Label, mark "per unit"; exclude from "log it" default |
-| Other currencies | C$4.99 · €4,99 · £3.50 | Flag "not USD"; convert only once foreign prices ship (FR-18) |
+| Other currencies | C$4.99 · €4,99 · £3.50 | Convert to the home currency with the last cached daily rate (FR-18); show "not USD" until a rate is cached |
 | Non-prices | UPC barcodes, dates, SKUs, phone numbers, weights | Reject: wrong format, too many digits, or next to oz/lb/fl oz without a dollar sign |
 
 **USD detection**
@@ -180,7 +180,7 @@ MVP ships the live price lens with an honest real wage, fully offline and withou
 
 | Release | Theme | In scope | Book steps |
 | --- | --- | --- | --- |
-| MVP | Point and see | Live price lens (live + freeze modes), real-wage wizard, manual quick convert as fallback, "Worth it?" on a tapped label, log from a scan, local storage | 2 |
+| MVP | Point and see | Live price lens (live + freeze modes), real-wage wizard, manual quick convert as fallback, "Worth it?" on a tapped label, log from a scan, foreign prices with daily cached rates, local storage | 2 |
 | v2 | Follow the program | Categories, monthly tabulation in hours, Three Questions review, Wall Chart, lifetime-earnings exercise, crossover projection, Supabase sync and sign-in | 1, 3–5, 8 |
 | v3 | Beyond the shelf | Receipt scan to log a whole purchase, menu mode, share sheet for online prices, home-screen widget, CSV import, household mode | 6, 7, 9 |
 
@@ -207,7 +207,7 @@ Each requirement has an ID, a release and a testable acceptance criterion; MVP i
 | FR-15 | v2 | Three Questions review per category (+, −, 0) with a month-start reminder | Review saved per month |
 | FR-16 | v2 | Wall Chart: income, expenses, investment income lines | 36 months render smoothly; pinch to zoom |
 | FR-17 | v2 | Crossover projection with user-set rate (default 4%) | Shows projected month and years to go |
-| FR-18 | v2 | Foreign prices: detect a non-home currency symbol and convert with a daily-cached rate | Offline uses last cached rate and labels its date |
+| FR-18 | MVP | Foreign prices: detect a non-home currency symbol and convert with a daily-cached rate (ECB reference rates fetched on the phone) | Offline uses last cached rate and labels its date |
 | FR-19 | v3 | Receipt scan: read a receipt and log its total, optionally its lines | Total matches the printed total on 95% of test receipts |
 | FR-20 | v3 | Menu mode, share sheet for online prices, home-screen widget, CSV import, household mode | Each ships behind its own flag |
 
@@ -258,7 +258,7 @@ Camera frames are read, parsed, converted and labeled on the phone; only logged 
 | Auth | Supabase Auth: email magic link, Sign in with Apple, Google | Apple sign-in required on iOS if Google is offered |
 | Backend | Supabase Postgres + RLS | Every table has user_id; policy user_id = auth.uid() |
 | Sync | Custom: updated_at + soft delete, last-write-wins; PowerSync as the alternative if conflicts grow | Push on change, pull on app open |
-| Server jobs | Supabase Edge Function on a daily cron | Fetches exchange rates into fx_rates |
+| Exchange rates | MVP: the phone fetches the ECB daily reference rates (public file, no user data) when its cache is over 12 h old. v2: Supabase Edge Function on a daily cron | Both fill fx_rates; v2 picks one source (see open questions) |
 | Validation | zod schemas shared by forms and sync | |
 
 Pin compatible versions of Vision Camera, the ML Kit plugin, worklets-core and Reanimated in a spike during week 1; these packages must match the Expo SDK's React Native version.
@@ -278,7 +278,7 @@ Pin compatible versions of Vision Camera, the ML Kit plugin, worklets-core and R
 | conversions | id, user_id, price_minor, currency, hours, verdict, created_at | Scanned or typed prices; source = lens / freeze / keypad |
 | monthly_reviews | id, user_id, month, category_id, q1, q2, q3 | Three Questions marks |
 | capital_snapshots | id, user_id, month, invested_capital_minor | Crossover input |
-| fx_rates | base, quote, rate, as_of | Shared, read-only for clients |
+| fx_rates | base, quote, rate, as_of | MVP: cached on the phone for every currency pair. v2: shared, read-only for clients |
 
 All user tables carry created_at, updated_at, deleted_at for sync.
 
