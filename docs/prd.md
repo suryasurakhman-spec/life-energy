@@ -176,12 +176,12 @@ US shelf prices exclude sales tax, which varies by state and city. A setting "In
 
 ## Scope and releases
 
-MVP ships the live price lens with an honest real wage, fully offline and without an account; each later release adds a part of the program.
+MVP ships the live price lens with an honest real wage behind a required sign-in; after sign-in it works fully offline and all data stays on the phone. Each later release adds a part of the program.
 
 | Release | Theme | In scope | Book steps |
 | --- | --- | --- | --- |
-| MVP | Point and see | Live price lens (live + freeze modes), real-wage wizard, manual quick convert as fallback, "Worth it?" on a tapped label, log from a scan, foreign prices with daily cached rates, local storage | 2 |
-| v2 | Follow the program | Categories, monthly tabulation in hours, Three Questions review, Wall Chart, lifetime-earnings exercise, crossover projection, Supabase sync and sign-in | 1, 3–5, 8 |
+| MVP | Point and see | Required sign-in (no sync), live price lens (live + freeze modes), real-wage wizard, manual quick convert as fallback, "Worth it?" on a tapped label, log from a scan, foreign prices with daily cached rates, local storage | 2 |
+| v2 | Follow the program | Categories, monthly tabulation in hours, Three Questions review, Wall Chart, lifetime-earnings exercise, crossover projection, Supabase sync | 1, 3–5, 8 |
 | v3 | Beyond the shelf | Receipt scan to log a whole purchase, menu mode, share sheet for online prices, home-screen widget, CSV import, household mode | 6, 7, 9 |
 
 ## Functional requirements
@@ -200,9 +200,10 @@ Each requirement has an ID, a release and a testable acceptance criterion; MVP i
 | FR-8 | MVP | Real-wage wizard with a quick path (net pay, paid hours, commute) and a full path (all job costs and hours) | Quick path done in ≤ 5 screens; result shows nominal vs real wage side by side |
 | FR-9 | MVP | Wage history with effective dates | Past logs keep the wage in force when they were made |
 | FR-10 | MVP | Manual quick convert (keypad) | Result appears as the user types |
-| FR-11 | MVP | Works fully offline with no account; local SQLite store | All MVP features pass in airplane mode |
-| FR-12 | MVP | Export all data (CSV/JSON) and delete all data | Deletion removes server data within 30 days once sync exists |
-| FR-13 | v2 | Optional sign-in (email magic link, Apple, Google) enabling sync | Local data migrates to the account without loss |
+| FR-11 | MVP | Works fully offline after sign-in; local SQLite store | Once signed in, all MVP features pass in airplane mode, including after an app restart |
+| FR-12 | MVP | Export all data (CSV/JSON); delete all data and the account | Deleting removes local data and the Supabase account in-app; server data within 30 days once sync exists |
+| FR-13 | MVP | Required sign-in before first use: email magic link, Sign in with Apple, Google (Supabase Auth); sign out in Profile | First launch needs internet; the session persists so later launches work offline; no spending data is sent to the server |
+| FR-13b | v2 | Sync of logged data to Supabase for the signed-in account | Local data migrates to the account without loss |
 | FR-14 | v2 | Categories, income log, monthly tabulation in money and hours | Totals match logged items to the cent |
 | FR-15 | v2 | Three Questions review per category (+, −, 0) with a month-start reminder | Review saved per month |
 | FR-16 | v2 | Wall Chart: income, expenses, investment income lines | 36 months render smoothly; pinch to zoom |
@@ -218,6 +219,7 @@ The app opens straight into the camera; the first session must end with the user
 **First-run flow**
 
 1. Welcome: one line on money as life energy, credit to the book.
+1a. Sign in (required): email link, Apple or Google; a line explains that only the sign-in is stored, not prices or wages.
 2. Currency auto-detected as USD, and pay frequency (weekly, biweekly, semimonthly or monthly).
 3. Net pay and paid hours per week.
 4. Commute time and cost.
@@ -235,13 +237,13 @@ The app opens straight into the camera; the first session must end with the user
 | Log | Review spending | Recent items in money and hours, add manually |
 | Month | Tabulation + review (v2) | Category totals in money and hours, Three Questions marks |
 | Wall Chart | Progress (v2) | Income, expenses, investment income lines; crossover marker |
-| Profile | Wage and settings | Real-wage breakdown, edit inputs, currency, sync, export, delete |
+| Profile | Wage and settings | Real-wage breakdown, edit inputs, currency, signed-in account and sign out, export, delete data and account (sync from v2) |
 
 ## Technical architecture
 
 The app is local-first: SQLite on the device is the source of truth, and Supabase is an optional sync and backup layer behind Row Level Security.
 
-Camera frames are read, parsed, converted and labeled on the phone; only logged items reach SQLite, and the sync engine sends them to Supabase only after sign-in. No camera image ever leaves the device.
+Camera frames are read, parsed, converted and labeled on the phone; only logged items reach SQLite. In the MVP the server only holds the account (sign-in identity); from v2 the sync engine sends logged items to Supabase. No camera image ever leaves the device.
 
 **Stack**
 
@@ -288,11 +290,11 @@ Salary and spending are sensitive, so privacy is a product feature, not a settin
 
 | Area | Requirement |
 | --- | --- |
-| Privacy | Camera frames processed in memory only, never saved or uploaded (a frozen frame is discarded on close); no account needed for MVP; sync is opt-in; no ad or tracking SDKs; plain-language privacy screen in onboarding |
+| Privacy | Camera frames processed in memory only, never saved or uploaded (a frozen frame is discarded on close); MVP requires an account but the server stores only the sign-in identity (email or Apple/Google ID), never prices, wages or logs; sync is opt-in from v2; no ad or tracking SDKs; plain-language privacy screen in onboarding |
 | Security | RLS on every user table; service key never in the app; tokens in expo-secure-store; optional app lock with Face ID / fingerprint (expo-local-authentication) |
 | Data rights | Export (CSV/JSON) and full account deletion in-app (store policies require deletion) |
 | Performance | Lens: first label ≤ 1 s (p90), overlay at ≥ 30 fps, OCR throttled to 5–10 runs per second; freeze mode becomes the default on phones where live mode drops below 15 fps. Battery: camera stops when the lens is hidden or after 60 s idle; ≤ 5% battery per 10 min of scanning. Support iOS 15+ and Android 8+, tested on a ~2 GB RAM Android phone. Cold start < 2 s; Wall Chart with 36 months at 60 fps |
-| Offline | Every MVP feature works offline, including the lens; sync queues changes and retries |
+| Offline | Sign-in needs a connection once; after that every MVP feature works offline, including the lens; from v2 sync queues changes and retries |
 | Localization | English only at launch (US market); USD as home currency, auto-detected; US formats ($1,250.00, MM/DD/YYYY) |
 | Accessibility | Label chips with high contrast and ≥ 14 pt text; screen reader reads detected prices in freeze mode; dynamic type, labels on all controls, 4.5:1 contrast, charts with a text summary |
 | Tone | Neutral, never shaming: "This is 12 hours. Worth it to you?" |
@@ -331,6 +333,7 @@ The biggest risks are misread prices on real store tags and slow phones; a week-
 | One-and-done usage | Low retention | "Log it" from the lens; monthly review early in v2 |
 | Shaming tone | Users feel judged | Neutral copy; user-set verdicts only |
 | Store review (camera + finance) | Launch delay | Clear camera purpose string; no advice claims; in-app deletion |
+| Required sign-in with no account features | Apple may reject under guideline 5.1.1 (apps may not require registration unless it is core to the app); users may drop off at the sign-in screen | Explain why on the sign-in screen; offer Sign in with Apple; in-app account deletion; be ready to make sign-in optional if review objects |
 
 **Open questions**
 
@@ -340,23 +343,25 @@ The biggest risks are misread prices on real store tags and slow phones; a week-
 - [ ] Should the crossover rate default to 4% or ask the user?
 - [ ] Household mode: shared account or linked accounts?
 
-**v2 sign-in and sync — gaps found in the code (2026-10-13)**
+**Sign-in (MVP) and sync (v2) — gaps found in the code (2026-10-13)**
 
-The MVP has no sign-in, as planned (FR-11). Groundwork exists but nothing in the app loads it: a Supabase client storing tokens in expo-secure-store, magic-link sign-in/sign-out functions, and an auth store that is never started. Before FR-13 ships:
+Sign-in moved into the MVP on 2026-10-13 (required, no sync). Groundwork exists but nothing in the app loads it yet: a Supabase client storing tokens in expo-secure-store, magic-link sign-in/sign-out functions, and an auth store that is never started. Items marked MVP block the MVP; the rest block v2 sync:
 
-- [ ] **Sync design.** `src/infrastructure/repository-factory.ts` swaps expenses from SQLite to Supabase once signed in, which breaks local-first (logging fails offline while signed in). Replace with a sync engine: SQLite stays the source of truth and Supabase is a backup that syncs in the background.
-- [ ] **Server schema and RLS.** `supabase/migrations/` and `supabase/policies/` are empty. Create the user tables with `user_id`, enable RLS on each, and add `user_id = auth.uid()` policies before any client writes.
-- [ ] **Magic-link return.** Nothing handles the link from the email back into the app (`detectSessionInUrl: false`, no redirect route). Add `emailRedirectTo` with the app scheme and a route that completes the session.
-- [ ] **Session storage size.** expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
-- [ ] **One FX source.** The app fetches ECB daily rates on the phone (FR-18, pulled into MVP); the unused Edge Function `supabase/functions/fetch-fx-rates` uses Open Exchange Rates with a USD base. Pick one source for v2 so rates match across devices.
-- [ ] Sign in with Apple and Google are not started; Apple is required on iOS if Google is offered.
+- [ ] **(v2) Sync design.** `src/infrastructure/repository-factory.ts` swaps expenses from SQLite to Supabase once signed in, which breaks local-first (logging fails offline while signed in). Replace with a sync engine: SQLite stays the source of truth and Supabase is a backup that syncs in the background.
+- [ ] **(v2) Server schema and RLS.** Not needed for sign-in alone, since Supabase Auth keeps accounts in its own schema. `supabase/migrations/` and `supabase/policies/` are empty. Create the user tables with `user_id`, enable RLS on each, and add `user_id = auth.uid()` policies before any client writes.
+- [ ] **(MVP) Magic-link return.** Nothing handles the link from the email back into the app (`detectSessionInUrl: false`, no redirect route). Add `emailRedirectTo` with the app scheme and a route that completes the session.
+- [ ] **(MVP) Session storage size.** expo-secure-store warns above ~2 KB per value on Android and Supabase sessions can exceed it. Use the Supabase pattern: encrypt the session into AsyncStorage and keep only the key in secure store.
+- [ ] **(v2) One FX source.** The app fetches ECB daily rates on the phone (FR-18, pulled into MVP); the unused Edge Function `supabase/functions/fetch-fx-rates` uses Open Exchange Rates with a USD base. Pick one source for v2 so rates match across devices.
+- [ ] **(MVP) Apple and Google sign-in** are not started; Apple is required on iOS if Google is offered. Needs an Apple Services ID, a Google OAuth client, and both configured in Supabase.
+- [ ] **(MVP) Account deletion.** Deleting the Supabase user needs the service key, which never ships in the app: add an Edge Function the signed-in user calls to delete their own account (FR-12).
+- [ ] **(MVP) Sign-in gate.** Route to sign-in before onboarding when there is no session; keep the session offline (no forced refresh).
 - [ ] Optional app lock (expo-local-authentication is installed, unused): decide which release.
 
 **Milestones** (estimates for one full-time developer)
 
 1. Week 1: technical spike — Vision Camera + ML Kit + Skia overlay in an Expo dev build; pinned versions; fps on the reference phone.
 2. Weeks 2–3: price parser with tests; collect the 500-tag photo set; calculation module; real-wage wizard.
-3. Weeks 4–5: live lens with stabilization, freeze mode, label sheet, log from scan, offline store — MVP beta via TestFlight / internal testing.
-4. Weeks 6–9: Supabase auth + sync, categories, monthly review, Wall Chart, crossover projection — v2 beta.
+3. Weeks 4–5: live lens with stabilization, freeze mode, label sheet, log from scan, offline store, required sign-in (email link, Apple, Google) and account deletion — MVP beta via TestFlight / internal testing.
+4. Weeks 6–9: Supabase sync, categories, monthly review, Wall Chart, crossover projection — v2 beta.
 5. Weeks 10–12: localization, accuracy tuning from beta corrections, store submission.
 6. After launch: v3 (receipt scan, menu mode, share sheet, widget, CSV import).
