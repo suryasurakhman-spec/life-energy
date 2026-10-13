@@ -388,7 +388,8 @@ export function LensScreen() {
       {selectedPrice != null && wage && (
         <LabelSheet
           priceMinor={selectedPrice.minor}
-          currency={homeCurrency}
+          currency={selectedPrice.currency}
+          homeCurrency={homeCurrency}
           wageProfileId={wage.id}
           source={mode === 'freeze' ? 'freeze' : 'lens'}
           realHourlyWage={realHourlyWage}

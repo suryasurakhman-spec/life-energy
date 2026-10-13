@@ -133,6 +133,7 @@ export interface Strings {
     typePriceManually: string;
     typePrice:         string;
     notHomeCurrency:   string; // contains "{currency}" placeholder
+    rateAsOf:          string; // contains "{date}" placeholder
   };
   log: {
     title:    string;
@@ -361,6 +362,7 @@ const en: Strings = {
     typePriceManually: 'Type a price manually',
     typePrice:         'Type a price',
     notHomeCurrency:   'not {currency}', // contains "{currency}" placeholder
+    rateAsOf:          'rate of {date}',
   },
   log: {
     title:    'This month',
@@ -589,6 +591,7 @@ const id: Strings = {
     typePriceManually: 'Ketik harga secara manual',
     typePrice:         'Ketik harga',
     notHomeCurrency:   'bukan {currency}',
+    rateAsOf:          'kurs {date}',
   },
   log: {
     title:    'Bulan ini',
@@ -817,6 +820,7 @@ const ja: Strings = {
     typePriceManually: '価格を手入力',
     typePrice:         '価格を入力',
     notHomeCurrency:   '{currency}以外',
+    rateAsOf:          '{date}のレート',
   },
   log: {
     title:    '今月',
@@ -1046,6 +1050,7 @@ const ar: Strings = {
     typePriceManually: 'اكتب السعر يدوياً',
     typePrice:         'اكتب سعراً',
     notHomeCurrency:   'ليس {currency}',
+    rateAsOf:          'سعر {date}',
   },
   log: {
     title:    'هذا الشهر',

@@ -14,6 +14,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { db } from '@/infrastructure/sqlite/db';
 import migrations from '@/infrastructure/sqlite/drizzle/migrations/migrations';
+import { SqliteFxRepository } from '@/infrastructure/sqlite/sqlite-fx-repository';
+import { fetchEcbDaily } from '@/infrastructure/fx/ecb-rates';
+import { refreshFxRates } from '@/application/refresh-fx-rates';
+import { FX_RATE_KEY } from '@/presentation/hooks/useFxRate';
 
 // Keep the splash screen visible until fonts and DB are ready.
 SplashScreen.preventAutoHideAsync();
@@ -33,6 +37,17 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError, dbReady, dbError]);
+
+  // Once the database is ready, refresh exchange rates if the cache is over 12 h old.
+  // Offline this does nothing and the lens keeps using the last cached rates.
+  useEffect(() => {
+    if (!dbReady) return;
+    refreshFxRates(new SqliteFxRepository(), fetchEcbDaily)
+      .then((updated) => {
+        if (updated) void queryClient.invalidateQueries({ queryKey: [FX_RATE_KEY] });
+      })
+      .catch(() => {});
+  }, [dbReady]);
 
   if ((!fontsLoaded && !fontError) || (!dbReady && !dbError)) {
     return null;

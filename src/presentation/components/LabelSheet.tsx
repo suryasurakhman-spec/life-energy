@@ -1,7 +1,9 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import { useRef, useState, useMemo } from 'react';
-import { formatCurrency, formatHours } from '@/lib/format';
+import { currencySymbol, formatCurrency, formatHours, formatRateDate, toMajor } from '@/lib/format';
+import { minorDigits } from '@/domain/price/parser';
+import { useFxRate, convertToBase } from '@/presentation/hooks/useFxRate';
 import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
@@ -14,15 +16,17 @@ import { fontSize } from '@/theme/typography';
 type Verdict = 'worth_it' | 'not_sure' | 'not_worth_it';
 
 interface Props {
+  /** The price as read, in its own currency. */
   priceMinor: bigint;
   currency: string;
+  homeCurrency: string;
   wageProfileId: string;
   source: 'lens' | 'freeze';
   realHourlyWage: number;
   onClose: () => void;
 }
 
-export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHourlyWage, onClose }: Props) {
+export function LabelSheet({ priceMinor, currency, homeCurrency, wageProfileId, source, realHourlyWage, onClose }: Props) {
   const t = useTranslation();
   const sheetRef = useRef<BottomSheet>(null);
   const [editedMinor, setEditedMinor] = useState(priceMinor);
@@ -31,10 +35,16 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
   const recordConversion = useRecordConversion();
   const snapPoints = useMemo(() => ['45%', '90%'], []);
 
-  const energy = lifeEnergy(editedMinor, realHourlyWage);
+  // Foreign prices are costed in the home currency with the last cached rate (FR-18).
+  const foreign = currency !== homeCurrency;
+  const { data: fx } = useFxRate(homeCurrency, currency);
+  const homeMinor = convertToBase(editedMinor, currency, homeCurrency, fx?.rate);
+  const energy = homeMinor !== null ? lifeEnergy(homeMinor, realHourlyWage) : null;
   const workDay = useWorkDayMinutes();
-  const hoursLabel = formatHours(energy.totalMinutes, { workDayMinutes: workDay });
-  const priceLabel = formatCurrency(editedMinor, currency);
+  const hoursLabel = energy
+    ? formatHours(energy.totalMinutes, { workDayMinutes: workDay, estimated: foreign })
+    : t.lens.notHomeCurrency.replace('{currency}', homeCurrency);
+  const decimals = minorDigits(currency);
 
   const verdictButtons: { key: Verdict; label: string }[] = [
     { key: 'worth_it',     label: t.lens.worthIt },
@@ -55,18 +65,23 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
           {hoursLabel}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
-          <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>$</Text>
+          <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>{currencySymbol(currency)}</Text>
           <TextInput
             style={{ fontSize: fontSize.callout, color: palette.sand500, minWidth: 60 }}
-            value={(Number(editedMinor) / 100).toFixed(2)}
+            value={toMajor(editedMinor, currency).toFixed(decimals)}
             keyboardType="decimal-pad"
             onChangeText={(v) => {
-              const cents = Math.round(parseFloat(v || '0') * 100);
-              if (!isNaN(cents) && cents >= 0) setEditedMinor(BigInt(cents));
+              const minor = Math.round(parseFloat(v || '0') * 10 ** decimals);
+              if (!isNaN(minor) && minor >= 0) setEditedMinor(BigInt(minor));
             }}
             accessibilityLabel={t.lens.editPrice}
           />
         </View>
+        {foreign && homeMinor !== null && fx && (
+          <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: 4 }}>
+            {`≈ ${formatCurrency(homeMinor, homeCurrency)} · ${t.lens.rateAsOf.replace('{date}', formatRateDate(fx.asOf))}`}
+          </Text>
+        )}
 
         {/* Worth it? */}
         <Text style={{ fontWeight: '600', fontSize: fontSize.body, color: palette.sand900, marginTop: 24, marginBottom: 12 }}>
@@ -99,9 +114,10 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
         <Pressable
           style={{ marginTop: 24, paddingVertical: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
           onPress={() => {
+            // Log in the home currency when a rate exists, so monthly totals stay in one currency.
             const input: Parameters<typeof logExpense.mutate>[0] = {
-              amountMinor: editedMinor,
-              currency,
+              amountMinor: homeMinor ?? editedMinor,
+              currency: homeMinor !== null ? homeCurrency : currency,
               wageProfileId,
               source,
               spentAt: new Date(),
@@ -111,7 +127,7 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
             recordConversion({
               priceMinor: editedMinor,
               currency,
-              hoursMinutes: Math.round(energy.totalMinutes),
+              hoursMinutes: Math.round(energy?.totalMinutes ?? 0),
               source,
               ...(verdict !== null ? { verdict } : {}),
             });

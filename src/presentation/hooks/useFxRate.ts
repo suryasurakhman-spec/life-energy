@@ -1,7 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
+import { convertMinor } from '@/domain/fx/fx';
 import { SqliteFxRepository } from '@/infrastructure/sqlite/sqlite-fx-repository';
 
 const repo = new SqliteFxRepository();
+
+/** Query-key prefix for cached rates; invalidated after a refresh. */
+export const FX_RATE_KEY = 'fx_rate';
 
 /**
  * Returns the rate to convert 1 unit of `quoteCurrency` into `baseCurrency`.
@@ -11,7 +15,7 @@ const repo = new SqliteFxRepository();
  */
 export function useFxRate(baseCurrency: string, quoteCurrency: string) {
   return useQuery({
-    queryKey: ['fx_rate', baseCurrency, quoteCurrency],
+    queryKey: [FX_RATE_KEY, baseCurrency, quoteCurrency],
     queryFn: () => repo.getRate(baseCurrency, quoteCurrency),
     staleTime: 1000 * 60 * 60 * 12, // treat as fresh for 12 hours
     enabled: baseCurrency !== quoteCurrency,
@@ -28,7 +32,5 @@ export function convertToBase(
   baseCurrency: string,
   rate: number | null | undefined,
 ): bigint | null {
-  if (quoteCurrency === baseCurrency) return priceMinor;
-  if (!rate) return null;
-  return BigInt(Math.round(Number(priceMinor) * rate));
+  return convertMinor(priceMinor, quoteCurrency, baseCurrency, rate);
 }

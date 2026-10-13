@@ -2,9 +2,15 @@
 // All number, currency, hours, and date formatting for Life Energy.
 // Never format numbers or dates inline in components — use this module.
 import { formatLifeEnergy } from '@/lib/calc';
+import { minorDigits } from '@/domain/price/parser';
+
+/** Minor units → major units: cents for USD, whole yen for JPY. */
+export function toMajor(amountMinor: bigint, currency: string): number {
+  return Number(amountMinor) / 10 ** minorDigits(currency);
+}
 
 export function formatCurrency(amountMinor: bigint, currency: string): string {
-  const amount = Number(amountMinor) / 100;
+  const amount = toMajor(amountMinor, currency);
   return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
 }
 
@@ -30,6 +36,12 @@ export function formatDate(date: Date, style: 'short' | 'medium' = 'medium'): st
   return style === 'short'
     ? new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(date)
     : new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+}
+
+/** A cached rate's 'YYYY-MM-DD' date, read as a local calendar day (not UTC midnight). */
+export function formatRateDate(asOf: string): string {
+  const [y, m, d] = asOf.split('-').map(Number);
+  return formatDate(new Date(y!, m! - 1, d!));
 }
 
 // Legacy aliases kept for compatibility with existing callers

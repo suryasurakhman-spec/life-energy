@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { formatCurrency, formatHours, formatDate, currencySymbol, formatHourlyWage } from './format';
+import { formatRateDate } from './format';
 
 describe('formatCurrency', () => {
   it('formats USD cents as $X.XX', () => {
@@ -48,5 +49,21 @@ describe('currencySymbol', () => {
 describe('formatHourlyWage', () => {
   it('formats a real wage in its currency, to the cent', () => {
     expect(formatHourlyWage(13.4375, 'USD')).toBe('$13.44');
+  });
+});
+
+describe('formatCurrency minor units', () => {
+  it('reads yen as whole units', () => {
+    expect(formatCurrency(4600n, 'JPY')).toBe('¥4,600');
+  });
+
+  it('reads cents for two-decimal currencies', () => {
+    expect(formatCurrency(2300n, 'PLN')).toMatch(/^PLN\s23\.00$/);
+  });
+});
+
+describe('formatRateDate', () => {
+  it('formats the calendar day as written, whatever the time zone', () => {
+    expect(formatRateDate('2026-10-12')).toBe('Oct 12, 2026');
   });
 });

@@ -1,13 +1,9 @@
-import { eq, and, sql } from 'drizzle-orm';
+import { eq, and, sql, max } from 'drizzle-orm';
+import type { FxRate } from '@/domain/fx/fx';
 import { db } from './db';
 import { fxRates } from './drizzle/schema';
 
-export interface FxRate {
-  base: string;
-  quote: string;
-  rate: number;
-  asOf: string;
-}
+export type { FxRate };
 
 export class SqliteFxRepository {
   /** Returns the rate to convert 1 unit of `quote` → `base`. Null if not cached. */
@@ -21,7 +17,14 @@ export class SqliteFxRepository {
     return rows[0] ?? null;
   }
 
-  /** Upsert a batch of rates (called after syncing from Supabase). */
+  /** When rates were last saved on this device, or null if never. */
+  async lastUpdated(): Promise<Date | null> {
+    const rows = await db.select({ at: max(fxRates.updatedAt) }).from(fxRates);
+    const at = rows[0]?.at;
+    return at ? new Date(at) : null;
+  }
+
+  /** Upsert a batch of rates (after a daily fetch, or a Supabase sync from v2). */
   async upsertRates(rates: FxRate[]): Promise<void> {
     if (rates.length === 0) return;
     await db
