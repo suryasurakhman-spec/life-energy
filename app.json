@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "scheme": "beapp",
     "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
     "platforms": [
       "ios",
       "android"
@@ -20,11 +21,16 @@
     "android": {
       "package": "com.beapp.beapp",
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#1A1714"
       },
       "permissions": [
         "android.permission.CAMERA"
       ]
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#FAF8F5",
+      "barStyle": "dark-content"
     },
     "plugins": [
       "expo-router",
@@ -36,7 +42,16 @@
           "enableMicrophonePermission": false
         }
       ],
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 240,
+          "resizeMode": "contain",
+          "backgroundColor": "#1A1714"
+        }
+      ]
     ],
     "userInterfaceStyle": "automatic",
     "experiments": {
