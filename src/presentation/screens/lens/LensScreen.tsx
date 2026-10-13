@@ -266,24 +266,27 @@ export function LensScreen() {
     [mode, lastOcrMs, fpsWindowStart, fpsFrameCount, viewWidth, viewHeight, runFpsTooLow, runTextDetected],
   );
 
-  if (!hasPermission) {
+  // No permission, or no usable back camera: explain, and keep the keypad reachable (FR-7).
+  if (!hasPermission || !device) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: palette.sand950, padding: space.xxl, gap: space.lg }}>
         <Text style={{ color: palette.sand50, fontSize: fontSize.title2, fontWeight: '700', textAlign: 'center' }}>
-          {t.lens.noPermissionTitle}
+          {hasPermission ? t.lens.noCameraTitle : t.lens.noPermissionTitle}
         </Text>
         <Text style={{ color: palette.sand300, fontSize: fontSize.callout, textAlign: 'center', lineHeight: 22 }}>
-          {t.lens.noPermissionBody}
+          {hasPermission ? t.lens.noCameraBody : t.lens.noPermissionBody}
         </Text>
-        <TouchableOpacity
-          onPress={requestPermission}
-          activeOpacity={0.8}
-          style={{ marginTop: space.sm, paddingHorizontal: space.xxl, paddingVertical: space.lg, backgroundColor: palette.amber600, borderRadius: radius.md }}
-          accessibilityRole="button"
-          accessibilityLabel={t.lens.noPermissionCta}
-        >
-          <Text style={{ color: palette.white, fontWeight: '700', fontSize: fontSize.body }}>{t.lens.noPermissionCta}</Text>
-        </TouchableOpacity>
+        {!hasPermission && (
+          <TouchableOpacity
+            onPress={requestPermission}
+            activeOpacity={0.8}
+            style={{ marginTop: space.sm, paddingHorizontal: space.xxl, paddingVertical: space.lg, backgroundColor: palette.amber600, borderRadius: radius.md }}
+            accessibilityRole="button"
+            accessibilityLabel={t.lens.noPermissionCta}
+          >
+            <Text style={{ color: palette.white, fontWeight: '700', fontSize: fontSize.body }}>{t.lens.noPermissionCta}</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => setQuickConvertVisible(true)}
           activeOpacity={0.8}
@@ -304,8 +307,6 @@ export function LensScreen() {
       </View>
     );
   }
-
-  if (!device) return null;
 
   return (
     <View

@@ -139,6 +139,8 @@ export interface Strings {
     noPermissionTitle: string;
     noPermissionBody:  string;
     noPermissionCta:   string;
+    noCameraTitle:     string;
+    noCameraBody:      string;
     noCamera:          string;
     freeze:            string;
     live:              string;
@@ -389,6 +391,8 @@ const en: Strings = {
     noPermissionTitle: 'Camera access needed',
     noPermissionBody:  'Life Energy needs camera access to read price tags. Frames are read in memory; nothing leaves your phone.',
     noPermissionCta:   'Grant access',
+    noCameraTitle:     'No camera found',
+    noCameraBody:      'This phone has no back camera the app can use. You can still type a price to see its life-energy cost.',
     noCamera:          'No back camera found.',
     freeze:            'Freeze',
     live:              'Live',
@@ -639,6 +643,8 @@ const id: Strings = {
     noPermissionTitle: 'Akses kamera diperlukan',
     noPermissionBody:  'Life Energy membutuhkan akses kamera untuk membaca label harga. Gambar hanya dibaca di memori; tidak ada yang keluar dari ponsel Anda.',
     noPermissionCta:   'Izinkan akses',
+    noCameraTitle:     'Kamera tidak ditemukan',
+    noCameraBody:      'Ponsel ini tidak memiliki kamera belakang yang bisa dipakai aplikasi. Anda tetap bisa mengetik harga untuk melihat biaya energi hidupnya.',
     noCamera:          'Kamera belakang tidak ditemukan.',
     freeze:            'Bekukan',
     live:              'Langsung',
@@ -889,6 +895,8 @@ const ja: Strings = {
     noPermissionTitle: 'カメラのアクセスが必要です',
     noPermissionBody:  'Life Energyが価格タグを読み取るためにカメラのアクセスが必要です。映像はメモリ上で読み取るだけで、端末の外には何も送信されません。',
     noPermissionCta:   'アクセスを許可',
+    noCameraTitle:     'カメラが見つかりません',
+    noCameraBody:      'この端末にはアプリで使える背面カメラがありません。価格を入力すれば、ライフエネルギーのコストを確認できます。',
     noCamera:          'バックカメラが見つかりません。',
     freeze:            '静止',
     live:              'ライブ',
@@ -1140,6 +1148,8 @@ const ar: Strings = {
     noPermissionTitle: 'مطلوب الوصول إلى الكاميرا',
     noPermissionBody:  'يحتاج Life Energy إلى الوصول إلى الكاميرا لقراءة بطاقات الأسعار. تُقرأ الصور في الذاكرة فقط، ولا يغادر أي شيء هاتفك.',
     noPermissionCta:   'منح الإذن',
+    noCameraTitle:     'لم يتم العثور على كاميرا',
+    noCameraBody:      'لا يحتوي هذا الهاتف على كاميرا خلفية يمكن للتطبيق استخدامها. لا يزال بإمكانك كتابة السعر لمعرفة تكلفته من طاقة الحياة.',
     noCamera:          'لم يتم العثور على كاميرا خلفية.',
     freeze:            'تجميد',
     live:              'مباشر',
