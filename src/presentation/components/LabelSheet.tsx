@@ -2,6 +2,7 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import { useRef, useState, useMemo } from 'react';
 import { formatCurrency, formatHours } from '@/lib/format';
+import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
@@ -31,7 +32,8 @@ export function LabelSheet({ priceMinor, currency, wageProfileId, source, realHo
   const snapPoints = useMemo(() => ['45%', '90%'], []);
 
   const energy = lifeEnergy(editedMinor, realHourlyWage);
-  const hoursLabel = formatHours(energy.totalMinutes);
+  const workDay = useWorkDayMinutes();
+  const hoursLabel = formatHours(energy.totalMinutes, { workDayMinutes: workDay });
   const priceLabel = formatCurrency(editedMinor, currency);
 
   const verdictButtons: { key: Verdict; label: string }[] = [

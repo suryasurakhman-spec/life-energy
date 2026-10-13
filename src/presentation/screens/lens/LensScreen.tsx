@@ -15,7 +15,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
-import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
+import { useCurrentWage, useRealHourlyWage, useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { useFxRate, convertToBase } from '@/presentation/hooks/useFxRate';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
@@ -57,6 +57,7 @@ function PriceChip({
   font: ReturnType<typeof useFont>;
 }) {
   const t = useTranslation(); // Zustand-backed, so it works inside the Skia renderer
+  const workDay = useWorkDayMinutes(); // Canvas has its own QueryClientProvider
   const { data: fxRate } = useFxRate(homeCurrency, p.currency);
   const baseMinor = convertToBase(p.minor, p.currency, homeCurrency, fxRate?.rate);
 
@@ -76,8 +77,8 @@ function PriceChip({
 
   const energy = lifeEnergy(baseMinor, realHourlyWage);
   const estimated = p.confidence < 0.9 || p.currency !== homeCurrency;
-  const label = formatHours(energy.totalMinutes, { estimated });
-  const tier = getTier(energy.totalMinutes);
+  const label = formatHours(energy.totalMinutes, { estimated, workDayMinutes: workDay });
+  const tier = getTier(energy.totalMinutes, workDay);
   return (
     <LabelChip
       key={p.id}

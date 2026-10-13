@@ -6,6 +6,7 @@ import {
   calculateRealWage,
   lifeEnergy,
   formatLifeEnergy,
+  workDayMinutes,
   projectCrossover,
   calculateRunwayDays,
   toMonthlyAmount,
@@ -367,5 +368,25 @@ describe('calculateRunwayDays', () => {
   it('zero capital: 0 days', () => {
     const days = calculateRunwayDays(0n, 100_000n);
     expect(days).toBe(0);
+  });
+});
+
+describe('workDayMinutes', () => {
+  it('is 8 h for a 40 h week with no job hours', () => {
+    expect(workDayMinutes(40, 0)).toBeCloseTo(480, 6);
+  });
+
+  it('adds monthly job hours spread over the work days (PRD example: 40 h/wk + 82 job h/mo)', () => {
+    // (173.33 + 82) h ÷ 21.67 days = 11.78 h
+    expect(workDayMinutes(40, 82) / 60).toBeCloseTo(11.78, 2);
+  });
+
+  it('honours a shorter work week', () => {
+    expect(workDayMinutes(32, 0, 4)).toBeCloseTo(480, 6);
+  });
+
+  it('falls back to 8 h when there are no hours or no days', () => {
+    expect(workDayMinutes(0, 0)).toBe(480);
+    expect(workDayMinutes(40, 0, 0)).toBe(480);
   });
 });

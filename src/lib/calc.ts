@@ -191,6 +191,29 @@ export function lifeEnergy(
 }
 
 // ---------------------------------------------------------------------------
+// workDayMinutes
+// ---------------------------------------------------------------------------
+
+/** Weeks per month, for converting weekly hours to monthly. */
+const WEEKS_PER_MONTH = 52 / 12;
+
+/**
+ * One real work day, in minutes: (H_paid + H_job) ÷ work days per month (PRD display rules).
+ * The wizard asks for weekly paid hours and monthly job hours, not days, so a 5-day week is assumed.
+ * Falls back to 8 hours when there are no hours to divide.
+ */
+export function workDayMinutes(
+  paidHoursPerWeek: number,
+  jobHoursPerMonth: number,
+  workDaysPerWeek = 5,
+): number {
+  const monthlyHours = paidHoursPerWeek * WEEKS_PER_MONTH + jobHoursPerMonth;
+  const workDaysPerMonth = workDaysPerWeek * WEEKS_PER_MONTH;
+  if (monthlyHours <= 0 || workDaysPerMonth <= 0) return 480;
+  return (monthlyHours / workDaysPerMonth) * 60;
+}
+
+// ---------------------------------------------------------------------------
 // formatLifeEnergy
 // ---------------------------------------------------------------------------
 

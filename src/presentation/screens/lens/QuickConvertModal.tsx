@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { formatHours, formatCurrency } from '@/lib/format';
+import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { useTranslation } from '@/lib/i18n';
 import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
@@ -21,6 +22,7 @@ interface Props {
 const KEYS = ['1','2','3','4','5','6','7','8','9','.','0','⌫'] as const;
 
 export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, visible, onClose }: Props) {
+  const workDay = useWorkDayMinutes();
   const t = useTranslation();
   const [input, setInput] = useState('');
   const logExpense = useLogExpense();
@@ -52,7 +54,7 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
             {energy ? (
               <>
                 <Text style={{ fontSize: fontSize.display, fontWeight: '700', color: palette.sand900 }}>
-                  {formatHours(energy.totalMinutes)}
+                  {formatHours(energy.totalMinutes, { workDayMinutes: workDay })}
                 </Text>
                 <Text style={{ fontSize: fontSize.body, color: palette.sand500, marginTop: 4 }}>
                   {formatCurrency(priceMinor, currency)}

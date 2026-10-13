@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native';
 import { formatCurrency, formatHours } from '@/lib/format';
+import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import type { ExpenseRecord } from '@/application/ports/expense-repository.port';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
@@ -18,7 +19,8 @@ const VERDICT_LABEL: Record<string, string> = {
 export function ExpenseRow({ expense, realHourlyWage }: Props) {
   const priceLabel = formatCurrency(expense.amountMinor, expense.currency);
   const totalMinutes = (Number(expense.amountMinor) / 100 / realHourlyWage) * 60;
-  const hoursLabel = formatHours(totalMinutes);
+  const workDay = useWorkDayMinutes();
+  const hoursLabel = formatHours(totalMinutes, { workDayMinutes: workDay });
   const verdictLabel = expense.verdict ? VERDICT_LABEL[expense.verdict] : '';
 
   return (

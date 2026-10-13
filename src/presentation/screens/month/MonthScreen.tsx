@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getMonthlySummary, type CategoryTotal } from '@/application/get-monthly-summary';
 import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
-import { useRealHourlyWage } from '@/presentation/hooks/useWage';
+import { useRealHourlyWage, useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { useHasProAccess } from '@/presentation/hooks/useEntitlement';
 import { formatCurrency, formatHours } from '@/lib/format';
 import { useTheme } from '@/theme';
@@ -32,6 +32,7 @@ interface CategoryRowProps {
 }
 
 function CategoryRow({ item, onReview, canReview }: CategoryRowProps) {
+  const workDay = useWorkDayMinutes();
   const t = useTranslation();
   const theme = useTheme();
   const s = styles(theme);
@@ -40,7 +41,7 @@ function CategoryRow({ item, onReview, canReview }: CategoryRowProps) {
       style={s.row}
       onPress={() => canReview && item.categoryId && onReview(item.categoryId, item.categoryName)}
       accessibilityRole="button"
-      accessibilityLabel={`${item.categoryName}, ${formatCurrency(item.totalMinor, item.currency)}, ${formatHours(item.totalMinutes)}`}
+      accessibilityLabel={`${item.categoryName}, ${formatCurrency(item.totalMinor, item.currency)}, ${formatHours(item.totalMinutes, { workDayMinutes: workDay })}`}
     >
       <View style={s.rowLeft}>
         <Text style={s.categoryName}>{item.categoryName}</Text>
@@ -48,13 +49,14 @@ function CategoryRow({ item, onReview, canReview }: CategoryRowProps) {
       </View>
       <View style={s.rowRight}>
         <Text style={s.amount}>{formatCurrency(item.totalMinor, item.currency)}</Text>
-        <Text style={s.hours}>{formatHours(item.totalMinutes)}</Text>
+        <Text style={s.hours}>{formatHours(item.totalMinutes, { workDayMinutes: workDay })}</Text>
       </View>
     </Pressable>
   );
 }
 
 export function MonthScreen() {
+  const workDay = useWorkDayMinutes();
   const t = useTranslation();
   const theme = useTheme();
   const s = styles(theme);
@@ -88,7 +90,7 @@ export function MonthScreen() {
         <Text style={s.title}>{monthLabel(month)}</Text>
         <View style={s.headerTotals}>
           <Text style={s.totalAmount}>{formatCurrency(summary.totalMinor, summary.currency)}</Text>
-          <Text style={s.totalHours}>{formatHours(summary.totalMinutes, { estimated: true })}</Text>
+          <Text style={s.totalHours}>{formatHours(summary.totalMinutes, { estimated: true, workDayMinutes: workDay })}</Text>
         </View>
         <View style={s.navRow}>
           <Pressable
