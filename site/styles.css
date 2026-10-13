@@ -585,6 +585,27 @@ main > section { position: relative; isolation: isolate; }
 .mast__mark { font-size: var(--text-xl); line-height: 1; }
 .mast__tagline { font-family: var(--font-display); font-size: var(--text-md); color: var(--color-muted); }
 .mast__credit, .mast__copy { max-width: 44rem; font-size: var(--text-sm); color: var(--color-muted); }
+.mast__copy a { text-underline-offset: 0.2em; }
+
+/* ---------- Privacy policy page · one reading column ---------- */
+
+.policy {
+  display: grid;
+  gap: var(--space-xl);
+  max-width: calc(var(--measure) + 6rem);
+  padding: var(--section-pad) max(var(--page-gutter), env(safe-area-inset-right)) var(--section-pad) max(var(--page-gutter), env(safe-area-inset-left));
+}
+.policy__head { display: grid; gap: var(--space-sm); padding-block-end: var(--space-lg); border-block-end: var(--rule-hair) solid var(--color-rule); }
+.policy__head .section-title { max-width: none; }
+.policy__meta { font-size: var(--text-sm); color: var(--color-muted); }
+.policy section { display: grid; gap: var(--space-sm); min-width: 0; }
+.policy__h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); line-height: 1.2; overflow-wrap: anywhere; }
+.policy__h3 { margin: var(--space-sm) 0 0; font-size: var(--text-base); font-weight: 600; }
+.policy p, .policy li { max-width: var(--measure); overflow-wrap: anywhere; }
+.policy ul { display: grid; gap: var(--space-xs); padding-inline-start: var(--space-lg); list-style: disc; }
+.policy li::marker { color: var(--color-accent); }
+.policy a { color: var(--color-accent-ink); text-underline-offset: 0.2em; }
+.policy__summary { padding: var(--space-lg); background: var(--color-paper-2); border-radius: var(--radius-md); }
 
 /* ---------- Wider viewports ---------- */
 
