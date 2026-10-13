@@ -31,6 +31,16 @@ export const palette = {
   chipEdge: 'rgba(255,255,255,0.18)', // hairline around lens label chips
 } as const;
 
+/** Third-party brand colours, used only where their guidelines require them (sign-in buttons). */
+export const brand = {
+  googleBlue:   '#4285F4',
+  googleGreen:  '#34A853',
+  googleYellow: '#FBBC05',
+  googleRed:    '#EA4335',
+  googleBorder: '#747775', // Google's light-theme button outline
+  googleText:   '#1F1F1F',
+} as const;
+
 export interface ColorTokens {
   bg:            string;
   surface:       string;

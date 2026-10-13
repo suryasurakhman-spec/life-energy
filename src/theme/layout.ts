@@ -40,6 +40,9 @@ export const shadow: ShadowStyleIOS & { elevation: number } = {
   elevation:     6, // Android
 };
 
+/** Primary button height (DESIGN.md §7). */
+export const buttonHeight = 52;
+
 /** Screen horizontal gutter (pt). */
 export const screenGutter = space.lg; // 16
 

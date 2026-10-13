@@ -1,6 +1,7 @@
 import * as Linking from 'expo-linking';
 import { supabase } from './supabase-client';
 import { AUTH_CALLBACK_PATH } from './auth-callback';
+import { signOutOfGoogle } from './social-auth';
 import type { Session, User } from '@supabase/supabase-js';
 
 /** Email a one-time sign-in link that opens the app at auth/callback. */
@@ -20,6 +21,7 @@ export async function completeSignIn(code: string): Promise<void> {
 
 /** Forget the session on this phone. Local scope works offline; data on the phone stays. */
 export async function signOut(): Promise<void> {
+  await signOutOfGoogle();
   const { error } = await supabase.auth.signOut({ scope: 'local' });
   if (error) throw error;
 }

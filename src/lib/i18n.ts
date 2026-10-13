@@ -131,6 +131,9 @@ export interface Strings {
     completing: string;
     section: string;
     signOut: string;
+    continueWithGoogle: string;
+    or: string;
+    socialFailed: string;
   };
   lens: {
     noPermissionTitle: string;
@@ -363,7 +366,7 @@ const en: Strings = {
   },
   auth: {
     title:             'Sign in',
-    body:              'We email you a link — no password. We only keep your sign-in; prices, wages and logs stay on this phone.',
+    body:              'No password needed. We only keep your sign-in; prices, wages and logs stay on this phone.',
     emailLabel:        'Email',
     emailPlaceholder:  'you@example.com',
     send:              'Email me a sign-in link',
@@ -378,6 +381,9 @@ const en: Strings = {
     completing:        'Signing you in…',
     section:           'Account',
     signOut:           'Sign out',
+    continueWithGoogle: 'Continue with Google',
+    or:                'or',
+    socialFailed:      'Sign-in didn\'t finish. Try again, or use your email.',
   },
   lens: {
     noPermissionTitle: 'Camera access needed',
@@ -610,7 +616,7 @@ const id: Strings = {
   },
   auth: {
     title:             'Masuk',
-    body:              'Kami kirim tautan lewat email — tanpa kata sandi. Kami hanya menyimpan data masuk Anda; harga, gaji, dan catatan tetap di ponsel ini.',
+    body:              'Tanpa kata sandi. Kami hanya menyimpan data masuk Anda; harga, gaji, dan catatan tetap di ponsel ini.',
     emailLabel:        'Email',
     emailPlaceholder:  'anda@contoh.com',
     send:              'Kirim tautan masuk',
@@ -625,6 +631,9 @@ const id: Strings = {
     completing:        'Sedang masuk…',
     section:           'Akun',
     signOut:           'Keluar',
+    continueWithGoogle: 'Lanjutkan dengan Google',
+    or:                'atau',
+    socialFailed:      'Masuk tidak selesai. Coba lagi, atau gunakan email Anda.',
   },
   lens: {
     noPermissionTitle: 'Akses kamera diperlukan',
@@ -857,7 +866,7 @@ const ja: Strings = {
   },
   auth: {
     title:             'サインイン',
-    body:              'パスワード不要のリンクをメールでお送りします。保存するのはサインイン情報だけで、価格・給与・記録はこの端末に残ります。',
+    body:              'パスワードは不要です。保存するのはサインイン情報だけで、価格・給与・記録はこの端末に残ります。',
     emailLabel:        'メールアドレス',
     emailPlaceholder:  'you@example.com',
     send:              'サインインリンクを送信',
@@ -872,6 +881,9 @@ const ja: Strings = {
     completing:        'サインインしています…',
     section:           'アカウント',
     signOut:           'サインアウト',
+    continueWithGoogle: 'Google で続ける',
+    or:                'または',
+    socialFailed:      'サインインが完了しませんでした。もう一度お試しいただくか、メールをご利用ください。',
   },
   lens: {
     noPermissionTitle: 'カメラのアクセスが必要です',
@@ -1105,7 +1117,7 @@ const ar: Strings = {
   },
   auth: {
     title:             'تسجيل الدخول',
-    body:              'نرسل إليك رابطًا عبر البريد الإلكتروني — بلا كلمة مرور. نحتفظ ببيانات الدخول فقط؛ الأسعار والأجور والسجلات تبقى على هذا الهاتف.',
+    body:              'لا حاجة إلى كلمة مرور. نحتفظ ببيانات الدخول فقط؛ الأسعار والأجور والسجلات تبقى على هذا الهاتف.',
     emailLabel:        'البريد الإلكتروني',
     emailPlaceholder:  'you@example.com',
     send:              'أرسل لي رابط الدخول',
@@ -1120,6 +1132,9 @@ const ar: Strings = {
     completing:        'جارٍ تسجيل الدخول…',
     section:           'الحساب',
     signOut:           'تسجيل الخروج',
+    continueWithGoogle: 'المتابعة باستخدام Google',
+    or:                'أو',
+    socialFailed:      'لم يكتمل تسجيل الدخول. حاول مجددًا أو استخدم بريدك الإلكتروني.',
   },
   lens: {
     noPermissionTitle: 'مطلوب الوصول إلى الكاميرا',

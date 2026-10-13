@@ -14,7 +14,8 @@
       "bundleIdentifier": "com.beapp.beapp",
       "infoPlist": {
         "NSCameraUsageDescription": "We read prices through your camera. Images never leave your phone."
-      }
+      },
+      "usesAppleSignIn": true
     },
     "android": {
       "package": "com.beapp.beapp",
@@ -34,7 +35,8 @@
           "cameraPermissionText": "We read prices through your camera. Images never leave your phone.",
           "enableMicrophonePermission": false
         }
-      ]
+      ],
+      "expo-apple-authentication"
     ],
     "userInterfaceStyle": "automatic",
     "experiments": {
