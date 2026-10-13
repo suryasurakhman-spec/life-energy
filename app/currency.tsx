@@ -11,6 +11,7 @@ import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { SqliteWageRepository } from '@/infrastructure/sqlite/sqlite-wage-repository';
 import { light, palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const wageRepo = new SqliteWageRepository();
 
@@ -37,9 +38,9 @@ export default function CurrencyScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <ScrollView contentContainerStyle={{ padding: 24, gap: 12 }}>
+      <ScrollView contentContainerStyle={{ padding: space.xl, gap: space.md }}>
         <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>{t.profile.currencyTitle}</Text>
-        <Text style={{ fontSize: fontSize.callout, color: palette.sand500, lineHeight: 22, marginBottom: 8 }}>{t.profile.currencyBody}</Text>
+        <Text style={{ fontSize: fontSize.callout, color: palette.sand500, lineHeight: 22, marginBottom: space.sm }}>{t.profile.currencyBody}</Text>
         {SUPPORTED_CURRENCIES.map(code => {
           const selected = code === current;
           return (
@@ -51,9 +52,9 @@ export default function CurrencyScreen() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                borderRadius: 12,
+                paddingHorizontal: space.lg,
+                paddingVertical: space.md,
+                borderRadius: radius.md,
                 borderWidth: 1,
                 borderColor: selected ? palette.amber600 : palette.sand200,
                 backgroundColor: selected ? palette.amber100 : light.surface,
@@ -63,7 +64,7 @@ export default function CurrencyScreen() {
               accessibilityLabel={code}
             >
               <Text style={{ fontSize: fontSize.body, fontWeight: '600', color: selected ? palette.amber700 : palette.sand900 }}>{code}</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.md }}>
                 <Text style={{ fontSize: fontSize.body, color: palette.sand500 }}>{currencySymbol(code)}</Text>
                 {selected ? <Text style={{ fontSize: fontSize.body, color: palette.amber700 }}>✓</Text> : null}
               </View>

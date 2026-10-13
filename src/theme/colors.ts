@@ -28,6 +28,7 @@ export const palette = {
   black:    '#000000',
   scrim:    'rgba(0,0,0,0.4)',        // behind modal sheets
   glass:    'rgba(255,255,255,0.2)',  // shutter button fill over the camera
+  chipEdge: 'rgba(255,255,255,0.18)', // hairline around lens label chips
 } as const;
 
 export interface ColorTokens {

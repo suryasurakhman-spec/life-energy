@@ -12,6 +12,7 @@ import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 export default function RevealScreen() {
   const t = useTranslation();
@@ -52,13 +53,13 @@ export default function RevealScreen() {
   if (!isOk(result)) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-        <View style={{ flex: 1, padding: 24, justifyContent: 'center', gap: 16 }}>
+        <View style={{ flex: 1, padding: space.xl, justifyContent: 'center', gap: space.lg }}>
           <Text style={{ fontSize: fontSize.title3, fontWeight: '700', color: palette.error500, textAlign: 'center' }}>
             {t.onboarding.reveal.errorNegative}
           </Text>
           <Pressable
             onPress={() => router.back()}
-            style={{ borderWidth: 1, borderColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+            style={{ borderWidth: 1, borderColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
             accessibilityRole="button"
           >
             <Text style={{ color: palette.amber600, fontSize: fontSize.body, fontWeight: '600' }}>
@@ -75,13 +76,13 @@ export default function RevealScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <View style={{ flex: 1, padding: 24, gap: 32 }}>
+      <View style={{ flex: 1, padding: space.xl, gap: space.xxl }}>
         <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.reveal.title}
         </Text>
 
-        <View style={{ flexDirection: 'row', gap: 16 }}>
-          <View style={{ flex: 1, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 20, gap: 8, borderWidth: 1, borderColor: palette.sand200 }}>
+        <View style={{ flexDirection: 'row', gap: space.lg }}>
+          <View style={{ flex: 1, backgroundColor: palette.white, borderRadius: radius.lg, padding: space.lg, gap: space.sm, borderWidth: 1, borderColor: palette.sand200 }}>
             <Text style={{ fontSize: fontSize.sm, color: palette.sand500, fontWeight: '500', textTransform: 'uppercase', letterSpacing: 0.5 }}>
               {t.onboarding.reveal.nominal}
             </Text>
@@ -91,7 +92,7 @@ export default function RevealScreen() {
             <Text style={{ fontSize: fontSize.md, color: palette.sand500 }}>{t.onboarding.reveal.perHour}</Text>
           </View>
 
-          <View style={{ flex: 1, backgroundColor: palette.amber100, borderRadius: 16, padding: 20, gap: 8, borderWidth: 1, borderColor: palette.amber300 }}>
+          <View style={{ flex: 1, backgroundColor: palette.amber100, borderRadius: radius.lg, padding: space.lg, gap: space.sm, borderWidth: 1, borderColor: palette.amber300 }}>
             <Text style={{ fontSize: fontSize.sm, color: palette.amber700, fontWeight: '500', textTransform: 'uppercase', letterSpacing: 0.5 }}>
               {t.onboarding.reveal.real}
             </Text>
@@ -102,9 +103,9 @@ export default function RevealScreen() {
           </View>
         </View>
 
-        <View style={{ backgroundColor: '#FFFFFF', borderRadius: 16, padding: 20, gap: 4, borderWidth: 1, borderColor: palette.sand200 }}>
+        <View style={{ backgroundColor: palette.white, borderRadius: radius.lg, padding: space.lg, gap: space.xs, borderWidth: 1, borderColor: palette.sand200 }}>
           <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>{gapNote}</Text>
-          <Text style={{ fontSize: fontSize.callout, color: palette.sand500, lineHeight: 22, marginTop: 8 }}>
+          <Text style={{ fontSize: fontSize.callout, color: palette.sand500, lineHeight: 22, marginTop: space.sm }}>
             {t.onboarding.reveal.lifeEnergyNote}
           </Text>
         </View>
@@ -113,10 +114,10 @@ export default function RevealScreen() {
 
         <Pressable
           onPress={handleStart}
-          style={{ backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+          style={{ backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
           accessibilityRole="button"
         >
-          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.reveal.cta}</Text>
+          <Text style={{ color: palette.white, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.reveal.cta}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

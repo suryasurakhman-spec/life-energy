@@ -10,6 +10,7 @@ import { formatCurrency } from '@/lib/format';
 import { useTheme, palette } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const expenseRepo = new SqliteExpenseRepository();
 const incomeRepo  = new SqliteIncomeRepository();
@@ -180,22 +181,22 @@ export function WallChartScreen() {
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:          { flex: 1, backgroundColor: theme.bg },
   center:             { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  scroll:             { padding: 20, paddingBottom: 48 },
+  scroll:             { padding: space.lg, paddingBottom: space.xxxl },
   title:              { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary },
-  subtitle:           { fontSize: fontSize.md, color: theme.textSecondary, marginBottom: 16 },
-  summaryRow:         { flexDirection: 'row', gap: 8, marginBottom: 16 },
-  summaryCell:        { flex: 1, backgroundColor: theme.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: theme.border },
-  summaryLabel:       { fontSize: fontSize.tiny, color: theme.textSecondary, marginBottom: 4 },
+  subtitle:           { fontSize: fontSize.md, color: theme.textSecondary, marginBottom: space.lg },
+  summaryRow:         { flexDirection: 'row', gap: space.sm, marginBottom: space.lg },
+  summaryCell:        { flex: 1, backgroundColor: theme.surface, borderRadius: radius.md, padding: space.md, borderWidth: 1, borderColor: theme.border },
+  summaryLabel:       { fontSize: fontSize.tiny, color: theme.textSecondary, marginBottom: space.xs },
   summaryValue:       { fontSize: fontSize.callout, fontWeight: '700' },
-  crossoverBanner:    { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: theme.accentSoft, borderRadius: 10, padding: 12, marginBottom: 16 },
+  crossoverBanner:    { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: theme.accentSoft, borderRadius: radius.md, padding: space.md, marginBottom: space.lg },
   crossoverEmoji:     { fontSize: fontSize.xl },
   crossoverText:      { fontSize: fontSize.md, color: theme.textPrimary },
   crossoverHighlight: { fontWeight: '700', color: theme.accent },
-  chartWrapper:       { height: 260, marginBottom: 16 },
-  emptyChart:         { height: 160, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.surfaceAlt, borderRadius: 12, marginBottom: 16, padding: 20 },
-  legend:             { flexDirection: 'row', flexWrap: 'wrap', gap: 16, marginTop: 4 },
-  legendItem:         { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  legendDot:          { width: 10, height: 10, borderRadius: 5 },
+  chartWrapper:       { height: 260, marginBottom: space.lg },
+  emptyChart:         { height: 160, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.surfaceAlt, borderRadius: radius.md, marginBottom: space.lg, padding: space.lg },
+  legend:             { flexDirection: 'row', flexWrap: 'wrap', gap: space.lg, marginTop: space.xs },
+  legendItem:         { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  legendDot:          { width: 10, height: 10, borderRadius: radius.pill },
   legendLabel:        { fontSize: fontSize.sm, color: theme.textSecondary },
   muted:              { color: theme.textSecondary, fontSize: fontSize.callout, textAlign: 'center' },
 });

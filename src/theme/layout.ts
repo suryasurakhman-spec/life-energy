@@ -46,5 +46,8 @@ export const screenGutter = space.lg; // 16
 /** Internal card padding (pt). */
 export const cardPadding = space.lg; // 16
 
+/** Space under a scrolling list so its last row clears the floating add button (56 pt + margins). */
+export const fabClearance = 100;
+
 /** Vertical gap between cards (pt). */
 export const cardGap = space.md; // 12

@@ -16,6 +16,7 @@ import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import type { IncomeRecord } from '@/application/ports/income-repository.port';
 import { fontSize } from '@/theme/typography';
+import { fabClearance, radius, space } from '@/theme/layout';
 
 function toMonthStr(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
@@ -194,35 +195,35 @@ export function IncomeLogScreen() {
 
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:         { flex: 1, backgroundColor: theme.bg },
-  center:            { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
-  header:            { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12, backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border },
-  title:             { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: 4 },
-  totalRow:          { flexDirection: 'row', alignItems: 'baseline', gap: 8 },
+  center:            { flex: 1, alignItems: 'center', justifyContent: 'center', padding: space.xxl },
+  header:            { paddingHorizontal: space.lg, paddingTop: space.lg, paddingBottom: space.md, backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border },
+  title:             { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: space.xs },
+  totalRow:          { flexDirection: 'row', alignItems: 'baseline', gap: space.sm },
   totalLabel:        { fontSize: fontSize.md, color: theme.textSecondary },
   totalValue:        { fontSize: fontSize.title2, fontWeight: '700', color: theme.accent },
-  form:              { backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12 },
-  formRow:           { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: theme.border },
+  form:              { backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border, paddingHorizontal: space.lg, paddingTop: space.lg, paddingBottom: space.md },
+  formRow:           { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: space.md, borderBottomWidth: 1, borderBottomColor: theme.border },
   formRowLast:       { borderBottomWidth: 0 },
   formLabel:         { fontSize: fontSize.md, color: theme.textPrimary, flex: 1 },
   amountInputRow:    { flexDirection: 'row', alignItems: 'center', flex: 1, justifyContent: 'flex-end' },
-  currencySymbol:    { fontSize: fontSize.input, color: theme.textSecondary, marginRight: 2 },
+  currencySymbol:    { fontSize: fontSize.input, color: theme.textSecondary, marginRight: space.xxs },
   amountInput:       { fontSize: fontSize.input, color: theme.textPrimary, textAlign: 'right', minWidth: 80 },
   sourceInput:       { fontSize: fontSize.input, color: theme.textPrimary, textAlign: 'right', flex: 1 },
-  formActions:       { flexDirection: 'row', gap: 10, marginTop: 14 },
-  cancelButton:      { flex: 1, paddingVertical: 12, borderRadius: 10, borderWidth: 1, borderColor: theme.border, alignItems: 'center' },
+  formActions:       { flexDirection: 'row', gap: space.md, marginTop: space.md },
+  cancelButton:      { flex: 1, paddingVertical: space.md, borderRadius: radius.md, borderWidth: 1, borderColor: theme.border, alignItems: 'center' },
   cancelText:        { color: theme.textSecondary, fontWeight: '600' },
-  saveButton:        { flex: 1, paddingVertical: 12, borderRadius: 10, backgroundColor: theme.accent, alignItems: 'center' },
+  saveButton:        { flex: 1, paddingVertical: space.md, borderRadius: radius.md, backgroundColor: theme.accent, alignItems: 'center' },
   saveButtonDisabled:{ opacity: 0.6 },
   saveText:          { color: theme.onAccent, fontWeight: '700' },
-  listContent:       { flexGrow: 1, paddingBottom: 100 },
-  row:               { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 14 },
+  listContent:       { flexGrow: 1, paddingBottom: fabClearance },
+  row:               { flexDirection: 'row', alignItems: 'center', paddingHorizontal: space.lg, paddingVertical: space.md },
   rowLeft:           { flex: 1 },
   rowAmount:         { fontSize: fontSize.body, fontWeight: '600', color: theme.textPrimary },
-  rowSource:         { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: 2 },
-  deleteButton:      { padding: 8, marginLeft: 8 },
+  rowSource:         { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: space.xxs },
+  deleteButton:      { padding: space.sm, marginLeft: space.sm },
   deleteText:        { fontSize: fontSize.callout, color: theme.textSecondary },
-  separator:         { height: 1, backgroundColor: theme.border, marginHorizontal: 20 },
-  addButton:         { position: 'absolute', bottom: 24, left: 20, right: 20, backgroundColor: theme.accent, borderRadius: 12, padding: 16, alignItems: 'center' },
+  separator:         { height: 1, backgroundColor: theme.border, marginHorizontal: space.lg },
+  addButton:         { position: 'absolute', bottom: 24, left: 20, right: 20, backgroundColor: theme.accent, borderRadius: radius.md, padding: space.lg, alignItems: 'center' },
   addButtonText:     { color: theme.onAccent, fontSize: fontSize.body, fontWeight: '600' },
   muted:             { color: theme.textSecondary, fontSize: fontSize.callout, textAlign: 'center' },
 });

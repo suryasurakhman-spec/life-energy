@@ -31,6 +31,7 @@ import { LabelSheet } from '@/presentation/components/LabelSheet';
 import { QuickConvertModal } from './QuickConvertModal';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const stabilizer = createStabilizer();
 
@@ -267,7 +268,7 @@ export function LensScreen() {
 
   if (!hasPermission) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: palette.sand950, padding: 32, gap: 20 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: palette.sand950, padding: space.xxl, gap: space.lg }}>
         <Text style={{ color: palette.sand50, fontSize: fontSize.title2, fontWeight: '700', textAlign: 'center' }}>
           {t.lens.noPermissionTitle}
         </Text>
@@ -277,7 +278,7 @@ export function LensScreen() {
         <TouchableOpacity
           onPress={requestPermission}
           activeOpacity={0.8}
-          style={{ marginTop: 8, paddingHorizontal: 32, paddingVertical: 16, backgroundColor: palette.amber600, borderRadius: 14 }}
+          style={{ marginTop: space.sm, paddingHorizontal: space.xxl, paddingVertical: space.lg, backgroundColor: palette.amber600, borderRadius: radius.md }}
           accessibilityRole="button"
           accessibilityLabel={t.lens.noPermissionCta}
         >
@@ -286,7 +287,7 @@ export function LensScreen() {
         <TouchableOpacity
           onPress={() => setQuickConvertVisible(true)}
           activeOpacity={0.8}
-          style={{ paddingHorizontal: 32, paddingVertical: 16, borderRadius: 14, borderWidth: 1, borderColor: palette.sand700 }}
+          style={{ paddingHorizontal: space.xxl, paddingVertical: space.lg, borderRadius: radius.md, borderWidth: 1, borderColor: palette.sand700 }}
           accessibilityRole="button"
         >
           <Text style={{ color: palette.sand300, fontWeight: '600', fontSize: fontSize.callout }}>{t.lens.typePriceManually}</Text>
@@ -359,7 +360,7 @@ export function LensScreen() {
       ))}
 
       {/* Shutter + torch controls */}
-      <View style={{ position: 'absolute', bottom: 40, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 24 }}>
+      <View style={{ position: 'absolute', bottom: 40, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: space.xl }}>
         <Pressable
           onPress={useLensStore.getState().toggleTorch}
           style={{ minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center' }}
@@ -370,7 +371,7 @@ export function LensScreen() {
         </Pressable>
         <Pressable
           onPress={mode === 'live' ? freeze : unfreeze}
-          style={{ width: 72, height: 72, borderRadius: 36, borderWidth: 4, borderColor: palette.white, backgroundColor: palette.glass, alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 72, height: 72, borderRadius: radius.pill, borderWidth: 4, borderColor: palette.white, backgroundColor: palette.glass, alignItems: 'center', justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={mode === 'live' ? t.lens.freeze : t.lens.live}
         />

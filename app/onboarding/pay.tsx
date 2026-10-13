@@ -8,6 +8,7 @@ import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 export default function PayScreen() {
   const t = useTranslation();
@@ -35,34 +36,34 @@ export default function PayScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <View style={{ flex: 1, padding: 24, gap: 24 }}>
+      <View style={{ flex: 1, padding: space.xl, gap: space.xl }}>
         <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.pay.title}
         </Text>
 
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: space.sm }}>
           <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.pay.netPay.toUpperCase()}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: fontSize.xl, color: palette.sand700, marginRight: 4 }}>{currencySymbol(currency)}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: palette.sand200, borderRadius: radius.md, paddingHorizontal: space.lg, backgroundColor: palette.white }}>
+            <Text style={{ fontSize: fontSize.xl, color: palette.sand700, marginRight: space.xs }}>{currencySymbol(currency)}</Text>
             <TextInput
               value={amount}
               onChangeText={setAmount}
               keyboardType="decimal-pad"
               placeholder="0.00"
-              style={{ flex: 1, fontSize: fontSize.xl, paddingVertical: 16, color: palette.sand900 }}
+              style={{ flex: 1, fontSize: fontSize.xl, paddingVertical: space.lg, color: palette.sand900 }}
               placeholderTextColor={palette.sand300}
               accessibilityLabel={t.onboarding.pay.netPay}
             />
           </View>
         </View>
 
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: space.sm }}>
           <Text style={{ fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' }}>
             {t.onboarding.pay.period.toUpperCase()}
           </Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
             {PERIODS.map(({ key, label }) => (
               <Pressable
                 key={key}
@@ -70,12 +71,12 @@ export default function PayScreen() {
                 accessibilityRole="radio"
                 accessibilityState={{ checked: payPeriod === key }}
                 style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 10,
-                  borderRadius: 9999,
+                  paddingHorizontal: space.lg,
+                  paddingVertical: space.md,
+                  borderRadius: radius.pill,
                   borderWidth: 1,
                   borderColor: payPeriod === key ? palette.amber600 : palette.sand200,
-                  backgroundColor: payPeriod === key ? palette.amber100 : '#FFFFFF',
+                  backgroundColor: payPeriod === key ? palette.amber100 : palette.white,
                 }}
               >
                 <Text style={{ color: payPeriod === key ? palette.amber700 : palette.sand700, fontWeight: '500' }}>
@@ -90,11 +91,11 @@ export default function PayScreen() {
 
         <Pressable
           onPress={handleNext}
-          style={{ backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+          style={{ backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.pay.next}
         >
-          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.pay.next}</Text>
+          <Text style={{ color: palette.white, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.pay.next}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

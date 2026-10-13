@@ -9,6 +9,7 @@ import { useCurrentWage, useWageHistory } from '@/presentation/hooks/useWage';
 import { QuickConvertModal } from '@/presentation/screens/lens/QuickConvertModal';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 function toMonthStr(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
@@ -54,9 +55,9 @@ export function LogScreen({ realHourlyWage }: Props) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900, padding: 16 }}>{t.log.title}</Text>
+      <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900, padding: space.lg }}>{t.log.title}</Text>
       {sections.length === 0 ? (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: space.sm }}>
           <Text style={{ fontSize: fontSize.body, color: palette.sand500, textAlign: 'center' }}>
             {t.log.empty}
           </Text>
@@ -69,13 +70,13 @@ export function LogScreen({ realHourlyWage }: Props) {
             <ExpenseRow expense={item} realHourlyWage={wageById.get(item.wageProfileId) ?? realHourlyWage} />
           )}
           renderSectionHeader={({ section }) => (
-            <View style={{ paddingHorizontal: 16, paddingVertical: 8, backgroundColor: palette.sand100 }}>
+            <View style={{ paddingHorizontal: space.lg, paddingVertical: space.sm, backgroundColor: palette.sand100 }}>
               <Text style={{ fontSize: fontSize.sm, fontWeight: '600', color: palette.sand500, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                 {section.title}
               </Text>
             </View>
           )}
-          ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: palette.sand200, marginLeft: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: palette.sand200, marginLeft: space.lg }} />}
         />
       )}
 
@@ -89,7 +90,7 @@ export function LogScreen({ realHourlyWage }: Props) {
           right: 24,
           width: 56,
           height: 56,
-          borderRadius: 28,
+          borderRadius: radius.pill,
           backgroundColor: palette.amber600,
           alignItems: 'center',
           justifyContent: 'center',

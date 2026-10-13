@@ -3,6 +3,7 @@ import { Group, Rect, RoundedRect, Text as SkiaText } from '@shopify/react-nativ
 import type { SkFont } from '@shopify/react-native-skia';
 import { CHIP_TIERS } from '@/theme/chip-tiers';
 import type { ChipTier } from '@/theme/chip-tiers';
+import { palette } from '@/theme/colors';
 
 interface Props {
   label: string;
@@ -20,7 +21,7 @@ interface Props {
 const CHIP_H = 32;
 const CHIP_PAD = 10;
 const CHIP_R = 999;
-const BORDER_COLOR = 'rgba(255,255,255,0.18)';
+const BORDER_COLOR = palette.chipEdge;
 
 export function LabelChip({ label, x, y, tier, font, frameWidth }: Props) {
   if (!font) return null;

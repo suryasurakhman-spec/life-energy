@@ -6,6 +6,7 @@ import { saveMonthlyReview, type ReviewVerdict } from '@/application/save-monthl
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 interface Props {
   month: string;
@@ -124,20 +125,20 @@ export function MonthlyReviewSheet({ month, categoryId, categoryName, onClose }:
 }
 
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
-  content:              { flex: 1, paddingHorizontal: 20, paddingBottom: 32 },
-  title:                { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: 2 },
-  subtitle:             { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: 20 },
-  questionBlock:        { marginBottom: 20 },
-  questionText:         { fontSize: fontSize.md, color: theme.textPrimary, lineHeight: 20, marginBottom: 10 },
-  verdictRow:           { flexDirection: 'row', gap: 10 },
-  verdictButton:        { flex: 1, alignItems: 'center', paddingVertical: 10, borderRadius: 10, borderWidth: 1.5, borderColor: theme.border, backgroundColor: theme.surfaceAlt },
+  content:              { flex: 1, paddingHorizontal: space.lg, paddingBottom: space.xxl },
+  title:                { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: space.xxs },
+  subtitle:             { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: space.lg },
+  questionBlock:        { marginBottom: space.lg },
+  questionText:         { fontSize: fontSize.md, color: theme.textPrimary, lineHeight: 20, marginBottom: space.md },
+  verdictRow:           { flexDirection: 'row', gap: space.md },
+  verdictButton:        { flex: 1, alignItems: 'center', paddingVertical: space.md, borderRadius: radius.md, borderWidth: 1.5, borderColor: theme.border, backgroundColor: theme.surfaceAlt },
   verdictSelected:      { borderColor: theme.accent, backgroundColor: theme.accentSoft },
-  verdictEmoji:         { fontSize: fontSize.lg, marginBottom: 2 },
+  verdictEmoji:         { fontSize: fontSize.lg, marginBottom: space.xxs },
   verdictLabel:         { fontSize: fontSize.tiny, color: theme.textSecondary, fontWeight: '500' },
   verdictLabelSelected: { color: theme.accent, fontWeight: '700' },
-  saveButton:           { backgroundColor: theme.accent, borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
+  saveButton:           { backgroundColor: theme.accent, borderRadius: radius.md, paddingVertical: space.md, alignItems: 'center', marginTop: space.sm },
   saveButtonDisabled:   { opacity: 0.6 },
   saveButtonText:       { color: theme.onAccent, fontSize: fontSize.input, fontWeight: '700' },
-  cancelButton:         { alignItems: 'center', paddingVertical: 12 },
+  cancelButton:         { alignItems: 'center', paddingVertical: space.md },
   cancelText:           { color: theme.textSecondary, fontSize: fontSize.callout },
 });

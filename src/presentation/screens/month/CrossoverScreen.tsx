@@ -6,6 +6,7 @@ import { formatCurrency, formatDate } from '@/lib/format';
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 function parseMinor(text: string): bigint {
   const n = parseFloat(text.replace(/[^0-9.]/g, ''));
@@ -154,22 +155,22 @@ function InputRow({ label, placeholder, value, onChangeText, theme }: InputRowPr
 
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:       { flex: 1, backgroundColor: theme.bg },
-  scroll:          { padding: 20, paddingBottom: 48 },
-  title:           { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: 6 },
-  subtitle:        { fontSize: fontSize.md, color: theme.textSecondary, lineHeight: 20, marginBottom: 20 },
-  card:            { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: 20 },
-  inputRow:        { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: theme.border },
+  scroll:          { padding: space.lg, paddingBottom: space.xxxl },
+  title:           { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: space.sm },
+  subtitle:        { fontSize: fontSize.md, color: theme.textSecondary, lineHeight: 20, marginBottom: space.lg },
+  card:            { backgroundColor: theme.surface, borderRadius: radius.md, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: space.lg },
+  inputRow:        { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: space.lg, paddingVertical: space.md, borderBottomWidth: 1, borderBottomColor: theme.border },
   inputLabel:      { fontSize: fontSize.md, color: theme.textPrimary, flex: 1 },
   input:           { flex: 1, fontSize: fontSize.callout, color: theme.textPrimary, textAlign: 'right' },
-  resultCard:      { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, padding: 20, marginBottom: 20 },
-  resultMain:      { alignItems: 'center', marginBottom: 16 },
-  resultLabel:     { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: 4 },
+  resultCard:      { backgroundColor: theme.surface, borderRadius: radius.md, borderWidth: 1, borderColor: theme.border, padding: space.lg, marginBottom: space.lg },
+  resultMain:      { alignItems: 'center', marginBottom: space.lg },
+  resultLabel:     { fontSize: fontSize.sm, color: theme.textSecondary, marginBottom: space.xs },
   resultValue:     { fontSize: fontSize.xxl, fontWeight: '800', color: theme.accent },
-  divider:         { height: 1, backgroundColor: theme.border, marginBottom: 12 },
-  resultRow:       { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  divider:         { height: 1, backgroundColor: theme.border, marginBottom: space.md },
+  resultRow:       { flexDirection: 'row', justifyContent: 'space-between', marginBottom: space.sm },
   resultRowLabel:  { fontSize: fontSize.md, color: theme.textSecondary },
   resultRowValue:  { fontSize: fontSize.md, fontWeight: '600', color: theme.textPrimary },
-  disclaimer:      { fontSize: fontSize.tiny, color: theme.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 },
-  emptyCard:       { backgroundColor: theme.surfaceAlt, borderRadius: 14, padding: 24, alignItems: 'center', marginBottom: 20 },
+  disclaimer:      { fontSize: fontSize.tiny, color: theme.textSecondary, textAlign: 'center', marginTop: space.lg, lineHeight: 16 },
+  emptyCard:       { backgroundColor: theme.surfaceAlt, borderRadius: radius.md, padding: space.xl, alignItems: 'center', marginBottom: space.lg },
   muted:           { color: theme.textSecondary, fontSize: fontSize.md, textAlign: 'center', lineHeight: 20 },
 });

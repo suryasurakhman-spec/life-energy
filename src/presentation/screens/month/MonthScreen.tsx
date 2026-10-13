@@ -12,6 +12,7 @@ import { useTheme } from '@/theme';
 import { MonthlyReviewSheet } from './MonthlyReviewSheet';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const repo = new SqliteExpenseRepository();
 
@@ -156,22 +157,22 @@ export function MonthScreen() {
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:     { flex: 1, backgroundColor: theme.bg },
   center:        { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  header:        { paddingHorizontal: 20, paddingVertical: 16, backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border },
-  title:         { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: 4 },
-  headerTotals:  { flexDirection: 'row', alignItems: 'baseline', gap: 12 },
+  header:        { paddingHorizontal: space.lg, paddingVertical: space.lg, backgroundColor: theme.surface, borderBottomWidth: 1, borderBottomColor: theme.border },
+  title:         { fontSize: fontSize.xl, fontWeight: '700', color: theme.textPrimary, marginBottom: space.xs },
+  headerTotals:  { flexDirection: 'row', alignItems: 'baseline', gap: space.md },
   totalAmount:   { fontSize: fontSize.title1, fontWeight: '700', color: theme.accent },
   totalHours:    { fontSize: fontSize.input, color: theme.textSecondary },
-  listContent:   { paddingBottom: 32 },
-  row:           { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 14 },
+  listContent:   { paddingBottom: space.xxl },
+  row:           { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: space.lg, paddingVertical: space.md },
   rowLeft:       { flex: 1 },
   rowRight:      { alignItems: 'flex-end' },
   categoryName:  { fontSize: fontSize.input, fontWeight: '600', color: theme.textPrimary },
-  categoryCount: { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: 2 },
+  categoryCount: { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: space.xxs },
   amount:        { fontSize: fontSize.input, fontWeight: '600', color: theme.textPrimary },
-  hours:         { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: 2 },
-  separator:     { height: 1, backgroundColor: theme.border, marginHorizontal: 20 },
-  navRow:        { flexDirection: 'row', gap: 8, marginTop: 12 },
-  navButton:     { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, backgroundColor: theme.surfaceAlt, borderWidth: 1, borderColor: theme.border },
+  hours:         { fontSize: fontSize.sm, color: theme.textSecondary, marginTop: space.xxs },
+  separator:     { height: 1, backgroundColor: theme.border, marginHorizontal: space.lg },
+  navRow:        { flexDirection: 'row', gap: space.sm, marginTop: space.md },
+  navButton:     { paddingHorizontal: space.md, paddingVertical: space.sm, borderRadius: radius.sm, backgroundColor: theme.surfaceAlt, borderWidth: 1, borderColor: theme.border },
   navButtonText: { fontSize: fontSize.sm, fontWeight: '600', color: theme.accent },
   muted:         { color: theme.textSecondary, fontSize: fontSize.callout },
 });

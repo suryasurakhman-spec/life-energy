@@ -12,6 +12,7 @@ import { useLensStore } from '@/presentation/stores/lens.store';
 import { useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 type Verdict = 'worth_it' | 'not_sure' | 'not_worth_it';
 
@@ -59,12 +60,12 @@ export function LabelSheet({ priceMinor, currency, homeCurrency, wageProfileId, 
       onClose={onClose}
       enablePanDownToClose
     >
-      <BottomSheetView style={{ paddingHorizontal: 24, paddingTop: 12, paddingBottom: 48 }}>
+      <BottomSheetView style={{ paddingHorizontal: space.xl, paddingTop: space.md, paddingBottom: space.xxxl }}>
         {/* Hours display */}
         <Text style={{ fontSize: fontSize.display, fontWeight: '700', lineHeight: 52, color: palette.sand900 }}>
           {hoursLabel}
         </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: space.xs }}>
           <Text style={{ fontSize: fontSize.callout, color: palette.sand500 }}>{currencySymbol(currency)}</Text>
           <TextInput
             style={{ fontSize: fontSize.callout, color: palette.sand500, minWidth: 60 }}
@@ -78,23 +79,23 @@ export function LabelSheet({ priceMinor, currency, homeCurrency, wageProfileId, 
           />
         </View>
         {foreign && homeMinor !== null && fx && (
-          <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: 4 }}>
+          <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: space.xs }}>
             {`≈ ${formatCurrency(homeMinor, homeCurrency)} · ${t.lens.rateAsOf.replace('{date}', formatRateDate(fx.asOf))}`}
           </Text>
         )}
 
         {/* Worth it? */}
-        <Text style={{ fontWeight: '600', fontSize: fontSize.body, color: palette.sand900, marginTop: 24, marginBottom: 12 }}>
+        <Text style={{ fontWeight: '600', fontSize: fontSize.body, color: palette.sand900, marginTop: space.xl, marginBottom: space.md }}>
           {t.lens.worthItPrompt}
         </Text>
-        <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flexDirection: 'row', gap: space.sm }}>
           {verdictButtons.map(({ key, label }) => (
             <Pressable
               key={key}
               style={{
                 flex: 1,
-                paddingVertical: 12,
-                borderRadius: 12,
+                paddingVertical: space.md,
+                borderRadius: radius.md,
                 alignItems: 'center',
                 backgroundColor: verdict === key ? palette.amber600 : palette.sand100,
               }}
@@ -112,7 +113,7 @@ export function LabelSheet({ priceMinor, currency, homeCurrency, wageProfileId, 
 
         {/* Log it */}
         <Pressable
-          style={{ marginTop: 24, paddingVertical: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
+          style={{ marginTop: space.xl, paddingVertical: space.lg, borderRadius: radius.md, backgroundColor: palette.amber600, alignItems: 'center' }}
           onPress={() => {
             // Log in the home currency when a rate exists, so monthly totals stay in one currency.
             const input: Parameters<typeof logExpense.mutate>[0] = {

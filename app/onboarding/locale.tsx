@@ -5,6 +5,7 @@ import { useLocaleStore } from '@/presentation/stores/locale.store';
 import { LOCALE_LABELS, type Locale, useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const LOCALES: Locale[] = ['en-US', 'id', 'ja', 'ar'];
 
@@ -56,16 +57,16 @@ export default function LocaleScreen() {
 
 const s = StyleSheet.create({
   container:       { flex: 1, backgroundColor: palette.sand50 },
-  inner:           { flex: 1, padding: 24, justifyContent: 'space-between' },
-  top:             { marginTop: 24 },
-  title:           { fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900, marginBottom: 8 },
+  inner:           { flex: 1, padding: space.xl, justifyContent: 'space-between' },
+  top:             { marginTop: space.xl },
+  title:           { fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900, marginBottom: space.sm },
   subtitle:        { fontSize: fontSize.callout, color: palette.sand500, lineHeight: 22 },
-  list:            { gap: 10 },
-  row:             { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16, borderRadius: 12, backgroundColor: '#FFFFFF', borderWidth: 1.5, borderColor: palette.sand200 },
+  list:            { gap: space.md },
+  row:             { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: space.lg, borderRadius: radius.md, backgroundColor: palette.white, borderWidth: 1.5, borderColor: palette.sand200 },
   rowSelected:     { borderColor: palette.amber600, backgroundColor: palette.amber100 },
   rowText:         { fontSize: fontSize.body, color: palette.sand800 },
   rowTextSelected: { fontWeight: '700', color: palette.amber700 },
   check:           { fontSize: fontSize.lg, color: palette.amber600 },
-  cta:             { backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' },
-  ctaText:         { color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' },
+  cta:             { backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' },
+  ctaText:         { color: palette.white, fontSize: fontSize.body, fontWeight: '600' },
 });

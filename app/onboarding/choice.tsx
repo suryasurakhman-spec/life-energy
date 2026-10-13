@@ -5,6 +5,7 @@ import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
 import { light, palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 /** PRD first-run step 5: quick path straight to the reveal, or the full job-cost path. */
 export default function ChoiceScreen() {
@@ -13,8 +14,8 @@ export default function ChoiceScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <View style={{ flex: 1, padding: 24, justifyContent: 'space-between' }}>
-        <View style={{ flex: 1, justifyContent: 'center', gap: 16 }}>
+      <View style={{ flex: 1, padding: space.xl, justifyContent: 'space-between' }}>
+        <View style={{ flex: 1, justifyContent: 'center', gap: space.lg }}>
           <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
             {t.onboarding.choice.title}
           </Text>
@@ -23,10 +24,10 @@ export default function ChoiceScreen() {
           </Text>
         </View>
 
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: space.md }}>
           <Pressable
             onPress={() => router.push('/onboarding/costs')}
-            style={{ backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+            style={{ backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
             accessibilityRole="button"
             accessibilityLabel={t.onboarding.choice.full}
           >
@@ -37,7 +38,7 @@ export default function ChoiceScreen() {
               clearExtraJobCosts();
               router.push('/onboarding/reveal');
             }}
-            style={{ borderWidth: 1, borderColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+            style={{ borderWidth: 1, borderColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
             accessibilityRole="button"
             accessibilityLabel={t.onboarding.choice.quick}
           >

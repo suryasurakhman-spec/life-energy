@@ -13,6 +13,7 @@ import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 const userData = new SqliteUserDataStore();
 
@@ -194,15 +195,15 @@ export function ProfileScreen() {
 
 const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   container:     { flex: 1, backgroundColor: theme.bg },
-  scroll:        { padding: 20, paddingBottom: 48 },
-  title:         { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: 20 },
-  sectionHeader: { fontSize: fontSize.xs, fontWeight: '600', color: theme.textSecondary, letterSpacing: 0.8, marginBottom: 6, marginTop: 20, marginLeft: 4 },
-  card:          { backgroundColor: theme.surface, borderRadius: 14, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: 4 },
-  row:           { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 },
+  scroll:        { padding: space.lg, paddingBottom: space.xxxl },
+  title:         { fontSize: fontSize.title2, fontWeight: '700', color: theme.textPrimary, marginBottom: space.lg },
+  sectionHeader: { fontSize: fontSize.xs, fontWeight: '600', color: theme.textSecondary, letterSpacing: 0.8, marginBottom: space.sm, marginTop: space.lg, marginLeft: space.xs },
+  card:          { backgroundColor: theme.surface, borderRadius: radius.md, borderWidth: 1, borderColor: theme.border, overflow: 'hidden', marginBottom: space.xs },
+  row:           { flexDirection: 'row', alignItems: 'center', paddingHorizontal: space.lg, paddingVertical: space.md },
   rowLabel:      { flex: 1, fontSize: fontSize.callout, color: theme.textPrimary },
   rowValue:      { fontSize: fontSize.md, color: theme.textSecondary },
   chevron:       { fontSize: fontSize.xl, color: theme.textSecondary },
   destructive:   { color: theme.error },
-  separator:     { height: 1, backgroundColor: theme.border, marginHorizontal: 16 },
-  footer:        { fontSize: fontSize.xs, color: theme.textSecondary, textAlign: 'center', marginTop: 32, lineHeight: 18 },
+  separator:     { height: 1, backgroundColor: theme.border, marginHorizontal: space.lg },
+  footer:        { fontSize: fontSize.xs, color: theme.textSecondary, textAlign: 'center', marginTop: space.xxl, lineHeight: 18 },
 });

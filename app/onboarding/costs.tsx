@@ -8,6 +8,7 @@ import { currencySymbol } from '@/lib/format';
 import { toMonthlyHours } from '@/lib/calc';
 import { light, palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 type CostKey = 'meals' | 'clothes' | 'childcare' | 'decompression' | 'health';
 type HourKey = 'gettingReady' | 'decompressing' | 'overtime';
@@ -50,21 +51,21 @@ export default function CostsScreen() {
   }
 
   const sectionLabel = { fontSize: fontSize.md, color: palette.sand500, fontWeight: '500' as const };
-  const field = { flexDirection: 'row' as const, alignItems: 'center' as const, borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: light.surface };
-  const input = { flex: 1, fontSize: fontSize.lg, paddingVertical: 12, color: palette.sand900 };
+  const field = { flexDirection: 'row' as const, alignItems: 'center' as const, borderWidth: 1, borderColor: palette.sand200, borderRadius: radius.md, paddingHorizontal: space.lg, backgroundColor: light.surface };
+  const input = { flex: 1, fontSize: fontSize.lg, paddingVertical: space.md, color: palette.sand900 };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <ScrollView contentContainerStyle={{ padding: 24, gap: 20 }} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={{ padding: space.xl, gap: space.lg }} keyboardShouldPersistTaps="handled">
         <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>{t.onboarding.costs.title}</Text>
         <Text style={{ fontSize: fontSize.body, color: palette.sand500, lineHeight: 26 }}>{t.onboarding.costs.subtitle}</Text>
 
         <Text style={sectionLabel}>{t.onboarding.costs.monthlyCosts.toUpperCase()}</Text>
         {COST_KEYS.map(k => (
-          <View key={k} style={{ gap: 6 }}>
+          <View key={k} style={{ gap: space.sm }}>
             <Text style={{ fontSize: fontSize.callout, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
             <View style={field}>
-              <Text style={{ fontSize: fontSize.lg, color: palette.sand700, marginRight: 4 }}>{symbol}</Text>
+              <Text style={{ fontSize: fontSize.lg, color: palette.sand700, marginRight: space.xs }}>{symbol}</Text>
               <TextInput
                 value={costs[k]}
                 onChangeText={v => setCosts(c => ({ ...c, [k]: v }))}
@@ -78,9 +79,9 @@ export default function CostsScreen() {
           </View>
         ))}
 
-        <Text style={[sectionLabel, { marginTop: 8 }]}>{t.onboarding.costs.weeklyHours.toUpperCase()}</Text>
+        <Text style={[sectionLabel, { marginTop: space.sm }]}>{t.onboarding.costs.weeklyHours.toUpperCase()}</Text>
         {HOUR_KEYS.map(k => (
-          <View key={k} style={{ gap: 6 }}>
+          <View key={k} style={{ gap: space.sm }}>
             <Text style={{ fontSize: fontSize.callout, color: palette.sand700 }}>{t.onboarding.costs[k]}</Text>
             <View style={field}>
               <TextInput
@@ -99,7 +100,7 @@ export default function CostsScreen() {
 
         <Pressable
           onPress={handleNext}
-          style={{ marginTop: 8, backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+          style={{ marginTop: space.sm, backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.costs.next}
         >

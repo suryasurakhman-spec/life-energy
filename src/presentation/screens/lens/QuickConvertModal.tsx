@@ -9,6 +9,7 @@ import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 interface Props {
   realHourlyWage: number;
@@ -48,15 +49,15 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
       <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: palette.scrim }}>
-        <View style={{ backgroundColor: palette.sand50, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, paddingBottom: 48 }}>
+        <View style={{ backgroundColor: palette.sand50, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, padding: space.xl, paddingBottom: space.xxxl }}>
           {/* Result display */}
-          <View style={{ alignItems: 'center', marginBottom: 24, minHeight: 80 }}>
+          <View style={{ alignItems: 'center', marginBottom: space.xl, minHeight: 80 }}>
             {energy ? (
               <>
                 <Text style={{ fontSize: fontSize.display, fontWeight: '700', color: palette.sand900 }}>
                   {formatHours(energy.totalMinutes, { workDayMinutes: workDay })}
                 </Text>
-                <Text style={{ fontSize: fontSize.body, color: palette.sand500, marginTop: 4 }}>
+                <Text style={{ fontSize: fontSize.body, color: palette.sand500, marginTop: space.xs }}>
                   {formatCurrency(priceMinor, currency)}
                 </Text>
               </>
@@ -66,12 +67,12 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
           </View>
 
           {/* Keypad */}
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
             {KEYS.map(key => (
               <Pressable
                 key={key}
                 onPress={() => handleKey(key)}
-                style={{ width: '30%', aspectRatio: 1.5, borderRadius: 12, backgroundColor: key === '⌫' ? palette.amber100 : palette.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: palette.sand200 }}
+                style={{ width: '30%', aspectRatio: 1.5, borderRadius: radius.md, backgroundColor: key === '⌫' ? palette.amber100 : palette.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: palette.sand200 }}
               >
                 <Text style={{ fontSize: fontSize.title2, fontWeight: '500', color: palette.sand900 }}>{key}</Text>
               </Pressable>
@@ -79,10 +80,10 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
           </View>
 
           {/* Log + Close */}
-          <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
+          <View style={{ flexDirection: 'row', gap: space.md, marginTop: space.lg }}>
             <Pressable
               onPress={onClose}
-              style={{ flex: 1, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: palette.sand200, alignItems: 'center' }}
+              style={{ flex: 1, padding: space.lg, borderRadius: radius.md, borderWidth: 1, borderColor: palette.sand200, alignItems: 'center' }}
             >
               <Text style={{ fontWeight: '600', color: palette.sand700 }}>{t.common.cancel}</Text>
             </Pressable>
@@ -94,7 +95,7 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
                 setInput('');
                 onClose();
               }}
-              style={{ flex: 2, padding: 16, borderRadius: 12, backgroundColor: palette.amber600, alignItems: 'center' }}
+              style={{ flex: 2, padding: space.lg, borderRadius: radius.md, backgroundColor: palette.amber600, alignItems: 'center' }}
             >
               <Text style={{ fontWeight: '600', color: palette.white, fontSize: fontSize.body }}>{t.lens.logIt}</Text>
             </Pressable>

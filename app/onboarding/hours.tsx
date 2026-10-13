@@ -6,6 +6,7 @@ import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { radius, space } from '@/theme/layout';
 
 export default function HoursScreen() {
   const t = useTranslation();
@@ -21,7 +22,7 @@ export default function HoursScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.sand50 }}>
-      <View style={{ flex: 1, padding: 24, gap: 24 }}>
+      <View style={{ flex: 1, padding: space.xl, gap: space.xl }}>
         <Text style={{ fontSize: fontSize.title1, fontWeight: '700', color: palette.sand900 }}>
           {t.onboarding.hours.title}
         </Text>
@@ -29,12 +30,12 @@ export default function HoursScreen() {
           {t.onboarding.hours.hint}
         </Text>
 
-        <View style={{ borderWidth: 1, borderColor: palette.sand200, borderRadius: 12, paddingHorizontal: 16, backgroundColor: '#FFFFFF' }}>
+        <View style={{ borderWidth: 1, borderColor: palette.sand200, borderRadius: radius.md, paddingHorizontal: space.lg, backgroundColor: palette.white }}>
           <TextInput
             value={hours}
             onChangeText={setHours}
             keyboardType="decimal-pad"
-            style={{ fontSize: fontSize.title3, paddingVertical: 16, color: palette.sand900, textAlign: 'center' }}
+            style={{ fontSize: fontSize.title3, paddingVertical: space.lg, color: palette.sand900, textAlign: 'center' }}
             accessibilityLabel={t.onboarding.hours.label}
           />
         </View>
@@ -46,11 +47,11 @@ export default function HoursScreen() {
 
         <Pressable
           onPress={handleNext}
-          style={{ backgroundColor: palette.amber600, borderRadius: 12, padding: 16, alignItems: 'center' }}
+          style={{ backgroundColor: palette.amber600, borderRadius: radius.md, padding: space.lg, alignItems: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t.onboarding.hours.next}
         >
-          <Text style={{ color: '#FFFFFF', fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.hours.next}</Text>
+          <Text style={{ color: palette.white, fontSize: fontSize.body, fontWeight: '600' }}>{t.onboarding.hours.next}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

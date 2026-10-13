@@ -4,6 +4,7 @@ import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import type { ExpenseRecord } from '@/application/ports/expense-repository.port';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
+import { space } from '@/theme/layout';
 
 interface Props {
   expense: ExpenseRecord;
@@ -24,10 +25,10 @@ export function ExpenseRow({ expense, realHourlyWage }: Props) {
   const verdictLabel = expense.verdict ? VERDICT_LABEL[expense.verdict] : '';
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, gap: 12 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: space.md, paddingHorizontal: space.lg, gap: space.md }}>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: fontSize.body, fontWeight: '500', color: palette.sand900 }}>{priceLabel}</Text>
-        {expense.note ? <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: 2 }}>{expense.note}</Text> : null}
+        {expense.note ? <Text style={{ fontSize: fontSize.sm, color: palette.sand500, marginTop: space.xxs }}>{expense.note}</Text> : null}
       </View>
       <Text style={{ fontSize: fontSize.callout, color: palette.sand700, fontWeight: '500' }}>{hoursLabel}</Text>
       {verdictLabel ? <Text style={{ fontSize: fontSize.body, color: palette.sand500, width: 20, textAlign: 'center' }}>{verdictLabel}</Text> : null}
