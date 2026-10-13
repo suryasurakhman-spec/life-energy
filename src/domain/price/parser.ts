@@ -61,9 +61,12 @@ function parseNumeric(s: string, currency: string): bigint | null {
   }
   const val = parseFloat(normalized);
   if (isNaN(val)) return null;
-  // JPY and KRW have no minor units (no decimal)
-  const noMinorUnits = currency === 'JPY' || currency === 'KRW';
-  return BigInt(noMinorUnits ? Math.round(val) : Math.round(val * 100));
+  return BigInt(Math.round(val * 10 ** minorDigits(currency)));
+}
+
+/** Decimal places of a currency's minor unit: JPY and KRW have none. */
+export function minorDigits(currency: string): number {
+  return currency === 'JPY' || currency === 'KRW' ? 0 : 2;
 }
 
 export function isPriceToken(token: string): boolean {

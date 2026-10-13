@@ -17,10 +17,10 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLensStore } from '@/presentation/stores/lens.store';
 import { useCurrentWage, useRealHourlyWage } from '@/presentation/hooks/useWage';
 import { useFxRate, convertToBase } from '@/presentation/hooks/useFxRate';
-import { parsePrice } from '@/lib/priceParser';
-import { parsePrice as parseForeignPrice } from '@/domain/price/parser';
 import { createStabilizer } from '@/domain/price/stabilizer';
 import type { DetectedPrice } from '@/domain/price/stabilizer';
+import { pricesInLines } from './ocr-prices';
+import type { OcrBox, OcrLine } from './ocr-prices';
 import { formatHours } from '@/lib/format';
 import { lifeEnergy } from '@/lib/calc';
 import { LabelChip } from '@/presentation/components/LabelChip';
@@ -33,31 +33,6 @@ import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
 
 const stabilizer = createStabilizer();
-
-/** OCR text with its box already mapped to view coordinates. */
-interface OcrBox {
-  text: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-/** One OCR line plus its words: multi-word tags ("$3 99", "Was $5 Now $3") only parse as a line. */
-interface OcrLine extends OcrBox {
-  words: OcrBox[];
-}
-
-/**
- * US tags go through the full parser (FR-2). When it flags a non-USD price, or can't read
- * the text at all, the currency-aware parser gets a chance (FR-18 foreign prices).
- */
-function parseTag(text: string): Omit<DetectedPrice, 'id' | 'x' | 'y' | 'width' | 'height'> | null {
-  const usd = parsePrice(text);
-  if (usd && usd.currency !== 'NOT_USD') return usd;
-  const foreign = parseForeignPrice(text);
-  return foreign && foreign.currency !== 'USD' ? foreign : null;
-}
 
 // ML Kit text recognition (native plugin registered by react-native-vision-camera-text-recognition).
 const scanTextPlugin = VisionCameraProxy.initFrameProcessorPlugin('scanText', { language: 'latin' });
@@ -189,30 +164,7 @@ export function LensScreen() {
   // don't cross the worklet boundary, so the frame processor only sends text + view boxes.
   const onTextDetected = useCallback(
     (lines: OcrLine[]) => {
-      const detected: DetectedPrice[] = [];
-      const add = (box: OcrBox, parsed: NonNullable<ReturnType<typeof parseTag>>) => {
-        detected.push({
-          id: `${Math.round(box.x / 24)}-${Math.round(box.y / 24)}`,
-          ...parsed,
-          x: box.x,
-          y: box.y,
-          width: box.width,
-          height: box.height,
-        });
-      };
-      for (const line of lines) {
-        // Whole line first, so split-cent, sale and "with card" tags read as one price.
-        const singleWord = line.words.length === 1 && line.words[0]!.text === line.text.trim();
-        const whole = singleWord ? null : parseTag(line.text);
-        if (whole) {
-          add(line, whole);
-          continue;
-        }
-        for (const w of line.words) {
-          const parsed = parseTag(w.text);
-          if (parsed) add(w, parsed);
-        }
-      }
+      const detected = pricesInLines(lines, homeCurrency);
       stabilizer.addFrame(detected);
       const stable = stabilizer.stableItems();
       setPrices(stable);

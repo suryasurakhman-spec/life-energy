@@ -1,0 +1,1822 @@
+{
+ "description": "Price-tag test set for the live lens (FR-1). Open-licence photos from Wikimedia Commons; prices read and labelled by hand. 'price' is the amount in major units as written on the tag. Fuel boards drop the tenth-of-a-cent fraction. 'also_ok' lists real prices that are fine to show but not required (unit, regular, crossed-out, cut-off or background prices).",
+ "collected": "2026-10-12",
+ "photos": 62,
+ "tags": 134,
+ "items": [
+  {
+   "id": "c003",
+   "image": "images/c003.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.99",
+     "text": "$3.99"
+    },
+    {
+     "price": "3.99",
+     "text": "$3.99"
+    }
+   ],
+   "distractors": [
+    "$9.12 per quart (unit price)",
+    "small printed $3.99 duplicates"
+   ],
+   "also_ok": [
+    "9.12",
+    "3.99",
+    "3.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:%22wow%22_price_tag.jpg",
+    "title": "\"wow\" price tag.jpg",
+    "author": "Tessa Bury",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c004",
+   "image": "images/c004.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "4.03",
+     "text": "403⁹ (tenths of a cent)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:$4.039_gasoline_price_BP_station_Crozet_VA_June_2008.jpg",
+    "title": "$4.039 gasoline price BP station Crozet VA June 2008.jpg",
+    "author": "Artaxerxes",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c006",
+   "image": "images/c006.jpg",
+   "kind": "swing-tag",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1249.99",
+     "text": "$1249⁹⁹ (handwritten, raised cents)"
+    }
+   ],
+   "distractors": [
+    "cut-off '599.99' tag at left edge",
+    "'33-36' years"
+   ],
+   "also_ok": [
+    "599.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:1935_National_Rosita_-_The_Starving_Musician,_Santa_Clara,_CA_(2015-04-03_12.33.32_by_brad_bechtel).jpg",
+    "title": "1935 National Rosita - The Starving Musician, Santa Clara, CA (2015-04-03 12.33.32 by brad bechtel).jpg",
+    "author": "brad_bechtel",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c012",
+   "image": "images/c012.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "4.84",
+     "text": "484 9/10"
+    },
+    {
+     "price": "4.95",
+     "text": "495 9/10"
+    },
+    {
+     "price": "5.05",
+     "text": "505 9/10"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:76_sign_with_$5_gas_2008.jpg",
+    "title": "76 sign with $5 gas 2008.jpg",
+    "author": "Quinn Dombrowski",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c014",
+   "image": "images/c014.jpg",
+   "kind": "sticker",
+   "region": "TW",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "570",
+     "text": "$570 (handwritten)"
+    },
+    {
+     "price": "540",
+     "text": "$540 member price (handwritten)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Animate_Taipei_Ximen_price_tag_20130615.jpg",
+    "title": "Animate Taipei Ximen price tag 20130615.jpg",
+    "author": "Solomon203",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c016",
+   "image": "images/c016.jpg",
+   "kind": "shelf",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "11.99",
+     "text": "11.99",
+     "note": "no currency symbol"
+    },
+    {
+     "price": "8.99",
+     "text": "8.99",
+     "note": "no currency symbol"
+    }
+   ],
+   "distractors": [
+    "product codes",
+    "'500 mg', '100 tablets'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Bayer_Aspirin_and_store-brand_generic_on_Canadian_drugstore_shelf.jpg",
+    "title": "Bayer Aspirin and store-brand generic on Canadian drugstore shelf.jpg",
+    "author": "Daniel Case",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c017",
+   "image": "images/c017.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "12.79",
+     "text": "$12.79",
+     "note": "with-card"
+    },
+    {
+     "price": "9.29",
+     "text": "$9.29"
+    }
+   ],
+   "distractors": [
+    "$6.40 per 100 (unit price)",
+    "$1.86 per 100 (unit price)"
+   ],
+   "also_ok": [
+    "6.40",
+    "1.86"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Bayer_and_store-brand_aspirin_containers_on_US_drugstore_shelf.jpg",
+    "title": "Bayer and store-brand aspirin containers on US drugstore shelf.jpg",
+    "author": "Daniel Case",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c018",
+   "image": "images/c018.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "0.05",
+     "text": "5¢ a loaf"
+    },
+    {
+     "price": "0.05",
+     "text": "5¢ a loaf"
+    }
+   ],
+   "distractors": [
+    "street number 259"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Bread_Store,_259_Bleecker_Street,_Manhattan_(NYPL_b13668355-482591).jpg",
+    "title": "Bread Store, 259 Bleecker Street, Manhattan (NYPL b13668355-482591).jpg",
+    "author": "Berenice Abbott",
+    "license": "Public domain",
+    "license_url": null
+   }
+  },
+  {
+   "id": "c026",
+   "image": "images/c026.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.15",
+     "text": "3.15⁹"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [
+    "4.17"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Country_Fair_gas_station.jpg",
+    "title": "Country Fair gas station.jpg",
+    "author": "Niagara",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+   }
+  },
+  {
+   "id": "c027",
+   "image": "images/c027.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.39",
+     "text": "339⁹"
+    },
+    {
+     "price": "3.59",
+     "text": "359⁹"
+    },
+    {
+     "price": "3.79",
+     "text": "379⁹"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:County_Route_553_-_New_Jersey_-_5538833926.jpg",
+    "title": "County Route 553 - New Jersey - 5538833926.jpg",
+    "author": "Dougtone",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c033",
+   "image": "images/c033.jpg",
+   "kind": "shelf",
+   "region": "AU",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "9.98",
+     "text": "$9.98 each"
+    },
+    {
+     "price": "10.98",
+     "text": "$10.98 each"
+    },
+    {
+     "price": "6.98",
+     "text": "$6.98 each"
+    }
+   ],
+   "distractors": [
+    "'375G' weights",
+    "barcodes"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Expensive_organic_food.jpg",
+    "title": "Expensive organic food.jpg",
+    "author": "Sgroey",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c034",
+   "image": "images/c034.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "59.99",
+     "text": "59.99",
+     "note": "no currency symbol"
+    }
+   ],
+   "distractors": [
+    "$10 GiftCard (promo, twice)",
+    "dates 3/9-3/13",
+    "item codes"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:FF_XIII_Xbox_360_version_price_tag_with_gift_card_offer_at_Target,_Tanforan.JPG",
+    "title": "FF XIII Xbox 360 version price tag with gift card offer at Target, Tanforan.JPG",
+    "author": "BrokenSphere",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c036",
+   "image": "images/c036.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "8.99",
+     "text": "$8.99"
+    },
+    {
+     "price": "5.99",
+     "text": "$5.99",
+     "note": "sale; regular $6.99"
+    }
+   ],
+   "distractors": [
+    "$6.99 regular price",
+    "dates 01/04/2025 ~ 01/31/2025",
+    "'2.2LB', '500G'",
+    "cut-off tag at left edge"
+   ],
+   "also_ok": [
+    "6.99",
+    "6.49"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fruit_tea,_mayonnaise,_and_gochujang_on_display_in_Lotte_Plaza_Market,_Tampa,_Florida,_on_15_January_2025.jpg",
+    "title": "Fruit tea, mayonnaise, and gochujang on display in Lotte Plaza Market, Tampa, Florida, on 15 January 2025.jpg",
+    "author": "MatthewHoobin",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "c039",
+   "image": "images/c039.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.39",
+     "text": "3.39 9/10 (LED)"
+    },
+    {
+     "price": "4.34",
+     "text": "4.34 9/10 (LED)"
+    },
+    {
+     "price": "6.29",
+     "text": "6.29 9/10 (LED)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Gas_Prices_(E85,_Regular,_Diesel)_in_Colorado,_Conoco,_September_2026_(55563139559).jpg",
+    "title": "Gas Prices (E85, Regular, Diesel) in Colorado, Conoco, September 2026 (55563139559).jpg",
+    "author": "Tony Webster",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c043",
+   "image": "images/c043.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.27",
+     "text": "327 9/10"
+    },
+    {
+     "price": "3.39",
+     "text": "339 9/10"
+    },
+    {
+     "price": "3.49",
+     "text": "349 9/10"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Gas_prices,_July_2006,_San_Francisco,_California_01.jpg",
+    "title": "Gas prices, July 2006, San Francisco, California 01.jpg",
+    "author": "Tewy",
+    "license": "CC BY 2.5",
+    "license_url": "https://creativecommons.org/licenses/by/2.5"
+   }
+  },
+  {
+   "id": "c045",
+   "image": "images/c045.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "4.99",
+     "text": "4.99 9/10"
+    },
+    {
+     "price": "5.65",
+     "text": "5.65 9/10"
+    },
+    {
+     "price": "5.99",
+     "text": "5.99 9/10"
+    }
+   ],
+   "distractors": [
+    "pump display 25.51 / 5.154 gallons"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Gasoline_prices_in_Massachusetts_in_June_2022.jpg",
+    "title": "Gasoline prices in Massachusetts in June 2022.jpg",
+    "author": "Sdkb",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c046",
+   "image": "images/c046.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.78",
+     "text": "2.78⁹ (LED)"
+    },
+    {
+     "price": "3.25",
+     "text": "3.25⁹ (LED)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Golden_Gate_Auto-Truck_Plaza_sign_in_Ely,_Nevada_(2024)_-_0744.jpg",
+    "title": "Golden Gate Auto-Truck Plaza sign in Ely, Nevada (2024) - 0744.jpg",
+    "author": "Roc0ast3r",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "c047",
+   "image": "images/c047.jpg",
+   "kind": "handwritten",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.00",
+     "text": "$3⁰⁰ (handwritten, faint)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Greenmarket_in_Schenectady,_New_York_(37745739526).jpg",
+    "title": "Greenmarket in Schenectady, New York (37745739526).jpg",
+    "author": "Henry Bellagnome from Troy, New York, United States",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c048",
+   "image": "images/c048.jpg",
+   "kind": "label",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1.10",
+     "text": "$1.10"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Guava_and_Cheese_Pastry_Miami.jpg",
+    "title": "Guava and Cheese Pastry Miami.jpg",
+    "author": "Phillip Pessar",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c049",
+   "image": "images/c049.jpg",
+   "kind": "sign",
+   "region": "HK/TW",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "99",
+     "text": "$99"
+    },
+    {
+     "price": "99",
+     "text": "$99 (small shelf tag)"
+    }
+   ],
+   "distractors": [
+    "article number 902.191.79"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:HK_CWB_Park_Lane_basement_shop_IKEA_Chair_white_n_price_label_Dec-2015_DSC.JPG",
+    "title": "HK CWB Park Lane basement shop IKEA Chair white n price label Dec-2015 DSC.JPG",
+    "author": "Hoilnawoms",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c050",
+   "image": "images/c050.jpg",
+   "kind": "sign",
+   "region": "HK/TW",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "49.90",
+     "text": "$49.90",
+     "note": "100-pack"
+    }
+   ],
+   "distractors": [
+    "'100 pieces'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:HK_CWB_Park_Lane_basement_shop_IKEA_Glimma_Tea_Lights_candles_price_label_Dec-2015_DSC.JPG",
+    "title": "HK CWB Park Lane basement shop IKEA Glimma Tea Lights candles price label Dec-2015 DSC.JPG",
+    "author": "Hoilnawoms",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c051",
+   "image": "images/c051.jpg",
+   "kind": "sign",
+   "region": "HK/TW",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "99.90",
+     "text": "$99.90",
+     "note": "sale; was $129.90"
+    }
+   ],
+   "distractors": [
+    "$129.90 crossed out"
+   ],
+   "also_ok": [
+    "129.90"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:HK_CWB_Park_Lane_basement_shop_IKEA_Sheepskin_carpet_display_price_label_Dec-2015_DSC.JPG",
+    "title": "HK CWB Park Lane basement shop IKEA Sheepskin carpet display price label Dec-2015 DSC.JPG",
+    "author": "Hoilnawoms",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c052",
+   "image": "images/c052.jpg",
+   "kind": "sign",
+   "region": "HK/TW",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "22.90",
+     "text": "$22.90",
+     "note": "sale; was $36.90"
+    }
+   ],
+   "distractors": [
+    "$36.90 crossed out",
+    "'30 pieces'"
+   ],
+   "also_ok": [
+    "36.90"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:HK_CWB_Park_Lane_basement_shop_IKEA_low_price_labels_Dec-2015_DSC.JPG",
+    "title": "HK CWB Park Lane basement shop IKEA low price labels Dec-2015 DSC.JPG",
+    "author": "Hoilnawoms",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c053",
+   "image": "images/c053.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.49",
+     "text": "349⁹"
+    },
+    {
+     "price": "3.69",
+     "text": "369⁹"
+    },
+    {
+     "price": "4.35",
+     "text": "435⁹"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Hess_sign,_Wilmington,_MA.jpg",
+    "title": "Hess sign, Wilmington, MA.jpg",
+    "author": "Rene Schwietzke from Jena, Germany",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c059",
+   "image": "images/c059.jpg",
+   "kind": "aisle-sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.97",
+     "text": "$2⁹⁷ (raised cents)"
+    },
+    {
+     "price": "35.68",
+     "text": "$35⁶⁸",
+     "difficulty": "hard: distant"
+    },
+    {
+     "price": "9.98",
+     "text": "$9⁹⁸",
+     "difficulty": "hard: distant"
+    },
+    {
+     "price": "17.78",
+     "text": "$17⁷⁸",
+     "difficulty": "hard: distant"
+    }
+   ],
+   "distractors": [
+    "aisle numbers E3/E5",
+    "partly hidden '$1…' and '$3…' signs"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Inside_Austintown_Walmart_Supercenter,_2024-08-08,_Mahoning_County,_Ohio_04.jpg",
+    "title": "Inside Austintown Walmart Supercenter, 2024-08-08, Mahoning County, Ohio 04.jpg",
+    "author": "Deans Charbal",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c060",
+   "image": "images/c060.jpg",
+   "kind": "aisle-sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.68",
+     "text": "$3⁶⁸ (raised cents)"
+    },
+    {
+     "price": "3.96",
+     "text": "$3⁹⁶",
+     "difficulty": "hard: distant"
+    },
+    {
+     "price": "12.98",
+     "text": "$12⁹⁸",
+     "difficulty": "hard: small"
+    }
+   ],
+   "distractors": [
+    "aisle numbers A14/A15/A16/A17",
+    "partly hidden '4.93'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Inside_Walmart_Supercenter_in_Bloomsburg,_Pennsylvania,_August_26_2023.jpg",
+    "title": "Inside Walmart Supercenter in Bloomsburg, Pennsylvania, August 26 2023.jpg",
+    "author": "Deans Charbal",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c061",
+   "image": "images/c061.jpg",
+   "kind": "menu",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.25",
+     "text": "3.25"
+    },
+    {
+     "price": "4.25",
+     "text": "4.25"
+    },
+    {
+     "price": "4.25",
+     "text": "4.25"
+    },
+    {
+     "price": "4.25",
+     "text": "4.25"
+    },
+    {
+     "price": "23.00",
+     "text": "23.00"
+    },
+    {
+     "price": "27.00",
+     "text": "27.00"
+    },
+    {
+     "price": "2.50",
+     "text": "2.50"
+    }
+   ],
+   "distractors": [
+    "phone number 212-366-1182",
+    "'since 1975'"
+   ],
+   "also_ok": [],
+   "scope": "v3 menu mode",
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Joes_Pizza_2021.jpg",
+    "title": "Joes Pizza 2021.jpg",
+    "author": "Wil540 art",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c069",
+   "image": "images/c069.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "5.14",
+     "text": "5.14⁹ (LED)"
+    },
+    {
+     "price": "3.93",
+     "text": "3.93⁹ (LED)"
+    }
+   ],
+   "distractors": [
+    "'#2'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Love%27s_Truck_Stop_Gas_Prices_-_Diesel_and_Unleaded_(55563129954).jpg",
+    "title": "Love's Truck Stop Gas Prices - Diesel and Unleaded (55563129954).jpg",
+    "author": "Tony Webster",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c071",
+   "image": "images/c071.jpg",
+   "kind": "price-list",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1.00",
+     "text": "$1.00"
+    },
+    {
+     "price": "3.00",
+     "text": "$3.00"
+    },
+    {
+     "price": "5.00",
+     "text": "$5.00"
+    },
+    {
+     "price": "1.00",
+     "text": "$1.00"
+    },
+    {
+     "price": "10.00",
+     "text": "$10.00"
+    },
+    {
+     "price": "60.00",
+     "text": "$60.00"
+    }
+   ],
+   "distractors": [
+    "departure times 6:00, 7:00, 8:30",
+    "phone (904) 357-3006",
+    "'20 Crossings'",
+    "'A1A'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Mayport_FL_ferry_south_sign01.jpg",
+    "title": "Mayport FL ferry south sign01.jpg",
+    "author": "Ebyabe",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c076",
+   "image": "images/c076.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "4.45",
+     "text": "4.45 9/10 (LED)"
+    },
+    {
+     "price": "4.99",
+     "text": "4.99 9/10 (LED)"
+    },
+    {
+     "price": "5.29",
+     "text": "5.29 9/10 (LED)"
+    },
+    {
+     "price": "4.65",
+     "text": "4.65 9/10 (LED)"
+    },
+    {
+     "price": "5.19",
+     "text": "5.19 9/10 (LED)"
+    },
+    {
+     "price": "5.49",
+     "text": "5.49 9/10 (LED)"
+    }
+   ],
+   "distractors": [
+    "pump display 9.00 / 2.018",
+    "pump number 6"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:New_York_gas_prices_(51931087449).jpg",
+    "title": "New York gas prices (51931087449).jpg",
+    "author": "David Wilson from Oak Park, Illinois, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c077",
+   "image": "images/c077.jpg",
+   "kind": "handwritten",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "0.99",
+     "text": "99¢ /LB",
+     "note": "per-unit"
+    },
+    {
+     "price": "0.99",
+     "text": "99¢ /LB",
+     "note": "per-unit; cut off at edge"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Nopales_alaventa.jpg",
+    "title": "Nopales alaventa.jpg",
+    "author": "Gary Stevens",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c078",
+   "image": "images/c078.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1.99",
+     "text": "1.99 9/10"
+    },
+    {
+     "price": "2.09",
+     "text": "2.09 9/10"
+    },
+    {
+     "price": "2.19",
+     "text": "2.19 9/10"
+    },
+    {
+     "price": "2.69",
+     "text": "269 9/10"
+    }
+   ],
+   "distractors": [
+    "'#2'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Nov-17-08_1.99_A_Gallon.jpg",
+    "title": "Nov-17-08 1.99 A Gallon.jpg",
+    "author": "A Syn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c080",
+   "image": "images/c080.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.00",
+     "text": "1 bunch for $2"
+    },
+    {
+     "price": "1.67",
+     "text": "3 bunches for $5",
+     "note": "per-item multi-buy"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Organic_-_Vegetables_at_Farmers_Market_(30297519628).jpg",
+    "title": "Organic - Vegetables at Farmers Market (30297519628).jpg",
+    "author": "Ella Olsson from Stockholm, Sweden",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c082",
+   "image": "images/c082.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "6.99",
+     "text": "$6.99"
+    },
+    {
+     "price": "5.99",
+     "text": "$5.99"
+    }
+   ],
+   "distractors": [
+    "'500G', '800G'",
+    "barcodes",
+    "item numbers 3412122, VIN7185"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Palestinian_za%27atar_and_Turkish_candy_in_Lotte_Plaza_Market,_Tampa,_Florida,_on_15_January_2025.jpg",
+    "title": "Palestinian za'atar and Turkish candy in Lotte Plaza Market, Tampa, Florida, on 15 January 2025.jpg",
+    "author": "MatthewHoobin",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "c083",
+   "image": "images/c083.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "0.99",
+     "text": "99¢ each",
+     "difficulty": "hard: small"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Parsley_for_99_cents,_and_other_vegetables,_in_supermarket_in_Clearwater,_Florida,_US_on_25_September_2020.jpg",
+    "title": "Parsley for 99 cents, and other vegetables, in supermarket in Clearwater, Florida, US on 25 September 2020.jpg",
+    "author": "MatthewHoobin",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "c087",
+   "image": "images/c087.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "4.99",
+     "text": "4.99 9/10 (LED)"
+    },
+    {
+     "price": "6.89",
+     "text": "6.89 9/10 (LED)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Regular_%26_Diesel_Gas_Prices_in_Eugene,_Oregon_on_09-26-2026.jpg",
+    "title": "Regular & Diesel Gas Prices in Eugene, Oregon on 09-26-2026.jpg",
+    "author": "Rick Obst",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c088",
+   "image": "images/c088.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.49",
+     "text": "$2⁴⁹ (raised cents)"
+    }
+   ],
+   "distractors": [
+    "'12OZ'",
+    "code PTF1090 and 1090",
+    "barcode 7 48884 01090 5"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Rollier%E2%80%99s_price_sticker.jpg",
+    "title": "Rollier’s price sticker.jpg",
+    "author": "WikiGrower1",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c091",
+   "image": "images/c091.jpg",
+   "kind": "shelf",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.99",
+     "text": "2.99",
+     "note": "no currency symbol"
+    },
+    {
+     "price": "2.49",
+     "text": "2.49",
+     "note": "no currency symbol"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Saguenay_10.jpg",
+    "title": "Saguenay 10.jpg",
+    "author": "LBM1948",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c092",
+   "image": "images/c092.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.00",
+     "text": "$2 a Book"
+    },
+    {
+     "price": "1.67",
+     "text": "3 for $5.00",
+     "note": "per-item multi-buy"
+    },
+    {
+     "price": "5.99",
+     "text": "$5⁹⁹ (raised cents)"
+    },
+    {
+     "price": "3.99",
+     "text": "$3⁹⁹ (raised cents)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:San_Francisco_(22471999240).jpg",
+    "title": "San Francisco (22471999240).jpg",
+    "author": "Emily Mathews from Ann Arbor, MI",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c093",
+   "image": "images/c093.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.19",
+     "text": "319⁹"
+    },
+    {
+     "price": "3.43",
+     "text": "343⁹"
+    },
+    {
+     "price": "3.75",
+     "text": "375⁹"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Shamrock_sign,_Coalgate,_OK.jpg",
+    "title": "Shamrock sign, Coalgate, OK.jpg",
+    "author": "peggydavis66",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c094",
+   "image": "images/c094.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.79",
+     "text": "2.79 9/10"
+    },
+    {
+     "price": "2.89",
+     "text": "2.89 9/10"
+    },
+    {
+     "price": "2.99",
+     "text": "2.99 9/10"
+    },
+    {
+     "price": "2.29",
+     "text": "2.29 9/10"
+    }
+   ],
+   "distractors": [
+    "octane 87, 89, 93"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Sheetz_Sign.jpg",
+    "title": "Sheetz Sign.jpg",
+    "author": "Ben Schumin",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+   }
+  },
+  {
+   "id": "c101",
+   "image": "images/c101.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "52.49",
+     "text": "52⁴⁹ (raised cents, no $)"
+    }
+   ],
+   "distractors": [
+    "'8' SNOWMAN'",
+    "item 386-1521",
+    "cut-off '127…' tag at right edge"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Snowmen_decorations_on_sale_at_Menards_01.jpg",
+    "title": "Snowmen decorations on sale at Menards 01.jpg",
+    "author": "Runner1928",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c102",
+   "image": "images/c102.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "15.99",
+     "text": "15⁹⁹ (raised cents, no $)"
+    },
+    {
+     "price": "39.00",
+     "text": "39⁰⁰",
+     "difficulty": "hard: small, distant"
+    }
+   ],
+   "distractors": [
+    "'3' PRE-LIT NOBLE FIR'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Snowmen_decorations_on_sale_at_Menards_02.jpg",
+    "title": "Snowmen decorations on sale at Menards 02.jpg",
+    "author": "Runner1928",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c103",
+   "image": "images/c103.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "8.99",
+     "text": "8⁹⁹ each (raised cents, no $)"
+    },
+    {
+     "price": "9.96",
+     "text": "9⁹⁶",
+     "difficulty": "hard: distant"
+    }
+   ],
+   "distractors": [
+    "'8' POINSETTIA'",
+    "item 262-4904"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Snowmen_decorations_on_sale_at_Menards_03.jpg",
+    "title": "Snowmen decorations on sale at Menards 03.jpg",
+    "author": "Runner1928",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c109",
+   "image": "images/c109.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "5.79",
+     "text": "5⁷⁹ /LB (raised cents, no $)",
+     "note": "per-unit; sale"
+    }
+   ],
+   "distractors": [
+    "'SAVE: $2.20 LB'",
+    "effective dates",
+    "small '5.99' label in background"
+   ],
+   "also_ok": [
+    "5.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Ahi_poke_(1088302171).jpg",
+    "title": "Ahi poke (1088302171).jpg",
+    "author": "istolethetv",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c111",
+   "image": "images/c111.jpg",
+   "kind": "label",
+   "region": "PL",
+   "currency": "PLN",
+   "tags": [
+    {
+     "price": "23.00",
+     "text": "23,00 (zł per kg)",
+     "note": "per-unit"
+    },
+    {
+     "price": "26.40",
+     "text": "26,40 (zł per kg)",
+     "note": "per-unit"
+    }
+   ],
+   "distractors": [
+    "'CENA 1 KG'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Blackmoor_Murzynek_Poznan.jpg",
+    "title": "Blackmoor Murzynek Poznan.jpg",
+    "author": "MOs810",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c114",
+   "image": "images/c114.jpg",
+   "kind": "shelf",
+   "region": "JP",
+   "currency": "JPY",
+   "tags": [
+    {
+     "price": "298",
+     "text": "298円 (incl. tax)"
+    },
+    {
+     "price": "271",
+     "text": "271円 (before tax)",
+     "difficulty": "hard: small"
+    }
+   ],
+   "distractors": [
+    "'100ml'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:DSC_2029~2.jpg",
+    "title": "DSC 2029~2.jpg",
+    "author": "主席補佐",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c121",
+   "image": "images/c121.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.34",
+     "text": "334⁹"
+    },
+    {
+     "price": "3.56",
+     "text": "356⁹"
+    },
+    {
+     "price": "3.68",
+     "text": "368⁹"
+    },
+    {
+     "price": "3.49",
+     "text": "349⁹"
+    }
+   ],
+   "distractors": [
+    "'Ultra 93'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Sunoco_NJTP_sign.jpg",
+    "title": "Sunoco NJTP sign.jpg",
+    "author": "Elvert Barnes",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c124",
+   "image": "images/c124.jpg",
+   "kind": "fuel",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.22",
+     "text": "2.22⁹ (LED)"
+    }
+   ],
+   "distractors": [
+    "fuel discount 0.03"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:SuperAmerica_Gas_Station_Saint_Paul,_MN.jpg",
+    "title": "SuperAmerica Gas Station Saint Paul, MN.jpg",
+    "author": "Shaded0",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c127",
+   "image": "images/c127.jpg",
+   "kind": "swing-tag",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "5.00",
+     "text": "$5⁰⁰ (handwritten, rotated)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Two_mugs_for_sale_in_a_shop_in_Canada_-2013-11-24.jpg",
+    "title": "Two mugs for sale in a shop in Canada -2013-11-24.jpg",
+    "author": "Daniel J",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c133",
+   "image": "images/c133.jpg",
+   "kind": "aisle-sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "12.96",
+     "text": "$12⁹⁶ (raised cents)"
+    },
+    {
+     "price": "0.97",
+     "text": "97¢",
+     "difficulty": "hard: distant"
+    }
+   ],
+   "distractors": [
+    "'February 14'",
+    "cut-off '$40…' sign"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Walmart_(32936438182).jpg",
+    "title": "Walmart (32936438182).jpg",
+    "author": "dankeck",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "c134",
+   "image": "images/c134.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "14.00",
+     "text": "$14 (whole dollars)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Walmart_Digital_Price_Tag_01.jpg",
+    "title": "Walmart Digital Price Tag 01.jpg",
+    "author": "Ktkvtsh",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c135",
+   "image": "images/c135.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "10.98",
+     "text": "$10⁹⁸ (e-ink label)"
+    },
+    {
+     "price": "10.98",
+     "text": "$10⁹⁸ (e-ink label)"
+    }
+   ],
+   "distractors": [
+    "QR codes",
+    "'10 pack'",
+    "size M"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Walmart_Digital_Price_Tag_02.jpg",
+    "title": "Walmart Digital Price Tag 02.jpg",
+    "author": "Ktkvtsh",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "c136",
+   "image": "images/c136.jpg",
+   "kind": "handwritten",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "20.00",
+     "text": "$20. (handwritten)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Wertmans_Farm;_Schaghticoke,_NY_(35379286082).jpg",
+    "title": "Wertmans Farm; Schaghticoke, NY (35379286082).jpg",
+    "author": "Henry Bellagnome from Troy, New York, United States",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c137",
+   "image": "images/c137.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "0.59",
+     "text": "59¢ per lb",
+     "note": "per-unit; sale"
+    }
+   ],
+   "distractors": [
+    "small regular price 89¢",
+    "'30'"
+   ],
+   "also_ok": [
+    "0.89"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:What_made_Hawaii_famous_-_pineapples_-_panoramio.jpg",
+    "title": "What made Hawaii famous - pineapples - panoramio.jpg",
+    "author": "Peter Gill / UK",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+   }
+  },
+  {
+   "id": "c138",
+   "image": "images/c138.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "399.99",
+     "text": "399.99 (no $)"
+    }
+   ],
+   "distractors": [
+    "'250GB', '2 wireless controllers'",
+    "dates 3/9-3/13",
+    "barcode and codes 207-21-0008 810043723"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Xbox_360_FF_XIII_Special_Ed._bundle_price_tag_at_Target,_Tanforan.JPG",
+    "title": "Xbox 360 FF XIII Special Ed. bundle price tag at Target, Tanforan.JPG",
+    "author": "BrokenSphere",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c141",
+   "image": "images/c141.jpg",
+   "kind": "handwritten",
+   "region": "CL",
+   "currency": "CLP",
+   "tags": [
+    {
+     "price": "10000",
+     "text": "$ 10.000 el kilo",
+     "note": "per-unit; dot thousands"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Enteroctopus_megalocyathus_venta.jpg",
+    "title": "Enteroctopus megalocyathus venta.jpg",
+    "author": "Martín Villarroel Pérez",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "c148",
+   "image": "images/c148.jpg",
+   "kind": "handwritten",
+   "region": "EU",
+   "currency": "EUR",
+   "tags": [
+    {
+     "price": "5",
+     "text": "5€ (chalk)"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Leak_sale_(51776221138).jpg",
+    "title": "Leak sale (51776221138).jpg",
+    "author": "Henry Söderlund from Helsinki, Finland, Finland",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "c150",
+   "image": "images/c150.jpg",
+   "kind": "sign",
+   "region": "JP",
+   "currency": "JPY",
+   "tags": [
+    {
+     "price": "4725",
+     "text": "¥4,725~"
+    },
+    {
+     "price": "7875",
+     "text": "¥7,875~"
+    }
+   ],
+   "distractors": [
+    "times AM8:00~PM6:00 etc."
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Love_hotel_dsc05215.jpg",
+    "title": "Love hotel dsc05215.jpg",
+    "author": "David Monniaux",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+   }
+  },
+  {
+   "id": "c159",
+   "image": "images/c159.jpg",
+   "kind": "handwritten",
+   "region": "PL",
+   "currency": "PLN",
+   "tags": [
+    {
+     "price": "23.00",
+     "text": "23,00 zł /kg (handwritten)",
+     "note": "per-unit"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Sernik_domowy.JPG",
+    "title": "Sernik domowy.JPG",
+    "author": "myself (User:Piotrus)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "c161",
+   "image": "images/c161.jpg",
+   "kind": "sign",
+   "region": "JP",
+   "currency": "JPY",
+   "tags": [
+    {
+     "price": "4600",
+     "text": "¥4,600~"
+    },
+    {
+     "price": "7600",
+     "text": "¥7,600~"
+    }
+   ],
+   "distractors": [
+    "'(3h)'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Shinjuku_%E6%96%B0%E5%AE%BF_(51013643971).jpg",
+    "title": "Shinjuku 新宿 (51013643971).jpg",
+    "author": "nakashi from Chofu, Tokyo, JAPAN",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "c170",
+   "image": "images/c170.jpg",
+   "kind": "sign",
+   "region": "JP",
+   "currency": "JPY",
+   "tags": [
+    {
+     "price": "4000",
+     "text": "4,000 (no ¥)"
+    },
+    {
+     "price": "6000",
+     "text": "6,000 (no ¥)"
+    }
+   ],
+   "distractors": [
+    "times AM7:00~PM5:00"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:%E3%81%82%E3%81%B5%E3%82%8C%E3%82%8B%E3%82%B5%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%89%E9%9F%B3%E9%9F%BF%E3%81%A7%E3%80%81%E3%81%94%E5%A0%AA%E8%83%BD%E3%81%84%E3%81%9F%E3%81%A0%E3%81%91%E3%81%BE%E3%81%99%E3%80%82_(258579912).jpg",
+    "title": "あふれるサラウンド音響で、ご堪能いただけます。 (258579912).jpg",
+    "author": "Dave Walker",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  }
+ ]
+}
