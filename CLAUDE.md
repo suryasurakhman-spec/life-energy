@@ -11,14 +11,14 @@ Based on *Your Money or Your Life* (Vicki Robin & Joe Dominguez). Credits the bo
 
 - **Local-first.** SQLite on-device is the source of truth. Supabase is an optional sync/backup layer (v2+).
 - **No camera data off device.** Frames are processed in memory only, never saved or uploaded.
-- **Sign-in required from MVP, no sync.** Supabase Auth (email link, Apple, Google) gates first use; the server holds only the account. After sign-in all MVP features work offline in airplane mode. Sync is v2.
+- **No sign-in in the MVP.** The app needs no account and sends no user data to a server; all MVP features work offline in airplane mode. Optional sign-in (Supabase Auth: email link, Apple, Google) arrives with sync in v2.
 - All math runs on-device in a shared, unit-tested calculation module. Server never computes life energy.
 
 ## Release Scope
 
 | Release | What's in | Out until later |
 |---------|-----------|-----------------|
-| **MVP** | Required sign-in (no sync), live price lens (live + freeze modes), real-wage wizard, manual quick convert, "Worth it?", log from scan, foreign prices with daily cached rates, local SQLite storage | Supabase sync, categories, tabulation, Wall Chart, crossover |
+| **MVP** | No sign-in, live price lens (live + freeze modes), real-wage wizard, manual quick convert, "Worth it?", log from scan, foreign prices with daily cached rates, local SQLite storage | Supabase sync, categories, tabulation, Wall Chart, crossover |
 | **v2** | Supabase sync, categories, monthly tabulation, Three Questions review, Wall Chart, crossover projection | Receipt scan, menu mode, widget, CSV import, household mode |
 | **v3** | Receipt scan, menu mode, share sheet, home-screen widget, CSV import, household mode | — |
 
@@ -49,7 +49,7 @@ Do not scope-creep MVP with v2/v3 features mid-session.
 - **All number/date formatting** through `src/lib/format.ts` — never inline `Intl` calls in components.
 - **No hard-coded colors, sizes, or font names** in components — always import from `src/theme/`.
 - **Camera frames** are processed in memory only, never written to disk or sent over the network.
-- **Offline first:** after the one-time sign-in, every MVP feature must work in airplane mode.
+- **Offline first:** every MVP feature must work in airplane mode.
 
 ## Data Model (quick reference)
 

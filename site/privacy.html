@@ -16,7 +16,7 @@
 <body>
   <!--
     Before publishing, replace every [bracketed] placeholder:
-    [Operator name], [contact email], [postal address], [Supabase region], [email provider].
+    [Operator name], [contact email], [postal address].
     Keep this page in step with the app: docs/prd.md (Privacy row) and docs/auth-setup.md.
   -->
   <a class="skip" href="#main">Skip to content</a>
@@ -30,7 +30,7 @@
     <article class="policy" aria-labelledby="policy-title">
       <header class="policy__head">
         <h1 class="section-title" id="policy-title">Privacy policy</h1>
-        <p class="policy__meta">Effective 13 October 2026</p>
+        <p class="policy__meta">Effective 14 October 2026</p>
       </header>
 
       <section class="policy__summary" aria-labelledby="summary-title">
@@ -38,9 +38,9 @@
         <ul>
           <li>Your wage, prices, spending and logs stay on your phone. We never receive them.</li>
           <li>Camera images are read in memory and thrown away. They are never saved or uploaded.</li>
-          <li>To sign in, we keep your email address or your Apple or Google sign-in ID. That is the only thing we store about you.</li>
+          <li>There is no account and no sign-up. We hold no personal data about you.</li>
           <li>No ads, no trackers, no selling of data.</li>
-          <li>Profile → Delete all data deletes your account and everything on the phone, right away.</li>
+          <li>Profile → Delete all data deletes everything on the phone, right away.</li>
         </ul>
       </section>
 
@@ -66,17 +66,7 @@
       <section aria-labelledby="leaves-title">
         <h2 class="policy__h2" id="leaves-title">What leaves your phone, and why</h2>
 
-        <h3 class="policy__h3">Your sign-in account</h3>
-        <p>You sign in once before first use. The account is handled by our provider Supabase, on servers in [Supabase region]. We store:</p>
-        <ul>
-          <li><strong>Email link:</strong> your email address. We send a one-time sign-in link to it through [email provider].</li>
-          <li><strong>Sign in with Apple:</strong> your Apple user ID and the email address Apple shares, which can be a private relay address if you chose “Hide My Email”.</li>
-          <li><strong>Sign in with Google:</strong> your Google account ID, email address, and the name and profile picture link Google shares.</li>
-          <li>When the account was created and when you last signed in.</li>
-        </ul>
-        <p>Apple or Google confirm who you are. They know you signed in to Life Energy, under their own privacy policies.</p>
-        <p>To keep sign-in secure, Supabase’s servers log each sign-in request, including your IP address and the app version. These logs are kept for a short time, days rather than months, and are used only to run and protect the service.</p>
-        <p>The account is not used for anything else. No prices, wages or spending are attached to it, and once you are signed in the app works without a connection.</p>
+        <p>The app has no account and no server of ours that receives your data. Only the following connections are made:</p>
 
         <h3 class="policy__h3">Exchange rates</h3>
         <p>To convert prices in other currencies, the app downloads the European Central Bank’s public daily exchange-rate file when its copy is more than 12 hours old. Nothing about you is sent with the request. Like any website, the ECB’s server sees your IP address.</p>
@@ -97,54 +87,33 @@
         </ul>
       </section>
 
-      <section aria-labelledby="basis-title">
-        <h2 class="policy__h2" id="basis-title">Legal basis</h2>
-        <p>Where data-protection law such as the GDPR applies, we keep your sign-in account because it is needed to provide the app you asked for (performance of a contract). We keep the short-lived sign-in logs for our legitimate interest in keeping the service secure.</p>
-      </section>
-
-      <section aria-labelledby="share-title">
-        <h2 class="policy__h2" id="share-title">Service providers</h2>
-        <p>Only these providers handle personal data for us, and only to run the parts described above:</p>
-        <ul>
-          <li><strong>Supabase:</strong> sign-in accounts and sign-in logs.</li>
-          <li><strong>[email provider]:</strong> delivers sign-in emails.</li>
-          <li><strong>Apple</strong> and <strong>Google:</strong> confirm your identity when you choose their sign-in. Google also provides ML Kit.</li>
-        </ul>
-        <p>Some of them may process data outside your country. Where the law requires it, transfers rely on safeguards such as the European Commission’s standard contractual clauses. We may also disclose data when the law requires it.</p>
-      </section>
-
       <section aria-labelledby="keep-title">
-        <h2 class="policy__h2" id="keep-title">How long we keep it</h2>
-        <ul>
-          <li><strong>Sign-in account:</strong> until you delete it.</li>
-          <li><strong>Sign-in logs:</strong> a few days.</li>
-          <li><strong>Data on your phone:</strong> until you delete it in the app or uninstall the app.</li>
-        </ul>
+        <h2 class="policy__h2" id="keep-title">How long it is kept</h2>
+        <p>Data on your phone stays until you delete it in the app or uninstall the app. We keep nothing, because we receive nothing.</p>
       </section>
 
       <section aria-labelledby="rights-title">
         <h2 class="policy__h2" id="rights-title">Your choices and rights</h2>
         <ul>
           <li><strong>Export:</strong> Profile → Export my data makes a CSV or JSON file of everything the app holds, which you can save or share.</li>
-          <li><strong>Delete:</strong> Profile → Delete all data deletes your sign-in account on our servers, then everything on the phone. This needs a connection. If it can’t reach the server, nothing is deleted and you can try again. You can also ask us by email to delete your account.</li>
-          <li><strong>Sign out:</strong> Profile → Sign out removes the session from the phone and keeps your data on it.</li>
+          <li><strong>Delete:</strong> Profile → Delete all data deletes everything the app holds on the phone. Uninstalling the app does the same.</li>
         </ul>
-        <p>Depending on where you live, you may have the right to access, correct, delete or move your personal data, and to object to or restrict how it is used. Email <a href="mailto:[contact email]">[contact email]</a> and we will reply within 30 days. You can also complain to your local data-protection authority.</p>
+        <p>Since we hold no personal data, there is nothing for us to access, correct or delete; your data is in your hands on the phone. Questions: email <a href="mailto:[contact email]">[contact email]</a> and we will reply within 30 days.</p>
       </section>
 
       <section aria-labelledby="security-title">
         <h2 class="policy__h2" id="security-title">Security</h2>
-        <p>Connections to our sign-in service are encrypted. Your sign-in session is kept in the phone’s secure storage (Keychain on iPhone, Keystore on Android). Server keys never ship inside the app.</p>
+        <p>The app’s data lives in its private storage on the phone, which other apps cannot read. The exchange-rate download uses an encrypted connection. Lock your phone to keep the data private.</p>
       </section>
 
       <section aria-labelledby="children-title">
         <h2 class="policy__h2" id="children-title">Children</h2>
-        <p>Life Energy is not meant for children under 13, and we do not knowingly create accounts for them. If you think a child has signed up, email us and we will delete the account.</p>
+        <p>Life Energy is not meant for children under 13. The app collects no personal data from anyone, children included.</p>
       </section>
 
       <section aria-labelledby="changes-title">
         <h2 class="policy__h2" id="changes-title">Changes</h2>
-        <p>If we change this policy, we will update the date above. If a change affects what leaves your phone, we will tell you in the app before it takes effect.</p>
+        <p>If we change this policy, we will update the date above. If a change affects what leaves your phone, such as optional sign-in and sync in a later version, we will tell you in the app before it takes effect.</p>
       </section>
     </article>
   </main>
