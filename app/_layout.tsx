@@ -8,7 +8,7 @@ import {
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
 import { Slot, SplashScreen } from 'expo-router';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
@@ -18,8 +18,9 @@ import { SqliteFxRepository } from '@/infrastructure/sqlite/sqlite-fx-repository
 import { fetchEcbDaily } from '@/infrastructure/fx/ecb-rates';
 import { refreshFxRates } from '@/application/refresh-fx-rates';
 import { FX_RATE_KEY } from '@/presentation/hooks/useFxRate';
+import { SplashOverlay } from '@/presentation/components/SplashOverlay';
 
-// Keep the splash screen visible until fonts and DB are ready.
+// Keep the native splash until fonts and DB are ready; SplashOverlay then takes over and hides it.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -33,12 +34,8 @@ export default function RootLayout() {
   const { success: dbReady, error: dbError } = useMigrations(db, migrations);
   const fontsDone = fontsLoaded || !!fontError;
   const dbDone = dbReady || !!dbError;
-
-  useEffect(() => {
-    if (fontsDone && dbDone) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsDone, dbDone]);
+  const [splashDone, setSplashDone] = useState(false);
+  const endSplash = useCallback(() => setSplashDone(true), []);
 
   // Once the database is ready, refresh exchange rates if the cache is over 12 h old.
   // Offline this does nothing and the lens keeps using the last cached rates.
@@ -61,6 +58,7 @@ export default function RootLayout() {
         <QueryClientProvider client={queryClient}>
           <Slot />
         </QueryClientProvider>
+        {!splashDone && <SplashOverlay onDone={endSplash} />}
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

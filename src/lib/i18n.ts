@@ -20,6 +20,7 @@ export const LOCALE_LABELS: Record<Locale, string> = {
 };
 
 export interface Strings {
+  splash: { slogan: string };
   common: {
     loading:   string;
     save:      string;
@@ -276,6 +277,7 @@ export interface Strings {
 // ─── English (US) ────────────────────────────────────────────────────────────
 
 const en: Strings = {
+  splash: { slogan: 'Every price, in hours of your life' },
   common: {
     loading:      'Loading…',
     save:         'Save',
@@ -532,6 +534,7 @@ const en: Strings = {
 // ─── Bahasa Indonesia ─────────────────────────────────────────────────────────
 
 const id: Strings = {
+  splash: { slogan: 'Setiap harga, dalam jam hidupmu' },
   common: {
     loading:     'Memuat…',
     save:        'Simpan',
@@ -788,6 +791,7 @@ const id: Strings = {
 // ─── Japanese ─────────────────────────────────────────────────────────────────
 
 const ja: Strings = {
+  splash: { slogan: 'すべての値段を、人生の時間で' },
   common: {
     loading:     '読み込み中…',
     save:        '保存',
@@ -1045,6 +1049,7 @@ const ja: Strings = {
 // RTL language — I18nManager.forceRTL(true) is applied via locale.store.ts
 
 const ar: Strings = {
+  splash: { slogan: 'كل سعر، بساعات من حياتك' },
   common: {
     loading:     'جارٍ التحميل…',
     save:        'حفظ',

@@ -54,3 +54,6 @@ export const fabClearance = 100;
 
 /** Vertical gap between cards (pt). */
 export const cardGap = space.md; // 12
+
+/** Logo size on the app-drawn splash; matches where Android draws the native splash logo, so nothing jumps. */
+export const splashLogoSize = 288;
