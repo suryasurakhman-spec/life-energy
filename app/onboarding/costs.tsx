@@ -22,6 +22,15 @@ function toMinor(value: string): bigint {
   return Number.isFinite(n) && n > 0 ? BigInt(Math.round(n * 100)) : 0n;
 }
 
+/** A saved answer back into the field; 0 shows as blank so the placeholder stays. */
+function fromMinor(minor: bigint): string {
+  return minor > 0n ? String(Number(minor) / 100) : '';
+}
+
+function fromHours(n: number): string {
+  return n > 0 ? String(n) : '';
+}
+
 function toHours(value: string): number {
   const n = parseFloat(value.replace(',', '.'));
   return Number.isFinite(n) && n > 0 ? n : 0;
@@ -30,13 +39,25 @@ function toHours(value: string): number {
 /** Full path (FR-8): every monthly job cost and the unpaid hours the job takes each week. */
 export default function CostsScreen() {
   const t = useTranslation();
-  const { currency, setExtraJobCosts } = useOnboardingStore();
-  const [costs, setCosts] = useState<Record<CostKey, string>>({ meals: '', clothes: '', childcare: '', decompression: '', health: '' });
-  const [hours, setHours] = useState<Record<HourKey, string>>({ gettingReady: '', decompressing: '', overtime: '' });
+  const store = useOnboardingStore();
+  const { currency, setExtraJobCosts } = store;
+  const [costs, setCosts] = useState<Record<CostKey, string>>(() => ({
+    meals: fromMinor(store.workMealsMinor),
+    clothes: fromMinor(store.workClothesMinor),
+    childcare: fromMinor(store.childcareMinor),
+    decompression: fromMinor(store.decompressionMinor),
+    health: fromMinor(store.healthMinor),
+  }));
+  const [hours, setHours] = useState<Record<HourKey, string>>(() => ({
+    gettingReady: fromHours(store.extraWeeklyHours.gettingReady),
+    decompressing: fromHours(store.extraWeeklyHours.decompressing),
+    overtime: fromHours(store.extraWeeklyHours.overtime),
+  }));
   const symbol = currencySymbol(currency);
 
   function handleNext() {
-    const weeklyHours = HOUR_KEYS.reduce((sum, k) => sum + toHours(hours[k]), 0);
+    const weekly = { gettingReady: toHours(hours.gettingReady), decompressing: toHours(hours.decompressing), overtime: toHours(hours.overtime) };
+    const weeklyHours = HOUR_KEYS.reduce((sum, k) => sum + weekly[k], 0);
     setExtraJobCosts(
       {
         meals: toMinor(costs.meals),
@@ -46,6 +67,7 @@ export default function CostsScreen() {
         health: toMinor(costs.health),
       },
       toMonthlyHours(weeklyHours, 'weekly'),
+      weekly,
     );
     router.push('/onboarding/reveal');
   }

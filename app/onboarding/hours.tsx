@@ -10,8 +10,8 @@ import { radius, space } from '@/theme/layout';
 
 export default function HoursScreen() {
   const t = useTranslation();
-  const { setPaidHours } = useOnboardingStore();
-  const [hours, setHours] = useState('40');
+  const { paidHoursPerWeek, setPaidHours } = useOnboardingStore();
+  const [hours, setHours] = useState(String(paidHoursPerWeek ?? 40));
 
   function handleNext() {
     const h = parseFloat(hours || '40');

@@ -13,6 +13,7 @@ import { useTranslation } from '@/lib/i18n';
 import { formatHourlyWage } from '@/lib/format';
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useAuthStore } from '@/presentation/stores/auth.store';
+import { useOnboardingStore } from '@/presentation/stores/onboarding.store';
 import { deleteAccount, signOut } from '@/infrastructure/supabase/supabase-auth';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
@@ -66,6 +67,18 @@ export function ProfileScreen() {
 
   const queryClient = useQueryClient();
 
+  /** Reopen the wage steps with the last answers filled in. */
+  const editWage = () => {
+    const wizard = useOnboardingStore.getState();
+    // shortcut: wages saved before the wizard kept its answers only seed pay and hours; commute and costs start empty.
+    if (wizard.netPayMinor == null && wage) {
+      wizard.setNetPay(wage.netPayMinor);
+      wizard.setPayPeriod(wage.payPeriod);
+      wizard.setPaidHours(wage.paidHoursPerWeek);
+    }
+    router.push('/onboarding/pay');
+  };
+
   const runExport = async (format: ExportFormat) => {
     setExporting(true);
     try {
@@ -90,6 +103,7 @@ export function ProfileScreen() {
     setDeleting(true);
     try {
       await deleteAllData(userData, user ? { deleteAccount, signOut } : undefined);
+      useOnboardingStore.getState().reset(); // the saved wizard answers hold the salary too
       // Drop cached wage/logs so every screen reads the now-empty database.
       await queryClient.invalidateQueries();
       Alert.alert(t.profile.deleteTitle, user ? t.profile.deleteAccountDone : t.profile.deleteConfirmed);
@@ -122,7 +136,7 @@ export function ProfileScreen() {
           <SettingsRow
             label={t.profile.realWageLabel}
             value={realHourly != null && wage ? `${formatHourlyWage(realHourly, wage.currency)}/hr` : t.common.notSet}
-            onPress={() => router.push('/onboarding/locale')}
+            onPress={editWage}
             theme={theme}
           />
           <SettingsRow

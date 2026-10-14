@@ -11,9 +11,9 @@ import { radius, space } from '@/theme/layout';
 
 export default function CommuteScreen() {
   const t = useTranslation();
-  const { setCommute, currency } = useOnboardingStore();
-  const [minutes, setMinutes] = useState('0');
-  const [cost, setCost] = useState('0');
+  const { setCommute, currency, commuteMinutesPerDay, commuteCostMinor } = useOnboardingStore();
+  const [minutes, setMinutes] = useState(String(commuteMinutesPerDay ?? 0));
+  const [cost, setCost] = useState(String(Number(commuteCostMinor ?? 0n) / 100));
 
   function handleNext() {
     const mins = parseInt(minutes || '0', 10);

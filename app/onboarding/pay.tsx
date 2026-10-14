@@ -12,13 +12,13 @@ import { radius, space } from '@/theme/layout';
 
 export default function PayScreen() {
   const t = useTranslation();
-  const { payPeriod, setPayPeriod, setNetPay, currency, setCurrency } = useOnboardingStore();
+  const { payPeriod, setPayPeriod, netPayMinor, setNetPay, currency, setCurrency } = useOnboardingStore();
 
   // The saved currency override loads asynchronously; read it when the wizard reaches pay.
   useEffect(() => {
     setCurrency(homeCurrency());
   }, [setCurrency]);
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(netPayMinor != null ? String(Number(netPayMinor) / 100) : '');
 
   const PERIODS: { key: PayPeriod; label: string }[] = [
     { key: 'weekly',      label: t.onboarding.pay.periods.weekly },
