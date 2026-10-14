@@ -48,8 +48,16 @@ export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | nul
     return { ...usd, minor: (usd.minor + scale / 2n) / scale, currency: homeCurrency };
   }
   const foreign = parseForeignPrice(text);
-  return foreign && foreign.currency !== 'USD' ? foreign : null;
+  if (foreign && foreign.currency !== 'USD') return foreign;
+  // OCR glues stray letters or a misread "$" to the amount ("AIMS9.98", "¢2.99").
+  // Only amounts with cents, and never a currency code, which would turn into dollars.
+  // Letters ending in O, I or l are usually misread digits ("Oo1.09" was the date 02.01.09).
+  const glued = text.match(/^([A-Za-z¢]*[A-HJ-NP-Za-kmnp-z¢])(\d{1,4}[.,]\d{2})$/);
+  return glued && !CURRENCY_CODE.test(glued[1]!) ? parseTag(glued[2]!, homeCurrency) : null;
 }
+
+/** Codes of the currencies the app reads (SUPPORTED_CURRENCIES in the currency store). */
+const CURRENCY_CODE = /^(?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD|JPY|CNY|KRW|IDR|MXN)$/i;
 
 /** Grade names on a fuel price board. */
 const FUEL_WORDS =

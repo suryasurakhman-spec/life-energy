@@ -30,6 +30,22 @@ describe('parseTag OCR noise', () => {
     expect(parseTag('S 1.99')).toMatchObject({ minor: 199n, currency: 'USD' });
   });
 
+  it('reads an amount with cents behind stray letters', () => {
+    expect(parseTag('AIMS9.98')).toMatchObject({ minor: 998n, currency: 'USD' });
+    expect(parseTag('IIU6.98')).toMatchObject({ minor: 698n, currency: 'USD' });
+    expect(parseTag('¢2.99')).toMatchObject({ minor: 299n, currency: 'USD' });
+  });
+
+  it('does not strip a currency code into dollars', () => {
+    expect(parseTag('EUR4.99')).toBeNull();
+  });
+
+  it('does not read codes behind letters without cents', () => {
+    expect(parseTag('SKU1001')).toBeNull();
+    expect(parseTag('REST4.000')).toBeNull();
+    expect(parseTag('Oo1.09')).toBeNull();
+  });
+
   it('leaves S-codes alone', () => {
     expect(parseTag('S412122')).toBeNull();
   });
