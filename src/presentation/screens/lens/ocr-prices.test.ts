@@ -26,6 +26,10 @@ describe('parseTag OCR noise', () => {
     expect(parseTag('s99.90')).toMatchObject({ minor: 9990n, currency: 'USD' });
   });
 
+  it('also reads an S with a space before the amount', () => {
+    expect(parseTag('S 1.99')).toMatchObject({ minor: 199n, currency: 'USD' });
+  });
+
   it('leaves S-codes alone', () => {
     expect(parseTag('S412122')).toBeNull();
   });
@@ -58,6 +62,16 @@ describe('pricesInLines', () => {
   it('reads a multi-word line as one price before trying single words', () => {
     const split = line('$3 99', [word('$3'), word('99', 12)]);
     expect(pricesInLines([split]).map((p) => p.minor)).toEqual([399n]);
+  });
+
+  it('skips savings, coupon and gift-card amounts', () => {
+    const lines = [
+      line('SAVE: $2.20 Ls', [word('$2.20')]),
+      line('free $10 GiftCard with purchase', [word('$10')]),
+      line('$3 OFF', [word('$3')]),
+      line('$5.79'),
+    ];
+    expect(pricesInLines(lines).map((p) => p.minor)).toEqual([579n]);
   });
 });
 

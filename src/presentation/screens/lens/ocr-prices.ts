@@ -22,7 +22,7 @@ type ParsedTag = Omit<DetectedPrice, 'id' | 'x' | 'y' | 'width' | 'height'>;
 const CURRENCY_MARK = /[$¢€£¥₩₹]|Rp|zł/i;
 
 /**
- * ML Kit often reads a "$" as "S" or "s" ("S22,90", "s99.90"). Only a full amount with
+ * ML Kit often reads a "$" as "S" or "s" ("S22,90", "s99.90", "S 1.99"). Only a full amount with
  * cents is corrected, so words and codes that start with S stay as they are.
  * Japanese tags end a price with a dash or tilde ("¥4,600-", "¥7,600~"), which is dropped.
  */
@@ -30,7 +30,7 @@ function fixOcrNoise(text: string): string {
   return text
     .trim()
     .replace(/(\d)[-~)]+$/, '$1')
-    .replace(/^[Ss](?=\d{1,4}[.,]\d{2}$)/, '$');
+    .replace(/^[Ss] ?(?=\d{1,4}[.,]\d{2}$)/, '$');
 }
 
 /**
@@ -65,6 +65,9 @@ function parseFuelPrice(text: string, homeCurrency: string): ParsedTag | null {
   return m ? parseTag(`${m[1]}.${m[2]}`, homeCurrency) : null;
 }
 
+/** Savings, coupons and gift cards print an amount that is not what the item costs. */
+const PROMO_WORDS = /\b(?:SAVE|SAVINGS|OFF|FREE|COUPON|REBATE|GIFT\s?CARD)\b|GIFTCARD/i;
+
 /** Every price in one OCR pass, each with the box it was read from. */
 export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedPrice[] {
   const fuelBoard = lines.some((l) => FUEL_WORDS.test(l.text));
@@ -80,6 +83,7 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
     });
   };
   for (const line of lines) {
+    if (PROMO_WORDS.test(line.text)) continue;
     // Whole line first, so split-cent, sale and "with card" tags read as one price.
     const singleWord = line.words.length === 1 && line.words[0]!.text === line.text.trim();
     const whole = singleWord ? null : parseTag(line.text, homeCurrency);
