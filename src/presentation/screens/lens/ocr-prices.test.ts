@@ -69,6 +69,16 @@ describe('pricesInLines fuel boards', () => {
     expect(pricesInLines(lines).map((p) => p.minor)).toEqual([349n, 369n, 289n]);
   });
 
+  it('reads the 9/10 mark read as "%" after a fuel price', () => {
+    expect(pricesInLines([line('Unleaded'), line('484%')]).map((p) => p.minor)).toEqual([484n]);
+  });
+
+  it('needs a fuel-only word or two grade names, not one product word', () => {
+    expect(pricesInLines([line('PREMIUM PASTA'), line('500')])).toEqual([]);
+    expect(pricesInLines([line('PREMIUM'), line('PREMIUM'), line('500')])).toEqual([]);
+    expect(pricesInLines([line('Regular'), line('Plus'), line('3399')]).map((p) => p.minor)).toEqual([339n]);
+  });
+
   it('leaves bare numbers alone without a grade name', () => {
     expect(pricesInLines([line('3399'), line('1090')])).toEqual([]);
   });
@@ -114,5 +124,22 @@ describe('ocrLinesFromBlocks', () => {
         words: [{ text: '$5.99', x: 50, y: 15, width: 20, height: 10 }],
       },
     ]);
+  });
+
+  it('keeps a fuel grade name without digits, so the board is recognised', () => {
+    const lines = ocrLinesFromBlocks([
+      {
+        lines: [
+          { lineText: 'regular gasoline', lineFrame: { x: 50, y: 10, width: 40, height: 10 } },
+          {
+            lineText: '403',
+            lineFrame: { x: 50, y: 30, width: 30, height: 20 },
+            elements: [{ elementText: '403', elementFrame: { x: 50, y: 30, width: 30, height: 20 } }],
+          },
+        ],
+      },
+    ]);
+    expect(lines.map((l) => l.text)).toEqual(['regular gasoline', '403']);
+    expect(pricesInLines(lines).map((p) => p.minor)).toEqual([403n]);
   });
 });

@@ -63,13 +63,26 @@ const CURRENCY_CODE = /^(?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD|JPY|CNY|KRW|IDR|MXN)$
 const FUEL_WORDS =
   /\b(?:UNL|UNLEADED|REG|REGULAR|MID|MIDGRADE|PLUS|PREM|PREMIUM|SUPER|ULTRA|DIESEL|GAS|GASOLINE|E85)\b/i;
 
+/** Words only a fuel board uses; grade words alone ("Plus", "Premium") also name shop products. */
+const FUEL_ONLY_WORDS = /\b(?:UNL|UNLEADED|MIDGRADE|DIESEL|GAS|GASOLINE|E85)\b/i;
+
+/** A fuel board: a fuel-only word, or two different grade names in view. */
+function isFuelBoard(lines: OcrLine[]): boolean {
+  const grades = new Set<string>();
+  for (const l of lines) {
+    if (FUEL_ONLY_WORDS.test(l.text)) return true;
+    for (const m of l.text.matchAll(new RegExp(FUEL_WORDS.source, 'gi'))) grades.add(m[0].toUpperCase());
+  }
+  return grades.size >= 2;
+}
+
 /**
  * Fuel boards print "$3.39⁹" with a small tenth-of-a-cent 9, and OCR drops the dot:
- * "3399", "349", "2.891". Read as dollars, cents dropped past the second place.
+ * "3399", "349", "2.891", or reads the ⁹⁄₁₀ as "%": "484%". Read as dollars, cents dropped past the second place.
  * Only used when a grade name is in view, since bare 3–4 digit numbers are usually codes.
  */
 function parseFuelPrice(text: string, homeCurrency: string): ParsedTag | null {
-  const m = text.match(/^([1-9])\.?(\d{2})\d?$/);
+  const m = text.match(/^([1-9])\.?(\d{2})[\d%]?$/);
   return m ? parseTag(`${m[1]}.${m[2]}`, homeCurrency) : null;
 }
 
@@ -78,7 +91,7 @@ const PROMO_WORDS = /\b(?:SAVE|SAVINGS|OFF|FREE|COUPON|REBATE|GIFT\s?CARD)\b|GIF
 
 /** Every price in one OCR pass, each with the box it was read from. */
 export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedPrice[] {
-  const fuelBoard = lines.some((l) => FUEL_WORDS.test(l.text));
+  const fuelBoard = isFuelBoard(lines);
   const detected: DetectedPrice[] = [];
   const add = (box: OcrBox, parsed: ParsedTag) => {
     detected.push({
@@ -125,8 +138,8 @@ export interface MlKitBlock {
 }
 
 /**
- * Turn plugin blocks into OCR lines in image space, keeping only text with a digit —
- * the same filter the frame processor applies before handing lines to the JS thread.
+ * Turn plugin blocks into OCR lines in image space, keeping only text with a digit or a
+ * fuel grade name (which marks a price board) — the same filter the frame processor applies.
  */
 export function ocrLinesFromBlocks(blocks: MlKitBlock[]): OcrLine[] {
   const box = (f: MlKitFrame | undefined, text: string): OcrBox => {
@@ -138,7 +151,7 @@ export function ocrLinesFromBlocks(blocks: MlKitBlock[]): OcrLine[] {
   for (const block of blocks) {
     for (const line of block.lines ?? []) {
       const lineText = line.lineText ?? '';
-      if (!/\d/.test(lineText)) continue;
+      if (!/\d/.test(lineText) && !FUEL_WORDS.test(lineText)) continue;
       const words = (line.elements ?? [])
         .filter((el) => /\d/.test(el.elementText ?? ''))
         .map((el) => box(el.elementFrame, el.elementText ?? ''));

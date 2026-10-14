@@ -251,7 +251,11 @@ export function LensScreen() {
         const blockLines: any[] = block?.lines ?? [];
         for (const line of blockLines) {
           const lineText: string = line?.lineText ?? '';
-          if (!/\d/.test(lineText)) continue; // a price always has a digit
+          // A price always has a digit; fuel grade names (FUEL_WORDS in ocr-prices.ts) mark a price board.
+          if (
+            !/\d/.test(lineText) &&
+            !/\b(?:UNL|UNLEADED|REG|REGULAR|MID|MIDGRADE|PLUS|PREM|PREMIUM|SUPER|ULTRA|DIESEL|GAS|GASOLINE|E85)\b/i.test(lineText)
+          ) continue;
           const elements: any[] = line?.elements ?? [];
           const words: OcrBox[] = [];
           for (const el of elements) {
