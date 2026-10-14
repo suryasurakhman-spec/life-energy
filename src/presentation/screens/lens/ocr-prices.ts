@@ -57,7 +57,7 @@ export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | nul
 }
 
 /** Codes of the currencies the app reads (SUPPORTED_CURRENCIES in the currency store). */
-const CURRENCY_CODE = /^(?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD|JPY|CNY|KRW|IDR|MXN)$/i;
+const CURRENCY_CODE = /^(?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD|JPY|CNY|KRW|IDR|MXN|SAR)$/i;
 
 /** Grade names on a fuel price board. */
 const FUEL_WORDS =

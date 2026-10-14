@@ -2,6 +2,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocaleStore } from '@/presentation/stores/locale.store';
+import { LOCALE_CURRENCY, useCurrencyStore } from '@/presentation/stores/currency.store';
 import { LOCALE_LABELS, type Locale, useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
@@ -12,6 +13,7 @@ const LOCALES: Locale[] = ['en-US', 'id', 'ja', 'ar'];
 export default function LocaleScreen() {
   const t = useTranslation();
   const { locale, setLocale } = useLocaleStore();
+  const setCurrency = useCurrencyStore((st) => st.setOverride);
 
   return (
     <SafeAreaView style={s.container}>
@@ -28,7 +30,7 @@ export default function LocaleScreen() {
               <Pressable
                 key={l}
                 style={[s.row, selected && s.rowSelected]}
-                onPress={() => setLocale(l)}
+                onPress={() => { setLocale(l); setCurrency(LOCALE_CURRENCY[l]); }}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: selected }}
                 accessibilityLabel={LOCALE_LABELS[l]}

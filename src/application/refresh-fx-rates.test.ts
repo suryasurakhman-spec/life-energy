@@ -18,7 +18,7 @@ describe('refreshFxRates', () => {
   it('fetches and saves every pair when nothing is cached', async () => {
     const { store, saved } = fakeStore(null);
     expect(await refreshFxRates(store, async () => XML, NOW)).toBe(true);
-    expect(saved[0]).toHaveLength(2); // USD→EUR and EUR→USD
+    expect(saved[0]).toHaveLength(6); // every pair of EUR, USD and SAR (pegged to USD)
   });
 
   it('skips the network while the cache is fresh', async () => {

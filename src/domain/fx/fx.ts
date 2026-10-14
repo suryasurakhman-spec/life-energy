@@ -21,6 +21,8 @@ export function parseEcbDaily(xml: string): { asOf: string; perEuro: Record<stri
     const rate = Number(m[2]);
     if (rate > 0) perEuro[m[1]!] = rate;
   }
+  // The ECB doesn't publish the riyal; it is pegged at 3.75 per US dollar.
+  if (perEuro.USD) perEuro.SAR = perEuro.USD * 3.75;
   return Object.keys(perEuro).length > 1 ? { asOf, perEuro } : null;
 }
 

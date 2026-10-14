@@ -12,7 +12,7 @@ describe('parseEcbDaily', () => {
   it('reads the date and the per-euro rates, adding the euro itself', () => {
     expect(parseEcbDaily(ECB)).toEqual({
       asOf: '2026-10-12',
-      perEuro: { EUR: 1, USD: 1.1181, JPY: 177.33, PLN: 4.385 },
+      perEuro: { EUR: 1, USD: 1.1181, JPY: 177.33, PLN: 4.385, SAR: 1.1181 * 3.75 },
     });
   });
 
@@ -23,7 +23,7 @@ describe('parseEcbDaily', () => {
 
   it('skips zero rates', () => {
     const parsed = parseEcbDaily(`<Cube time='2026-10-12'><Cube currency='USD' rate='1.1'/><Cube currency='XXX' rate='0'/></Cube>`);
-    expect(parsed?.perEuro).toEqual({ EUR: 1, USD: 1.1 });
+    expect(parsed?.perEuro).toEqual({ EUR: 1, USD: 1.1, SAR: 1.1 * 3.75 });
   });
 });
 
