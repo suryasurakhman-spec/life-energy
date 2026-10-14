@@ -407,6 +407,16 @@ describe('parsePrice — exam fixes (bare, decimal comma, raised cents)', () => 
     expect(parsePrice('$4990')).toMatchObject({ minor: 4990n, confidence: 0.7 });
   });
 
+  it('flags a three-digit amount with no dot as an estimate: "$199" may be $1⁹⁹ read without its dot', () => {
+    expect(parsePrice('$199')).toMatchObject({ minor: 19900n, confidence: 0.7 });
+    expect(parsePrice('$150')).toMatchObject({ minor: 15000n, confidence: 0.7 });
+  });
+
+  it('keeps round hundreds and amounts with a dot as sure', () => {
+    expect(parsePrice('$200')).toMatchObject({ minor: 20000n, confidence: 1 });
+    expect(parsePrice('$199.00')).toMatchObject({ minor: 19900n, confidence: 1 });
+  });
+
   it('keeps round four-digit amounts as dollars', () => {
     expect(parsePrice('$1500')).toMatchObject({ minor: 150000n, confidence: 1 });
   });

@@ -343,6 +343,21 @@ export function parsePrice(text: string): ParsedPrice | null {
   }
 
   // ------------------------------------------------------------------
+  // 9c. Three digits, no dot: "$199" is often "$1⁹⁹" with the dot lost, and character
+  //     boxes can't tell the small cents apart. Keep the dollar amount but mark it "≈".
+  //     Round hundreds ("$200") are rarely written with raised cents.
+  // ------------------------------------------------------------------
+
+  const threeDigitMatch = trimmed.match(/^\$(\d{3})$/);
+  if (threeDigitMatch?.[1] && !threeDigitMatch[1].endsWith('00')) {
+    return {
+      minor: BigInt(threeDigitMatch[1]) * 100n,
+      currency: 'USD',
+      confidence: 0.7,
+    };
+  }
+
+  // ------------------------------------------------------------------
   // 10. Standard dollar price: $4.99, $1,299.00, $5 (no cents)
   // ------------------------------------------------------------------
 
