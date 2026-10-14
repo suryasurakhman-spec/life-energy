@@ -1,8 +1,8 @@
 {
- "description": "Price-tag test set for the live lens (FR-1). Open-licence photos from Wikimedia Commons; prices read and labelled by hand. 'price' is the amount in major units as written on the tag. Fuel boards drop the tenth-of-a-cent fraction. 'also_ok' lists real prices that are fine to show but not required (unit, regular, crossed-out, cut-off or background prices).",
+ "description": "Price-tag test set for the live lens (FR-1). Open-licence photos from Wikimedia Commons; prices read and labelled by hand. 'price' is the amount in major units as written on the tag. Fuel boards drop the tenth-of-a-cent fraction. 'also_ok' lists real prices that are fine to show but not required (unit, regular, crossed-out, cut-off or background prices). Batch 2 (ids d…, collected 2026-10-14) adds US, Canadian and Australian shop photos.",
  "collected": "2026-10-12",
- "photos": 62,
- "tags": 134,
+ "photos": 102,
+ "tags": 214,
  "items": [
   {
    "id": "c003",
@@ -1816,6 +1816,1149 @@
     "page": "https://commons.wikimedia.org/wiki/File:%E3%81%82%E3%81%B5%E3%82%8C%E3%82%8B%E3%82%B5%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%89%E9%9F%B3%E9%9F%BF%E3%81%A7%E3%80%81%E3%81%94%E5%A0%AA%E8%83%BD%E3%81%84%E3%81%9F%E3%81%A0%E3%81%91%E3%81%BE%E3%81%99%E3%80%82_(258579912).jpg",
     "title": "あふれるサラウンド音響で、ご堪能いただけます。 (258579912).jpg",
     "author": "Dave Walker",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d016",
+   "image": "images/d016.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "3.99",
+     "text": "$3.99"
+    }
+   ],
+   "distractors": [
+    "cut-off '$3.9' tag at right edge",
+    "'Elsewhere $5.99' comparison price"
+   ],
+   "also_ok": [
+    "3.99",
+    "5.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Brie_on_a_Shelf.jpg",
+    "title": "Brie on a Shelf.jpg",
+    "author": "Iop90cwl",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "d023",
+   "image": "images/d023.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.49",
+     "text": "$2.49"
+    },
+    {
+     "price": "2.99",
+     "text": "$2.99"
+    }
+   ],
+   "distractors": [
+    "small shelf-edge labels"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Cup_udons_by_leh4_in_LittleTokyo,_LA.jpg",
+    "title": "Cup udons by leh4 in LittleTokyo, LA.jpg",
+    "author": "leh4 from Little Tokyo, Los Angeles, California",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d026",
+   "image": "images/d026.jpg",
+   "kind": "price-list",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "50",
+     "text": "$50"
+    },
+    {
+     "price": "0.55",
+     "text": "55¢LB"
+    },
+    {
+     "price": "0.50",
+     "text": "50¢LB"
+    },
+    {
+     "price": "40",
+     "text": "$40"
+    },
+    {
+     "price": "0.55",
+     "text": "55¢LB"
+    },
+    {
+     "price": "0.50",
+     "text": "50¢LB"
+    },
+    {
+     "price": "0.50",
+     "text": "50¢LB"
+    },
+    {
+     "price": "4.99",
+     "text": "$ 499LB"
+    },
+    {
+     "price": "3.49",
+     "text": "349LB"
+    },
+    {
+     "price": "2.65",
+     "text": "$ 265LB"
+    },
+    {
+     "price": "2.67",
+     "text": "267LB"
+    },
+    {
+     "price": "3.15",
+     "text": "315LB"
+    },
+    {
+     "price": "2.50",
+     "text": "250LB"
+    }
+   ],
+   "distractors": [
+    "letter-board prices with the '$' on its own line"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Den%27s_Country_Meats,_price_board.jpg",
+    "title": "Den's Country Meats, price board.jpg",
+    "author": "Sharla Cerra",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "d059",
+   "image": "images/d059.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "2.49",
+     "text": "$2 49 ea."
+    }
+   ],
+   "distractors": [
+    "small shelf tags"
+   ],
+   "also_ok": [
+    "0.98",
+    "0.98",
+    "0.98",
+    "0.98",
+    "0.49",
+    "1.00",
+    "0.99",
+    "0.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fresco_y_Mas_Miami_-_Great_Prices.jpg",
+    "title": "Fresco y Mas Miami - Great Prices.jpg",
+    "author": "Phillip Pessar",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d081",
+   "image": "images/d081.jpg",
+   "kind": "shelf",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "59.97",
+     "text": "$59.97"
+    }
+   ],
+   "distractors": [
+    "SKU 1001-968-961",
+    "'8\"' size"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Light_fixtures_in_a_home_improvement_store_in_NY_06.jpg",
+    "title": "Light fixtures in a home improvement store in NY 06.jpg",
+    "author": "Stilfehler",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "d085",
+   "image": "images/d085.jpg",
+   "kind": "label",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "10.99",
+     "text": "10.99"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Magic_Kingdom_45th_Anniversary_(29420447033).jpg",
+    "title": "Magic Kingdom 45th Anniversary (29420447033).jpg",
+    "author": "Theme Park Tourist",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d090",
+   "image": "images/d090.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "7.00",
+     "text": "$7.00"
+    },
+    {
+     "price": "7.00",
+     "text": "$7.00"
+    }
+   ],
+   "distractors": [
+    "cut-off price on lower right sign"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Napa_Valley_Noodles_-_panoramio.jpg",
+    "title": "Napa Valley Noodles - panoramio.jpg",
+    "author": "Clotee Pridgen Alloc…",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "d094",
+   "image": "images/d094.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1.50",
+     "text": "$1.50"
+    },
+    {
+     "price": "6.00",
+     "text": "$6.00"
+    },
+    {
+     "price": "0.50",
+     "text": "$0.50"
+    },
+    {
+     "price": "0.50",
+     "text": "$0.50"
+    },
+    {
+     "price": "45.00",
+     "text": "$45.00"
+    }
+   ],
+   "distractors": [
+    "'(Per Axle)'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Oldtown_Bridge_Green_Spring_WV_2014_09_10_03.jpg",
+    "title": "Oldtown Bridge Green Spring WV 2014 09 10 03.jpg",
+    "author": "Quercus montana",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "d097",
+   "image": "images/d097.jpg",
+   "kind": "handwritten",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    }
+   ],
+   "distractors": [
+    "PLU# 4428",
+    "cut-off tag at top"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Persimmons_for_sale_at_HEB_Central_Market_Southlake_-_Forsythe_0.jpg",
+    "title": "Persimmons for sale at HEB Central Market Southlake - Forsythe 0.jpg",
+    "author": "Forssa01",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+   }
+  },
+  {
+   "id": "d117",
+   "image": "images/d117.jpg",
+   "kind": "label",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "1950.00",
+     "text": "$1,950.00"
+    },
+    {
+     "price": "1450.00",
+     "text": "$1,450.00"
+    }
+   ],
+   "distractors": [
+    "date 02.01.09"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Signed_SB_helmet_(3823064048).jpg",
+    "title": "Signed SB helmet (3823064048).jpg",
+    "author": "John Seb Barber",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d131",
+   "image": "images/d131.jpg",
+   "kind": "shelf",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "1.88",
+     "text": "1.88/box"
+    }
+   ],
+   "distractors": [
+    "5.99/box crossed out",
+    "item number 050-320",
+    "barcode digits"
+   ],
+   "also_ok": [
+    "5.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:USA_strawberries_at_T%26T_-_20250319-02_(cropped).jpg",
+    "title": "USA strawberries at T&T - 20250319-02 (cropped).jpg",
+    "author": "Sikander Iqbal",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "d136",
+   "image": "images/d136.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "12.96",
+     "text": "$12.96"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Walmart_(32936438182)_cropped.jpg",
+    "title": "Walmart (32936438182) cropped.jpg",
+    "author": "Dan Keck",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   }
+  },
+  {
+   "id": "d142",
+   "image": "images/d142.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.99",
+     "text": "2.99ea"
+    }
+   ],
+   "distractors": [
+    "PLU 94623"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Whole_Foods_Market_Healthiest_Grocery_Store_(26214287710).jpg",
+    "title": "Whole Foods Market Healthiest Grocery Store (26214287710).jpg",
+    "author": "GoToVan from Vancouver, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d143",
+   "image": "images/d143.jpg",
+   "kind": "label",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "25.99",
+     "text": "$25.99"
+    },
+    {
+     "price": "25.99",
+     "text": "$25.99"
+    }
+   ],
+   "distractors": [
+    "cut-off tag behind"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Whole_foods_election_cakes_(2990318030).jpg",
+    "title": "Whole foods election cakes (2990318030).jpg",
+    "author": "Darren and Brad from Washington D.C., USA",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d147",
+   "image": "images/d147.jpg",
+   "kind": "shelf",
+   "region": "AU",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "11",
+     "text": "$11 ea"
+    }
+   ],
+   "distractors": [
+    "'Range Was $16' crossed out",
+    "unit price $0.25/100 sheets",
+    "codes 11395, 580263",
+    "date 03/05/16"
+   ],
+   "also_ok": [
+    "16",
+    "0.25"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:2021-06-28_E-ink_price_tag_in_Sydney_supermarket.jpg",
+    "title": "2021-06-28 E-ink price tag in Sydney supermarket.jpg",
+    "author": "Maksym Kozlenko",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "d149",
+   "image": "images/d149.jpg",
+   "kind": "label",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "4.50",
+     "text": "$4.50 each"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Bacon-wrapped_filet_mignon_(51320455).jpg",
+    "title": "Bacon-wrapped filet mignon (51320455).jpg",
+    "author": "vincelaconte from Winston-Salem, NC, USA",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d152",
+   "image": "images/d152.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.99",
+     "text": "2.99ea"
+    },
+    {
+     "price": "2.99",
+     "text": "2.99 ea"
+    }
+   ],
+   "distractors": [
+    "'2 For 5.00' multi-buy"
+   ],
+   "also_ok": [
+    "5.00",
+    "5.00"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Byward_Market_(35042244953).jpg",
+    "title": "Byward Market (35042244953).jpg",
+    "author": "Ross Dunn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d153",
+   "image": "images/d153.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "3.00",
+     "text": "3.00$"
+    },
+    {
+     "price": "3.00",
+     "text": "3.00$"
+    }
+   ],
+   "distractors": [
+    "'2 for 5.00$' multi-buy"
+   ],
+   "also_ok": [
+    "5.00",
+    "5.00"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Byward_Market_(35463852740).jpg",
+    "title": "Byward Market (35463852740).jpg",
+    "author": "Ross Dunn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d154",
+   "image": "images/d154.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "1.99",
+     "text": "1.99/bunch"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Byward_Market_(35464106640).jpg",
+    "title": "Byward Market (35464106640).jpg",
+    "author": "Ross Dunn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d160",
+   "image": "images/d160.jpg",
+   "kind": "label",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "5.95",
+     "text": "$5.95"
+    }
+   ],
+   "distractors": [
+    "street address on the card"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Chicken_and_brie_panini_(3069988793).jpg",
+    "title": "Chicken and brie panini (3069988793).jpg",
+    "author": "Geoff Peters from Vancouver, BC, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d162",
+   "image": "images/d162.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "10.00",
+     "text": "$10.00 EACH"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Clothes..._(58987235).jpg",
+    "title": "Clothes... (58987235).jpg",
+    "author": "Diego Torres Silvestre from Sao Paulo, Brazil",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d166",
+   "image": "images/d166.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "25",
+     "text": "$25 each"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Deep_freeze_festival_Edmonton_2024_(53479517979).jpg",
+    "title": "Deep freeze festival Edmonton 2024 (53479517979).jpg",
+    "author": "Jason Woodhead",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d167",
+   "image": "images/d167.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "4",
+     "text": "$4"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:EXP_0083--Bala-Cranberry-Festiva_(10576936806).jpg",
+    "title": "EXP 0083--Bala-Cranberry-Festiva (10576936806).jpg",
+    "author": "Explorers' Edge from Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d169",
+   "image": "images/d169.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "6.00",
+     "text": "6.00 lbs"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fiddleheads_(7358160732).jpg",
+    "title": "Fiddleheads (7358160732).jpg",
+    "author": "Nicole Bratt from Seattle, WA, USA",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d170",
+   "image": "images/d170.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "21.99",
+     "text": "21.99"
+    },
+    {
+     "price": "17.99",
+     "text": "17.99"
+    }
+   ],
+   "distractors": [
+    "cut-off tag at left edge"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fish_Market_(3241260341).jpg",
+    "title": "Fish Market (3241260341).jpg",
+    "author": "missbossy from Singapore, Singapore",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d173",
+   "image": "images/d173.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.50",
+     "text": "$2.50"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fraises_(34477025382).jpg",
+    "title": "Fraises (34477025382).jpg",
+    "author": "Hubert Figuière from Montréal, Canada",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d174",
+   "image": "images/d174.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.00",
+     "text": "$2.00"
+    },
+    {
+     "price": "2.00",
+     "text": "$2.00"
+    },
+    {
+     "price": "2.00",
+     "text": "$2.00"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fresh_Produce_at_the_Market_(19748661391).jpg",
+    "title": "Fresh Produce at the Market (19748661391).jpg",
+    "author": "Ross Dunn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d175",
+   "image": "images/d175.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "3.50",
+     "text": "$3.50"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fresh_Wednesday_24_(4827778809).jpg",
+    "title": "Fresh Wednesday 24 (4827778809).jpg",
+    "author": "Counselman Collection from McClure",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d181",
+   "image": "images/d181.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "5.00",
+     "text": "$5.00"
+    }
+   ],
+   "distractors": [
+    "'FIVE BUCKS' in words"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Happy_Hour,_Every_Hour_(26623760386).jpg",
+    "title": "Happy Hour, Every Hour (26623760386).jpg",
+    "author": "Coastal Elite from Halifax, Canada",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d182",
+   "image": "images/d182.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "4.99",
+     "text": "$4.99 LB"
+    }
+   ],
+   "distractors": [
+    "second card behind"
+   ],
+   "also_ok": [
+    "4.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Heirloom_Tomatoes_(3241193555).jpg",
+    "title": "Heirloom Tomatoes (3241193555).jpg",
+    "author": "missbossy from Singapore, Singapore",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d185",
+   "image": "images/d185.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "0.99",
+     "text": "99¢ LB"
+    }
+   ],
+   "distractors": [
+    "small handwritten bottle stickers"
+   ],
+   "also_ok": [
+    "3.00",
+    "3.50",
+    "3.00",
+    "3.00",
+    "3.00",
+    "3.50"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Kelowna_Farmer%27s_Markets_(3970199766).jpg",
+    "title": "Kelowna Farmer's Markets (3970199766).jpg",
+    "author": "Kelowna09",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d187",
+   "image": "images/d187.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "2.99",
+     "text": "$2.99"
+    }
+   ],
+   "distractors": [
+    "small price stickers"
+   ],
+   "also_ok": [
+    "2.99",
+    "2.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Liquidation_toute_(31273056085).jpg",
+    "title": "Liquidation toute (31273056085).jpg",
+    "author": "Coastal Elite from Halifax, Canada",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d188",
+   "image": "images/d188.jpg",
+   "kind": "label",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    },
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    },
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    },
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    },
+    {
+     "price": "1.99",
+     "text": "$1.99"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Loblaws_@_Maple_Leaf_Gardens_(6432084763).jpg",
+    "title": "Loblaws @ Maple Leaf Gardens (6432084763).jpg",
+    "author": "JasonParis from Toronto, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d189",
+   "image": "images/d189.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "3.00",
+     "text": "$3.00"
+    },
+    {
+     "price": "4.00",
+     "text": "$4.00"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:MSF_IMG_6794a_(33760667926).jpg",
+    "title": "MSF IMG 6794a (33760667926).jpg",
+    "author": "Laurel L. Russwurm from Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d197",
+   "image": "images/d197.jpg",
+   "kind": "shelf",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "3.99",
+     "text": "$3.99"
+    },
+    {
+     "price": "3.99",
+     "text": "$3.99"
+    }
+   ],
+   "distractors": [
+    "'500 GR'",
+    "small green price stickers on bags"
+   ],
+   "also_ok": [
+    "3.99",
+    "3.99",
+    "3.99",
+    "3.99",
+    "3.99",
+    "3.99"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Nicastro%E2%80%99s_on_the_market_(24895467548).jpg",
+    "title": "Nicastro’s on the market (24895467548).jpg",
+    "author": "Ross Dunn",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d202",
+   "image": "images/d202.jpg",
+   "kind": "handwritten",
+   "region": "AU",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "5.50",
+     "text": "5.50"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Pumpkin_patch_cupcake,_Halloween_2021_in_Queensland,_Australia_02.jpg",
+    "title": "Pumpkin patch cupcake, Halloween 2021 in Queensland, Australia 02.jpg",
+    "author": "Kgbo",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  },
+  {
+   "id": "d215",
+   "image": "images/d215.jpg",
+   "kind": "handwritten",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "5",
+     "text": "$5"
+    },
+    {
+     "price": "5",
+     "text": "$5"
+    },
+    {
+     "price": "5",
+     "text": "$5"
+    }
+   ],
+   "distractors": [
+    "bare '1' for water and pop"
+   ],
+   "also_ok": [
+    "1"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Taste_of_the_Danforth_2012_(7782698016).jpg",
+    "title": "Taste of the Danforth 2012 (7782698016).jpg",
+    "author": "synestheticstrings",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  },
+  {
+   "id": "d216",
+   "image": "images/d216.jpg",
+   "kind": "sign",
+   "region": "AU",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "6.00",
+     "text": "$6.00"
+    },
+    {
+     "price": "4.00",
+     "text": "$4.00"
+    },
+    {
+     "price": "16.00",
+     "text": "$16.00"
+    }
+   ],
+   "distractors": [
+    "phone 85521777",
+    "timetable",
+    "'4 - 15 YEARS'"
+   ],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:Ticket_prices_and_Time_Table.jpg",
+    "title": "Ticket prices and Time Table.jpg",
+    "author": "Sainimandeep243",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+   }
+  },
+  {
+   "id": "d221",
+   "image": "images/d221.jpg",
+   "kind": "sign",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "49.90",
+     "text": "$49.90"
+    },
+    {
+     "price": "49.90",
+     "text": "$49.90"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:UNIQLO_Canada_@_Metropolis_(36994430974).jpg",
+    "title": "UNIQLO Canada @ Metropolis (36994430974).jpg",
+    "author": "GoToVan from Vancouver, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+   }
+  },
+  {
+   "id": "d222",
+   "image": "images/d222.jpg",
+   "kind": "label",
+   "region": "CA",
+   "currency": "DOLLAR_OTHER",
+   "tags": [
+    {
+     "price": "19.90",
+     "text": "$19.90"
+    },
+    {
+     "price": "14.90",
+     "text": "$14.90"
+    },
+    {
+     "price": "19.90",
+     "text": "$19.90"
+    },
+    {
+     "price": "14.90",
+     "text": "$14.90"
+    },
+    {
+     "price": "14.90",
+     "text": "$14.90"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/wiki/File:UNIQLO_Canada_@_Metropolis_(36994431584).jpg",
+    "title": "UNIQLO Canada @ Metropolis (36994431584).jpg",
+    "author": "GoToVan from Vancouver, Canada",
     "license": "CC BY 2.0",
     "license_url": "https://creativecommons.org/licenses/by/2.0"
    }

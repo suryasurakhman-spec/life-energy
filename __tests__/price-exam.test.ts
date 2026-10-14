@@ -123,10 +123,11 @@ describe.skipIf(!existsSync(OCR_FILE))('price-tag exam', () => {
   );
 
   // First run (2026-10-13) found 17 of 127 tags; parser fixes took it to 48 with 5 wrong chips.
+  // Batch 2 (2026-10-14, 40 more photos) brought it to 76 of 207 with 9 wrong chips.
   // Raise these as the parser improves, so a change can't quietly lose ground.
   it('finds at least the recorded number of tags without adding wrong chips', () => {
     const all = groups.get('all')!;
-    expect(all.found).toBeGreaterThanOrEqual(48);
-    expect(all.wrong).toBeLessThanOrEqual(5);
+    expect(all.found).toBeGreaterThanOrEqual(76);
+    expect(all.wrong).toBeLessThanOrEqual(9);
   });
 });
