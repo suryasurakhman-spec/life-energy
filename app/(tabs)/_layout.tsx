@@ -24,8 +24,11 @@ const TAB_BAR_STYLE = {
 
 export default function TabsLayout() {
   const t = useTranslation();
-  const { data: wage, isSuccess } = useCurrentWage();
+  const { data: wage, isSuccess, isPending } = useCurrentWage();
 
+  // Wait for the wage before mounting the tabs: otherwise the lens starts the camera and the
+  // first-run redirect then removes it mid-attach, crashing Vision Camera. The splash covers this.
+  if (isPending) return null;
   // First run: no wage yet, so start the real-wage wizard (language picker first).
   if (isSuccess && wage === null) return <Redirect href="/onboarding/locale" />;
 
