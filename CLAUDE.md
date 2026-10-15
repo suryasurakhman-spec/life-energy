@@ -37,6 +37,7 @@ Do not scope-creep MVP with v2/v3 features mid-session.
 | State | Zustand (UI), TanStack Query (server) | |
 | Charts | Victory Native (Skia renderer) | Wall Chart and monthly bars (v2+) |
 | Validation | zod | All external data boundaries: forms, sync payloads, Supabase rows |
+| Purchases | react-native-purchases (RevenueCat), pinned | One-time Pro unlock on Google Play; entitlement `pro_v2`; key in `EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`, no key = Free only |
 | Auth/Backend | Supabase Auth + Postgres + RLS | v2+; every user table has `user_id`; policy `user_id = auth.uid()` |
 
 **Week-1 spike required:** pin compatible versions of Vision Camera, ML Kit plugin, worklets-core, and Reanimated against the Expo SDK's React Native version before any other native work. Record in `docs/decisions/001-native-stack.md`.

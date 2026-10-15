@@ -1,6 +1,8 @@
 import { useCustomerInfo } from './usePurchases';
 
-export const PRO_ENTITLEMENT = 'pro_v2';
+import { PRO_ENTITLEMENT_ID } from '@/infrastructure/revenuecat/revenuecat-purchase-service';
+
+export const PRO_ENTITLEMENT = PRO_ENTITLEMENT_ID;
 
 export function useEntitlement(entitlementId: string) {
   const { data: info, isLoading, isError } = useCustomerInfo();

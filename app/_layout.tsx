@@ -7,7 +7,7 @@ import {
 } from '@expo-google-fonts/inter';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
-import { Slot, SplashScreen } from 'expo-router';
+import { SplashScreen, Stack } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -56,7 +56,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <Slot />
+          {/* A stack, so screens opened over the tabs (paywall, currency) go back to the same tab. */}
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
+          </Stack>
         </QueryClientProvider>
         {!splashDone && <SplashOverlay onDone={endSplash} />}
       </SafeAreaProvider>

@@ -1,8 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Platform } from 'react-native';
 import { NoopPurchaseService } from '@/infrastructure/revenuecat/noop-purchase-service';
-import type { Package } from '@/application/ports/purchase-service.port';
+import { RevenueCatPurchaseService } from '@/infrastructure/revenuecat/revenuecat-purchase-service';
+import type { Package, PurchaseService } from '@/application/ports/purchase-service.port';
 
-const service = new NoopPurchaseService();
+// Google Play only for now; builds without the key (dev, iOS) get no purchases and stay on Free.
+const androidKey = process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY ?? '';
+const service: PurchaseService =
+  Platform.OS === 'android' && androidKey ? new RevenueCatPurchaseService(androidKey) : new NoopPurchaseService();
 
 const CUSTOMER_INFO_KEY = ['purchases', 'customerInfo'] as const;
 const OFFERINGS_KEY     = ['purchases', 'offerings'] as const;

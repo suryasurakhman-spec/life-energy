@@ -226,14 +226,13 @@ export interface Strings {
       wallChart:      string;
       crossover:      string;
       threeQuestions: string;
-      sync:           string;
-      categories:     string;
     };
-    subscribe:   string;
     restore:     string;
     notNow:      string;
     legal:       string;
     unavailable: string;
+    failed:      string;
+    pending:     string;
   };
   profile: {
     title:               string;
@@ -250,7 +249,6 @@ export interface Strings {
     planLabel:           string;
     planFree:            string;
     planPro:             string;
-    manageSubscription:  string;
     exportData:          string;
     exporting:           string;
     deleteData:          string;
@@ -478,24 +476,23 @@ const en: Strings = {
   },
   paywall: {
     title:    'Upgrade to Life Energy Pro',
-    subtitle: 'Unlock v2 features for a complete picture of your financial independence journey.',
+    subtitle: 'One payment, yours to keep. No subscription, no account.',
     features: {
       wallChart:      'Wall Chart — 36-month income vs expenses view',
       crossover:      'Crossover Projection — see when investment income covers life',
       threeQuestions: 'Three Questions monthly review per category',
-      sync:           'Supabase cloud sync across devices',
-      categories:     'Spending categories with custom names',
     },
-    subscribe:   'Subscribe',
     restore:     'Restore purchases',
     notNow:      'Not now',
-    legal:       "Subscriptions auto-renew unless cancelled. Manage in your device's subscription settings. Not financial advice.",
-    unavailable: 'Purchases are not available in this build. Install the production build to subscribe.',
+    legal:       'One-time purchase through Google Play. Restore it on a new phone with the same Google account. Not financial advice.',
+    unavailable: 'Purchases are not available in this build.',
+    failed:      'The purchase did not go through. Please try again.',
+    pending:     'Payment pending. Pro unlocks as soon as Google Play confirms it.',
   },
   profile: {
     title:               'Profile',
     sectionWage:         'REAL WAGE',
-    sectionSubscription: 'SUBSCRIPTION',
+    sectionSubscription: 'PLAN',
     sectionData:         'DATA',
     sectionAbout:        'ABOUT',
     realWageLabel:       'Real hourly wage',
@@ -507,7 +504,6 @@ const en: Strings = {
     planLabel:           'Plan',
     planFree:            'Free',
     planPro:             'Pro',
-    manageSubscription:  'Manage subscription',
     exportData:          'Export my data',
     exporting:           'Exporting…',
     deleteData:          'Delete all data',
@@ -735,24 +731,23 @@ const id: Strings = {
   },
   paywall: {
     title:    'Tingkatkan ke Life Energy Pro',
-    subtitle: 'Buka fitur v2 untuk gambaran lengkap perjalanan kebebasan finansial Anda.',
+    subtitle: 'Sekali bayar, milikmu selamanya. Tanpa langganan, tanpa akun.',
     features: {
       wallChart:      'Grafik Dinding — tampilan 36 bulan penghasilan vs pengeluaran',
       crossover:      'Proyeksi Titik Impas — lihat kapan pendapatan investasi menutupi biaya hidup',
       threeQuestions: 'Ulasan bulanan Tiga Pertanyaan per kategori',
-      sync:           'Sinkronisasi cloud Supabase di semua perangkat',
-      categories:     'Kategori pengeluaran dengan nama kustom',
     },
-    subscribe:   'Berlangganan',
     restore:     'Pulihkan pembelian',
     notNow:      'Nanti saja',
-    legal:       'Langganan diperpanjang otomatis kecuali dibatalkan. Kelola di pengaturan langganan perangkat Anda. Bukan saran keuangan.',
-    unavailable: 'Pembelian tidak tersedia di build ini. Instal build produksi untuk berlangganan.',
+    legal:       'Pembelian sekali lewat Google Play. Pulihkan di ponsel baru dengan akun Google yang sama. Bukan saran keuangan.',
+    unavailable: 'Pembelian tidak tersedia di build ini.',
+    failed:      'Pembelian tidak berhasil. Silakan coba lagi.',
+    pending:     'Pembayaran tertunda. Pro terbuka begitu Google Play mengonfirmasinya.',
   },
   profile: {
     title:               'Profil',
     sectionWage:         'UPAH NYATA',
-    sectionSubscription: 'LANGGANAN',
+    sectionSubscription: 'PAKET',
     sectionData:         'DATA',
     sectionAbout:        'TENTANG',
     realWageLabel:       'Upah nyata per jam',
@@ -764,7 +759,6 @@ const id: Strings = {
     planLabel:           'Paket',
     planFree:            'Gratis',
     planPro:             'Pro',
-    manageSubscription:  'Kelola langganan',
     exportData:          'Ekspor data saya',
     exporting:           'Mengekspor…',
     deleteData:          'Hapus semua data',
@@ -992,24 +986,23 @@ const ja: Strings = {
   },
   paywall: {
     title:    'Life Energy Proにアップグレード',
-    subtitle: 'v2機能を解放して、経済的自由への旅の全体像を把握しましょう。',
+    subtitle: '一度の支払いでずっと使えます。サブスクなし、アカウント不要。',
     features: {
       wallChart:      'ウォールチャート — 36ヶ月の収入vs支出ビュー',
       crossover:      '交差点予測 — 投資収益が生活費をカバーする時期を確認',
       threeQuestions: 'カテゴリ別月次3つの質問レビュー',
-      sync:           'Supabaseクラウド同期（全デバイス対応）',
-      categories:     'カスタム名の支出カテゴリ',
     },
-    subscribe:   '購読する',
     restore:     '購入を復元',
     notNow:      'あとで',
-    legal:       'サブスクリプションはキャンセルするまで自動更新されます。デバイスのサブスクリプション設定で管理してください。投資アドバイスではありません。',
-    unavailable: 'このビルドでは購入できません。本番ビルドをインストールして購読してください。',
+    legal:       'Google Playでの買い切り購入です。同じGoogleアカウントなら新しい端末でも復元できます。投資アドバイスではありません。',
+    unavailable: 'このビルドでは購入できません。',
+    failed:      '購入できませんでした。もう一度お試しください。',
+    pending:     '支払い保留中です。Google Playで確認され次第、Proが有効になります。',
   },
   profile: {
     title:               'プロフィール',
     sectionWage:         '実質賃金',
-    sectionSubscription: 'サブスクリプション',
+    sectionSubscription: 'プラン',
     sectionData:         'データ',
     sectionAbout:        'について',
     realWageLabel:       '実質時給',
@@ -1021,7 +1014,6 @@ const ja: Strings = {
     planLabel:           'プラン',
     planFree:            '無料',
     planPro:             'Pro',
-    manageSubscription:  'サブスクリプションを管理',
     exportData:          'データをエクスポート',
     exporting:           'エクスポート中…',
     deleteData:          'すべてのデータを削除',
@@ -1250,24 +1242,23 @@ const ar: Strings = {
   },
   paywall: {
     title:    'الترقية إلى Life Energy Pro',
-    subtitle: 'افتح ميزات v2 للحصول على صورة كاملة عن رحلة استقلالك المالي.',
+    subtitle: 'دفعة واحدة، لك إلى الأبد. بلا اشتراك وبلا حساب.',
     features: {
       wallChart:      'مخطط الجدار — عرض الدخل مقابل المصروفات لـ 36 شهراً',
       crossover:      'توقعات نقطة التقاطع — اعرف متى يغطي دخل الاستثمار نفقات حياتك',
       threeQuestions: 'مراجعة الأسئلة الثلاثة الشهرية لكل فئة',
-      sync:           'المزامنة السحابية عبر Supabase على جميع الأجهزة',
-      categories:     'فئات الإنفاق بأسماء مخصصة',
     },
-    subscribe:   'اشترك',
     restore:     'استعادة المشتريات',
     notNow:      'ليس الآن',
-    legal:       'تتجدد الاشتراكات تلقائياً ما لم يتم إلغاؤها. إدارة اشتراكاتك في إعدادات الجهاز. ليست نصيحة مالية.',
-    unavailable: 'المشتريات غير متاحة في هذا الإصدار. قم بتثبيت الإصدار الإنتاجي للاشتراك.',
+    legal:       'شراء لمرة واحدة عبر Google Play. استعده على هاتف جديد بحساب Google نفسه. ليست نصيحة مالية.',
+    unavailable: 'المشتريات غير متاحة في هذا الإصدار.',
+    failed:      'لم تكتمل عملية الشراء. حاول مرة أخرى.',
+    pending:     'الدفع قيد الانتظار. يُفعَّل Pro فور تأكيد Google Play.',
   },
   profile: {
     title:               'الملف الشخصي',
     sectionWage:         'الأجر الحقيقي',
-    sectionSubscription: 'الاشتراك',
+    sectionSubscription: 'الخطة',
     sectionData:         'البيانات',
     sectionAbout:        'حول',
     realWageLabel:       'الأجر الحقيقي بالساعة',
@@ -1279,7 +1270,6 @@ const ar: Strings = {
     planLabel:           'الخطة',
     planFree:            'مجاني',
     planPro:             'Pro',
-    manageSubscription:  'إدارة الاشتراك',
     exportData:          'تصدير بياناتي',
     exporting:           'جارٍ التصدير…',
     deleteData:          'حذف جميع البيانات',

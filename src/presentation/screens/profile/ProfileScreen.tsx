@@ -169,18 +169,9 @@ export function ProfileScreen() {
           <SettingsRow
             label={t.profile.planLabel}
             value={proStatus}
+            {...(!customerInfo?.isSubscribed ? { onPress: () => router.push('/paywall') } : {})}
             theme={theme}
           />
-          {customerInfo?.managementURL && (
-            <>
-              <View style={s.separator} />
-              <SettingsRow
-                label={t.profile.manageSubscription}
-                onPress={() => { /* deep link to management URL */ }}
-                theme={theme}
-              />
-            </>
-          )}
         </View>
 
         {/* Account (FR-13): sign out keeps the data on this phone; the auth gate returns to sign-in. */}

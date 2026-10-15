@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOfferings, usePurchasePackage, useRestorePurchases } from '@/presentation/hooks/usePurchases';
 import { useTheme } from '@/theme';
 import type { Package } from '@/application/ports/purchase-service.port';
+import { PaymentPendingError } from '@/infrastructure/revenuecat/revenuecat-purchase-service';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
@@ -49,8 +50,6 @@ export function PaywallScreen({ onDismiss }: Props) {
     { emoji: '📊', text: t.paywall.features.wallChart },
     { emoji: '🔀', text: t.paywall.features.crossover },
     { emoji: '❓', text: t.paywall.features.threeQuestions },
-    { emoji: '☁️', text: t.paywall.features.sync },
-    { emoji: '🏷️',  text: t.paywall.features.categories },
   ];
 
   const { data: offerings = [], isLoading: offeringsLoading } = useOfferings();
@@ -109,10 +108,16 @@ export function PaywallScreen({ onDismiss }: Props) {
           </View>
         )}
 
+        {(purchaseMutation.error || restoreMutation.error) && (
+          <Text style={s.errorText} accessibilityLiveRegion="polite">
+            {purchaseMutation.error instanceof PaymentPendingError ? t.paywall.pending : t.paywall.failed}
+          </Text>
+        )}
+
         {/* Restore */}
         <Pressable
           style={s.restoreButton}
-          onPress={() => restoreMutation.mutate()}
+          onPress={() => restoreMutation.mutate(undefined, { onSuccess: (info) => { if (info.isSubscribed) onDismiss?.(); } })}
           disabled={isPending}
           accessibilityRole="button"
           accessibilityLabel={t.paywall.restore}
@@ -156,6 +161,7 @@ const styles = (theme: ReturnType<typeof useTheme>) => StyleSheet.create({
   priceText:          { color: theme.onAccent, fontWeight: '700', fontSize: fontSize.callout },
   placeholderCard:    { backgroundColor: theme.surfaceAlt, borderRadius: radius.md, padding: space.lg, marginBottom: space.lg },
   placeholderText:    { fontSize: fontSize.md, color: theme.textSecondary, textAlign: 'center', lineHeight: 20 },
+  errorText:          { fontSize: fontSize.md, color: theme.textSecondary, textAlign: 'center', marginBottom: space.md },
   restoreButton:      { alignItems: 'center', paddingVertical: space.md },
   restoreText:        { color: theme.accent, fontSize: fontSize.callout, fontWeight: '600' },
   dismissButton:      { alignItems: 'center', paddingVertical: space.md },

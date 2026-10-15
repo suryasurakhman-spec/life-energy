@@ -29,10 +29,9 @@ function monthLabel(month: string): string {
 interface CategoryRowProps {
   item: CategoryTotal;
   onReview: (categoryId: string, categoryName: string) => void;
-  canReview: boolean;
 }
 
-function CategoryRow({ item, onReview, canReview }: CategoryRowProps) {
+function CategoryRow({ item, onReview }: CategoryRowProps) {
   const workDay = useWorkDayMinutes();
   const t = useTranslation();
   const theme = useTheme();
@@ -40,7 +39,7 @@ function CategoryRow({ item, onReview, canReview }: CategoryRowProps) {
   return (
     <Pressable
       style={s.row}
-      onPress={() => canReview && item.categoryId && onReview(item.categoryId, item.categoryName)}
+      onPress={() => item.categoryId && onReview(item.categoryId, item.categoryName)}
       accessibilityRole="button"
       accessibilityLabel={`${item.categoryName}, ${formatCurrency(item.totalMinor, item.currency)}, ${formatHours(item.totalMinutes, { workDayMinutes: workDay })}`}
     >
@@ -64,7 +63,9 @@ export function MonthScreen() {
   const router = useRouter();
   const month = toMonthStr(new Date());
   const realHourly = useRealHourlyWage();
-  const { hasAccess: canReview } = useHasProAccess();
+  const { hasAccess: hasPro } = useHasProAccess();
+  /** Pro tools open the paywall until Pro is bought. */
+  const pro = (open: () => void) => (hasPro ? open() : router.push('/paywall'));
 
   const [reviewSheet, setReviewSheet] = useState<{ categoryId: string; categoryName: string } | null>(null);
 
@@ -96,7 +97,7 @@ export function MonthScreen() {
         <View style={s.navRow}>
           <Pressable
             style={s.navButton}
-            onPress={() => router.push('/(tabs)/month/wall-chart')}
+            onPress={() => pro(() => router.push('/(tabs)/month/wall-chart'))}
             accessibilityRole="button"
             accessibilityLabel={t.month.wallChart}
           >
@@ -104,7 +105,7 @@ export function MonthScreen() {
           </Pressable>
           <Pressable
             style={s.navButton}
-            onPress={() => router.push('/(tabs)/month/crossover')}
+            onPress={() => pro(() => router.push('/(tabs)/month/crossover'))}
             accessibilityRole="button"
             accessibilityLabel={t.month.crossover}
           >
@@ -128,8 +129,7 @@ export function MonthScreen() {
         renderItem={({ item }) => (
           <CategoryRow
             item={item}
-            onReview={(id, name) => setReviewSheet({ categoryId: id, categoryName: name })}
-            canReview={canReview}
+            onReview={(id, name) => pro(() => setReviewSheet({ categoryId: id, categoryName: name }))}
           />
         )}
         ItemSeparatorComponent={() => <View style={s.separator} />}

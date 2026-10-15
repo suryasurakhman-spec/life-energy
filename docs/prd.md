@@ -338,7 +338,7 @@ The biggest risks are misread prices on real store tags and slow phones; a week-
 
 - [ ] Final app name and brand (not the book's title).
 - [ ] Expand beyond the US later? Canada is the natural next market, but CAD shares the $ symbol, so detection must use region.
-- [ ] Free vs paid: one-time unlock or subscription for v2 features?
+- [x] Free vs paid: decided 2026-10-15. A one-time "Pro" unlock on Google Play through RevenueCat (entitlement `pro_v2`, product `pro_lifetime`, suggested $7.99). Free keeps the lens, wage wizard, quick convert and log; Pro unlocks the Wall Chart, crossover and Three Questions review. No ads. A subscription may come later with paid sync.
 - [ ] Should the crossover rate default to 4% or ask the user?
 - [ ] Household mode: shared account or linked accounts?
 
