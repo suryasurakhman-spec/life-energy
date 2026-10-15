@@ -1,4 +1,5 @@
 import type { ExpenseRepository, ExpenseRecord } from './ports/expense-repository.port';
+import { lifeEnergy } from '@/lib/calc';
 
 export interface CategoryTotal {
   categoryId: string | null;
@@ -30,7 +31,7 @@ export async function getMonthlySummary(
   for (const e of expenses) {
     const key = e.categoryId ?? '__uncategorized__';
     const existing = byCategory.get(key) ?? { totalMinor: 0n, totalMinutes: 0, count: 0, currency: e.currency };
-    const minutes = (Number(e.amountMinor) / 100 / realHourlyWage) * 60;
+    const minutes = lifeEnergy(e.amountMinor, realHourlyWage, e.currency).totalMinutes;
     byCategory.set(key, {
       totalMinor:   existing.totalMinor + e.amountMinor,
       totalMinutes: existing.totalMinutes + minutes,
@@ -49,7 +50,7 @@ export async function getMonthlySummary(
   }));
 
   const totalMinor   = expenses.reduce((sum, e) => sum + e.amountMinor, 0n);
-  const totalMinutes = expenses.reduce((sum, e) => sum + (Number(e.amountMinor) / 100 / realHourlyWage) * 60, 0);
+  const totalMinutes = expenses.reduce((sum, e) => sum + lifeEnergy(e.amountMinor, realHourlyWage, e.currency).totalMinutes, 0);
 
   return { month, totalMinor, currency: 'USD', totalMinutes, categories };
 }

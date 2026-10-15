@@ -3,6 +3,7 @@
  * Zero React / RN / Expo imports. All amounts in minor units (bigint = cents).
  * Real-hourly-wage formula: W_real = (P_net - C_job) / (H_paid + H_job)
  */
+import { minorDigits } from '@/domain/price/parser';
 
 // ---------------------------------------------------------------------------
 // Result type (lightweight Ok/Err without a library dependency)
@@ -172,17 +173,17 @@ export interface LifeEnergyResult {
 
 /**
  * L = price / W_real
- * priceMinor: price in cents (bigint)
- * realHourlyWage: dollars per hour
+ * priceMinor: price in the currency's minor units (cents; whole yen for JPY)
+ * realHourlyWage: major units per hour in the same currency (dollars, yen)
  */
 export function lifeEnergy(
   priceMinor: bigint,
   realHourlyWage: number,
+  currency: string,
 ): LifeEnergyResult {
-  // Convert minor units to dollars
-  const priceDollars = Number(priceMinor) / 100;
+  const priceMajor = Number(priceMinor) / 10 ** minorDigits(currency);
   // Hours of life energy
-  const totalHours = priceDollars / realHourlyWage;
+  const totalHours = priceMajor / realHourlyWage;
   const totalMinutes = totalHours * 60;
   const hours = Math.floor(totalMinutes / 60);
   const minutes = Math.round(totalMinutes % 60);

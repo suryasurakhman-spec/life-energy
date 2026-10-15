@@ -76,7 +76,7 @@ function PriceChip({
     );
   }
 
-  const energy = lifeEnergy(baseMinor, realHourlyWage);
+  const energy = lifeEnergy(baseMinor, realHourlyWage, homeCurrency);
   const estimated = p.confidence < 0.9 || p.currency !== homeCurrency;
   const label = formatHours(energy.totalMinutes, { estimated, workDayMinutes: workDay });
   const tier = getTier(energy.totalMinutes, workDay);
@@ -181,7 +181,7 @@ export function LensScreen() {
           recordConversion({
             priceMinor: p.minor,
             currency: p.currency,
-            hoursMinutes: Math.round(lifeEnergy(p.minor, realHourlyWage).totalMinutes),
+            hoursMinutes: Math.round(lifeEnergy(p.minor, realHourlyWage, p.currency).totalMinutes),
             source: 'lens',
           });
         }

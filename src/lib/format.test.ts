@@ -50,6 +50,10 @@ describe('formatHourlyWage', () => {
   it('formats a real wage in its currency, to the cent', () => {
     expect(formatHourlyWage(13.4375, 'USD')).toBe('$13.44');
   });
+
+  it('formats a yen wage in whole yen', () => {
+    expect(formatHourlyWage(1500, 'JPY')).toBe('¥1,500');
+  });
 });
 
 describe('formatCurrency minor units', () => {

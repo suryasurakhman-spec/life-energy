@@ -20,9 +20,14 @@ export function currencySymbol(currency: string): string {
   return parts.find(p => p.type === 'currency')?.value ?? currency;
 }
 
-/** An hourly wage given in major units (dollars/hour), formatted in its currency. */
+/** Major units → minor units: 4.99 USD → 499n, 4600 JPY → 4600n. */
+export function toMinor(amount: number, currency: string): bigint {
+  return BigInt(Math.round(amount * 10 ** minorDigits(currency)));
+}
+
+/** An hourly wage given in major units (dollars/hour, yen/hour), formatted in its currency. */
 export function formatHourlyWage(perHour: number, currency: string): string {
-  return formatCurrency(BigInt(Math.round(perHour * 100)), currency);
+  return formatCurrency(toMinor(perHour, currency), currency);
 }
 
 export function formatHours(

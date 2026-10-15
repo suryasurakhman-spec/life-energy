@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { formatHours, formatCurrency } from '@/lib/format';
+import { formatHours, formatCurrency, toMinor } from '@/lib/format';
 import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { useTranslation } from '@/lib/i18n';
 import { lifeEnergy } from '@/lib/calc';
@@ -29,8 +29,8 @@ export function QuickConvertModal({ realHourlyWage, wageProfileId, currency, vis
   const logExpense = useLogExpense();
   const recordConversion = useRecordConversion();
 
-  const priceMinor = BigInt(Math.round(parseFloat(input || '0') * 100));
-  const energy = input ? lifeEnergy(priceMinor, realHourlyWage) : null;
+  const priceMinor = toMinor(parseFloat(input || '0'), currency);
+  const energy = input ? lifeEnergy(priceMinor, realHourlyWage, currency) : null;
 
   function handleKey(key: string) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

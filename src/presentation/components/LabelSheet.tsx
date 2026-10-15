@@ -40,7 +40,7 @@ export function LabelSheet({ priceMinor, currency, homeCurrency, wageProfileId, 
   const foreign = currency !== homeCurrency;
   const { data: fx } = useFxRate(homeCurrency, currency);
   const homeMinor = convertToBase(editedMinor, currency, homeCurrency, fx?.rate);
-  const energy = homeMinor !== null ? lifeEnergy(homeMinor, realHourlyWage) : null;
+  const energy = homeMinor !== null ? lifeEnergy(homeMinor, realHourlyWage, homeCurrency) : null;
   const workDay = useWorkDayMinutes();
   const hoursLabel = energy
     ? formatHours(energy.totalMinutes, { workDayMinutes: workDay, estimated: foreign })

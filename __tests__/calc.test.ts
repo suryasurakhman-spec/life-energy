@@ -142,14 +142,14 @@ describe('toMonthlyAmount', () => {
 
 describe('lifeEnergy', () => {
   it('PRD example: $12.99 at $12.94/hr → ~60 min', () => {
-    const result = lifeEnergy(1299n, 12.94);
+    const result = lifeEnergy(1299n, 12.94, 'USD');
     // $12.99 / $12.94 ≈ 1.0039 hours ≈ 60.2 minutes
     expect(result.totalMinutes).toBeCloseTo(60.2, 0);
     expect(result.hours).toBe(1);
   });
 
   it('$4.99 at $12.94/hr → ~23 min', () => {
-    const result = lifeEnergy(499n, 12.94);
+    const result = lifeEnergy(499n, 12.94, 'USD');
     // $4.99 / $12.94 ≈ 0.3857 hrs ≈ 23.1 min
     expect(result.totalMinutes).toBeCloseTo(23.1, 0);
     expect(result.hours).toBe(0);
@@ -157,7 +157,7 @@ describe('lifeEnergy', () => {
   });
 
   it('$0 price → 0 minutes', () => {
-    const result = lifeEnergy(0n, 12.94);
+    const result = lifeEnergy(0n, 12.94, 'USD');
     expect(result.totalMinutes).toBe(0);
     expect(result.hours).toBe(0);
     expect(result.minutes).toBe(0);
@@ -165,16 +165,21 @@ describe('lifeEnergy', () => {
 
   it('hours and minutes decompose correctly', () => {
     // $25.88 at $12.94/hr = exactly 2 hours
-    const result = lifeEnergy(2588n, 12.94);
+    const result = lifeEnergy(2588n, 12.94, 'USD');
     expect(result.hours).toBe(2);
     expect(result.minutes).toBe(0);
   });
 
   it('large price → many hours', () => {
     // $1000 at $10/hr = 100 hours = 6000 minutes
-    const result = lifeEnergy(100000n, 10);
+    const result = lifeEnergy(100000n, 10, 'USD');
     expect(result.totalMinutes).toBeCloseTo(6000, 0);
     expect(result.hours).toBe(100);
+  });
+
+  it('reads yen as whole units, not cents', () => {
+    // ¥1,500 at ¥1,500/hr = 1 hour
+    expect(lifeEnergy(1500n, 1500, 'JPY').totalMinutes).toBeCloseTo(60, 5);
   });
 });
 
