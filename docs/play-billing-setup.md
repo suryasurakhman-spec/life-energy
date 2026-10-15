@@ -16,7 +16,7 @@ Play lists in-app products only after you upload a build that contains the billi
 1. Go to **Monetize → Products → In-app products → Create**.
    - Product ID: `pro_lifetime` (cannot be changed later).
    - Name: "Life Energy Pro". Description: "Unlock the Wall Chart, crossover projection and monthly review."
-   - Price: suggested **$7.99**. Play fills in local prices (IDR, JPY, …) from it. Activate.
+   - Price: **$9.99**. Play fills in local prices from it; set Indonesia by hand to Rp 49.000, since the converted price (about Rp 160.000) is high there. Activate.
 2. Go to **Setup → License testing** and add your Google account, so test purchases cost nothing.
 
 ## 4. RevenueCat
@@ -33,7 +33,7 @@ Play lists in-app products only after you upload a build that contains the billi
 
 ## 5. Test
 1. Rebuild and install from the Internal testing link, on a phone signed in with the license-tester account.
-2. Open the Month tab and tap Wall Chart. The paywall shows "$7.99".
+2. Open the Month tab and tap Wall Chart. The paywall shows "$9.99".
 3. Buy it (the test card is free). Wall Chart opens, and Profile → Plan shows "Pro".
 4. Clear the app data, open the paywall, and tap **Restore purchases**. Pro comes back.
 
