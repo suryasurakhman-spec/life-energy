@@ -33,3 +33,6 @@ expo-env.d.ts
 # @end expo-cli
 
 supabase/.temp/
+
+# Price-tag photos from the open web (batch 3): used locally, not redistributed
+__tests__/fixtures/price-tags/images/w*.jpg
