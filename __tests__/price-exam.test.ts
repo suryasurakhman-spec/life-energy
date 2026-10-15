@@ -131,10 +131,11 @@ describe.skipIf(!existsSync(OCR_FILE))('price-tag exam', () => {
   // Reading "Rp. 6000", a colon before the price and "2.- €" found 108.
   // Reading the 円 that OCR saw as a dot ("1140.") found 112.
   // Reading a ¥ seen as "\", "*" or a letter before it found 114.
+  // Reading "$199" as $1.99 when the sure prices around it are that small found 116, with 7 wrong.
   // Raise these as the parser improves, so a change can't quietly lose ground.
   it('finds at least the recorded number of tags without adding wrong chips', () => {
     const all = groups.get('all')!;
-    expect(all.found).toBeGreaterThanOrEqual(114);
-    expect(all.wrong).toBeLessThanOrEqual(9);
+    expect(all.found).toBeGreaterThanOrEqual(116);
+    expect(all.wrong).toBeLessThanOrEqual(7);
   });
 });

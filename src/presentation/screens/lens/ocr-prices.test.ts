@@ -116,6 +116,12 @@ describe('pricesInLines', () => {
     expect(pricesInLines([split]).map((p) => p.minor)).toEqual([399n]);
   });
 
+  it('reads "$199" as $1.99 when the sure prices around it are that small', () => {
+    expect(pricesInLines([line('$199'), line('S 1.99')]).map((p) => p.minor)).toEqual([199n, 199n]);
+    expect(pricesInLines([line('$199')]).map((p) => p.minor)).toEqual([19900n]);
+    expect(pricesInLines([line('$199'), line('$49.99')]).map((p) => p.minor)).toEqual([19900n, 4999n]);
+  });
+
   it('skips savings, coupon and gift-card amounts', () => {
     const lines = [
       line('SAVE: $2.20 Ls', [word('$2.20')]),

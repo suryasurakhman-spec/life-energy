@@ -130,7 +130,21 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
       if (parsed) add(w, parsed);
     }
   }
-  return detected;
+  return dropLostDots(detected);
+}
+
+/**
+ * "$199" is read as $199 "≈" (priceParser 9c), but when every sure price in view is under a tenth
+ * of it, the tag is "$1⁹⁹" with the dot lost: showing $199 would cost 100 times the hours.
+ */
+function dropLostDots(prices: DetectedPrice[]): DetectedPrice[] {
+  const sure = prices.filter((p) => p.currency === 'USD' && p.confidence >= 0.9);
+  return prices.map((p) =>
+    p.currency === 'USD' && p.confidence < 0.9 && p.minor >= 10000n && p.minor % 100n === 0n &&
+    sure.length > 0 && sure.every((s) => s.minor * 10n <= p.minor)
+      ? { ...p, minor: p.minor / 100n }
+      : p,
+  );
 }
 
 interface MlKitFrame {
