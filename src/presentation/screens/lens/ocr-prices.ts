@@ -34,7 +34,10 @@ function fixOcrNoise(text: string): string {
     .replace(/^:\s*/, '')
     .replace(/(\d)[-~)]+$/, '$1')
     .replace(/^[Ss] ?(?=\d{1,4}[.,]\d{2}$)/, '$')
-    .replace(/^F(?=\d{1,3}(?:,\d{3})+$)/, '¥');
+    .replace(/^F(?=\d{1,3}(?:,\d{3})+$)/, '¥')
+    // Japanese fonts draw the backslash as ¥, so OCR returns "\2,100"; stray letters before a ¥ go ("i¥250").
+    .replace(/^\\(?=\d)/, '¥')
+    .replace(/^[A-Za-z]+(?=¥\d)/, '');
 }
 
 /**
@@ -46,7 +49,10 @@ function fixOcrNoise(text: string): string {
 export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | null {
   let text = fixOcrNoise(rawText);
   // OCR reads the 円 after a yen price as a dot ("1140."); only trusted at home in Japan, where it is the price mark.
-  if (homeCurrency === 'JPY') text = text.replace(/^(\d{3,5}|\d{1,3}(?:,\d{3})+)\.$/, '¥$1');
+  // A ¥ read as "*" or "w" too, but only before a grouped amount ("*1.347"): "w1497" alone may be a code.
+  if (homeCurrency === 'JPY') {
+    text = text.replace(/^(\d{3,5}|\d{1,3}(?:,\d{3})+)\.$/, '¥$1').replace(/^[*wW](?=\d{1,3}(?:[.,]\d{3})+$)/, '¥');
+  }
   const usd = parsePrice(text);
   if (usd && usd.currency !== 'NOT_USD') {
     if (homeCurrency === 'USD' || CURRENCY_MARK.test(text)) return usd;

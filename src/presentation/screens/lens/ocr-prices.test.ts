@@ -66,6 +66,15 @@ describe('parseTag OCR noise', () => {
     expect(parseTag('1140.', 'USD')?.currency).not.toBe('JPY');
   });
 
+  it('reads a yen sign OCR saw as a backslash, star or w', () => {
+    expect(parseTag('\\2,100')).toMatchObject({ minor: 2100n, currency: 'JPY' });
+    expect(parseTag('i¥250')).toMatchObject({ minor: 250n, currency: 'JPY' });
+    expect(parseTag('*1.347', 'JPY')).toMatchObject({ minor: 1347n, currency: 'JPY' });
+    expect(parseTag('w1,497', 'JPY')).toMatchObject({ minor: 1497n, currency: 'JPY' });
+    expect(parseTag('w1497', 'JPY')).toBeNull();
+    expect(parseTag('*1.347', 'USD')?.currency).not.toBe('JPY');
+  });
+
   it('reads an F before a thousands amount as a yen sign', () => {
     expect(parseTag('F4,725~')).toMatchObject({ minor: 4725n, currency: 'JPY' });
     expect(parseTag('F7,875', 'USD')).toMatchObject({ minor: 7875n, currency: 'JPY' });
