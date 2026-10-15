@@ -132,10 +132,13 @@ describe.skipIf(!existsSync(OCR_FILE))('price-tag exam', () => {
   // Reading the 円 that OCR saw as a dot ("1140.") found 112.
   // Reading a ¥ seen as "\", "*" or a letter before it found 114.
   // Reading "$199" as $1.99 when the sure prices around it are that small found 116, with 7 wrong.
+  // Not reading "6.20" as yen and joining "3,-" "€" found 117, with 6 wrong.
+  // Reading the tallest bare numbers in yen, won and rupiah found 129, with 13 wrong: each new one
+  // is a real price with a misread digit ("4150" for ¥150), shown with "≈".
   // Raise these as the parser improves, so a change can't quietly lose ground.
   it('finds at least the recorded number of tags without adding wrong chips', () => {
     const all = groups.get('all')!;
-    expect(all.found).toBeGreaterThanOrEqual(116);
-    expect(all.wrong).toBeLessThanOrEqual(7);
+    expect(all.found).toBeGreaterThanOrEqual(129);
+    expect(all.wrong).toBeLessThanOrEqual(13);
   });
 });

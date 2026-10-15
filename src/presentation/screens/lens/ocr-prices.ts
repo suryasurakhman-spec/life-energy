@@ -56,6 +56,8 @@ export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | nul
   const usd = parsePrice(text);
   if (usd && usd.currency !== 'NOT_USD') {
     if (homeCurrency === 'USD' || CURRENCY_MARK.test(text)) return usd;
+    // Yen and won have no cents, so an unmarked "6.20" there is a date or weight, not a price.
+    if (minorDigits(homeCurrency) === 0 && usd.minor % 100n !== 0n) return null;
     const scale = 10n ** BigInt(2 - minorDigits(homeCurrency));
     return { ...usd, minor: (usd.minor + scale / 2n) / scale, currency: homeCurrency };
   }
@@ -124,13 +126,35 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
       add(line, whole);
       continue;
     }
-    for (const w of line.words) {
+    for (const [i, w] of line.words.entries()) {
+      // A euro sign OCR split off as its own word ("3,-" "€") belongs to the amount before it.
+      const text = line.words[i + 1]?.text === '€' ? `${w.text} €` : w.text;
       const parsed =
-        (fuelBoard ? parseFuelPrice(w.text, homeCurrency) : null) ?? parseTag(w.text, homeCurrency);
+        (fuelBoard ? parseFuelPrice(text, homeCurrency) : null) ?? parseTag(text, homeCurrency);
       if (parsed) add(w, parsed);
     }
   }
+  if (BARE_PRICE_HOMES.has(homeCurrency) && detected.length === 0) addBarePrices(lines, homeCurrency, add);
   return dropLostDots(detected);
+}
+
+/** Homes where tags often print the number alone: "120" in Japan, "8.500" in Indonesia, "3,000" in Korea. */
+const BARE_PRICE_HOMES = new Set(['JPY', 'KRW', 'IDR']);
+
+/**
+ * With no marked price in view, the tallest plain numbers are taken as prices in the home currency,
+ * marked "≈". The price is the biggest print on a tag; codes, dates and weights are smaller.
+ */
+function addBarePrices(lines: OcrLine[], homeCurrency: string, add: (box: OcrBox, parsed: ParsedTag) => void) {
+  const bare = lines
+    .flatMap((l) => l.words)
+    .filter((w) => /^[1-9](?:\d{2,3}|\d{0,2}(?:[.,]\d{3})+)$/.test(w.text));
+  const tallest = Math.max(0, ...bare.map((w) => w.height));
+  for (const w of bare) {
+    if (w.height < tallest * 0.7) continue;
+    const major = BigInt(w.text.replace(/[.,]/g, ''));
+    add(w, { minor: major * 10n ** BigInt(minorDigits(homeCurrency)), currency: homeCurrency, confidence: 0.7 });
+  }
 }
 
 /**
@@ -179,7 +203,7 @@ export function ocrLinesFromBlocks(blocks: MlKitBlock[]): OcrLine[] {
       const lineText = line.lineText ?? '';
       if (!/\d/.test(lineText) && !FUEL_WORDS.test(lineText)) continue;
       const words = (line.elements ?? [])
-        .filter((el) => /\d/.test(el.elementText ?? ''))
+        .filter((el) => /\d|^€$/.test(el.elementText ?? ''))
         .map((el) => box(el.elementFrame, el.elementText ?? ''));
       lines.push({ ...box(line.lineFrame, lineText), words });
     }

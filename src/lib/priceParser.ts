@@ -380,7 +380,8 @@ export function parsePrice(text: string): ParsedPrice | null {
   // Allow a price anywhere in the string when no other pattern matched yet
   // (e.g. "$4.99 " with trailing whitespace, already handled by trimmed)
   // Try flexible extraction: find first $-price token
-  const flexMatch = trimmed.match(/\$(\d[\d,]*(?:\.\d{1,2})?)/);
+  // Not glued to a letter or digit: "S$7577-" on a Japanese sign is a code, not $7,577.
+  const flexMatch = trimmed.match(/(?:^|[^A-Za-z0-9])\$(\d[\d,]*(?:\.\d{1,2})?)/);
   if (flexMatch) {
     const priceStr = flexMatch[1];
     if (priceStr) {

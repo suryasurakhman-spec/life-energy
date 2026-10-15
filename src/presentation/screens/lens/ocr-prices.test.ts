@@ -11,8 +11,10 @@ describe('parseTag home currency', () => {
     expect(parseTag('.99', 'USD')).toMatchObject({ minor: 99n, currency: 'USD' });
   });
 
-  it('rescales to currencies without minor units', () => {
-    expect(parseTag('.99', 'JPY')).toMatchObject({ minor: 1n, currency: 'JPY' });
+  it('reads no unmarked cents in currencies without minor units', () => {
+    expect(parseTag('.99', 'JPY')).toBeNull();
+    expect(parseTag('6.20', 'JPY')).toBeNull();
+    expect(parseTag('6.00', 'JPY')).toMatchObject({ minor: 6n, currency: 'JPY' });
   });
 
   it('leaves foreign-marked prices to the currency-aware parser', () => {
@@ -120,6 +122,20 @@ describe('pricesInLines', () => {
     expect(pricesInLines([line('$199'), line('S 1.99')]).map((p) => p.minor)).toEqual([199n, 199n]);
     expect(pricesInLines([line('$199')]).map((p) => p.minor)).toEqual([19900n]);
     expect(pricesInLines([line('$199'), line('$49.99')]).map((p) => p.minor)).toEqual([19900n, 4999n]);
+  });
+
+  it('reads the tallest plain numbers as yen, won or rupiah when nothing in view is marked', () => {
+    const tall = (text: string, height: number) => ({ ...word(text), height, words: [{ ...word(text), height }] });
+    const tag = [tall('298', 60), tall('0825', 20), tall('120', 50)];
+    expect(pricesInLines(tag, 'JPY').map((p) => [p.minor, p.confidence])).toEqual([[298n, 0.7], [120n, 0.7]]);
+    expect(pricesInLines([tall('8.500', 40)], 'IDR').map((p) => p.minor)).toEqual([850000n]);
+    expect(pricesInLines(tag, 'USD')).toEqual([]);
+    expect(pricesInLines([...tag, line('¥500')], 'JPY').map((p) => p.minor)).toEqual([500n]);
+  });
+
+  it('joins a euro sign OCR split off into its own word', () => {
+    const sign = line('Busse 3,- €', [word('Busse'), word('3,-', 12), word('€', 24)]);
+    expect(pricesInLines([sign], 'EUR').map((p) => p.minor)).toEqual([300n]);
   });
 
   it('skips savings, coupon and gift-card amounts', () => {

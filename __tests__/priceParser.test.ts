@@ -438,3 +438,10 @@ describe('parsePrice — remaining branches', () => {
     expect(isPriceToken('3/$10')).toBe(true);
   });
 });
+
+describe('dollar sign inside other text', () => {
+  it('reads a "$" price after a space but not one glued to a letter', () => {
+    expect(parsePrice('NOW $5.99')).toMatchObject({ minor: 599n });
+    expect(parsePrice('S$7577')).toBeNull();
+  });
+});
