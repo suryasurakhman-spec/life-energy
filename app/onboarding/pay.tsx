@@ -6,6 +6,7 @@ import { useOnboardingStore, type PayPeriod } from '@/presentation/stores/onboar
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTranslation } from '@/lib/i18n';
 import { currencySymbol } from '@/lib/format';
+import { minorDigits } from '@/domain/price/parser';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
@@ -51,7 +52,8 @@ export default function PayScreen() {
               value={amount}
               onChangeText={setAmount}
               keyboardType="decimal-pad"
-              placeholder="0.00"
+              // Yen and won have no cents; rupiah formally does, but nobody writes them.
+              placeholder={minorDigits(currency) === 0 || currency === 'IDR' ? '0' : '0.00'}
               style={{ flex: 1, fontSize: fontSize.xl, paddingVertical: space.lg, color: palette.sand900 }}
               placeholderTextColor={palette.sand300}
               accessibilityLabel={t.onboarding.pay.netPay}
