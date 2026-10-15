@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { CartesianChart, Line, useChartPressState } from 'victory-native';
@@ -29,7 +29,6 @@ function trailingMonths(n: number): string[] {
 }
 
 const MONTHS = trailingMonths(36);
-const CHART_WIDTH = Dimensions.get('window').width - 40;
 
 interface CrossoverBannerProps {
   crossoverMonth: string | null;

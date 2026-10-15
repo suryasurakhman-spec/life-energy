@@ -8,7 +8,6 @@ import { useWorkDayMinutes } from '@/presentation/hooks/useWage';
 import { lifeEnergy } from '@/lib/calc';
 import { useRecordConversion } from '@/presentation/hooks/useRecordConversion';
 import { useLogExpense } from '@/presentation/hooks/useLogExpense';
-import { useLensStore } from '@/presentation/stores/lens.store';
 import { useTranslation } from '@/lib/i18n';
 import { palette } from '@/theme/colors';
 import { fontSize } from '@/theme/typography';

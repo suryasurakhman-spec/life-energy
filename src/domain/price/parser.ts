@@ -14,7 +14,7 @@ const REJECT_PATTERNS = [
 
 // Maps recognized currency symbols/prefixes → ISO 4217 codes.
 // Order matters: longer prefixes (CA$, C$, A$) must come before bare $.
-const CURRENCY_SYMBOLS: Array<{ pattern: RegExp; code: string }> = [
+const CURRENCY_SYMBOLS: { pattern: RegExp; code: string }[] = [
   { pattern: /^CA\$|^C\$/i,  code: 'CAD' },
   { pattern: /^A\$/i,        code: 'AUD' },
   { pattern: /^NZ\$/i,       code: 'NZD' },

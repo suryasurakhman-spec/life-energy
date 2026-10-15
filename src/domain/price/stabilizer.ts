@@ -51,7 +51,7 @@ export function createStabilizer() {
     addFrame(prices: DetectedPrice[]) {
       // Pair each detection with a tracked price (or start a new one).
       const seen = new Set<string>();
-      const updates: Array<[string, DetectedPrice]> = [];
+      const updates: [string, DetectedPrice][] = [];
       for (const price of prices) {
         const id = match(price, seen) ?? price.id;
         seen.add(id);
