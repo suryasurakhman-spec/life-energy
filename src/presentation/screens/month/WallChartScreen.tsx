@@ -6,7 +6,9 @@ import { CartesianChart, Line, useChartPressState } from 'victory-native';
 import { getWallChartData } from '@/application/get-wall-chart-data';
 import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
 import { SqliteIncomeRepository } from '@/infrastructure/sqlite/sqlite-income-repository';
-import { formatCurrency } from '@/lib/format';
+import { formatCurrency, toMajor } from '@/lib/format';
+import { useCurrentWage } from '@/presentation/hooks/useWage';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTheme, palette } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
@@ -54,6 +56,9 @@ export function WallChartScreen() {
   const theme = useTheme();
   const s = styles(theme);
 
+  const { data: wage } = useCurrentWage();
+  const currency = wage?.currency ?? homeCurrency();
+
   // For MVP/demo use 0 capital; real app reads from capital_snapshots
   const currentCapitalMinor = 0n;
   const annualRatePct = 4;
@@ -69,11 +74,11 @@ export function WallChartScreen() {
     if (!data) return [];
     return data.points.map((p, i) => ({
       x: i,
-      expenses:          Number(p.expensesMinor) / 100,
-      income:            Number(p.incomeMinor) / 100,
-      investmentIncome:  Number(p.investmentIncomeMinor) / 100,
+      expenses:          toMajor(p.expensesMinor, currency),
+      income:            toMajor(p.incomeMinor, currency),
+      investmentIncome:  toMajor(p.investmentIncomeMinor, currency),
     }));
-  }, [data]);
+  }, [data, currency]);
 
   // Latest month totals for summary text
   const latest = data?.points[data.points.length - 1];
@@ -100,19 +105,19 @@ export function WallChartScreen() {
             <View style={s.summaryCell}>
               <Text style={s.summaryLabel}>{t.wallChart.expenses}</Text>
               <Text style={[s.summaryValue, { color: palette.error500 }]}>
-                {formatCurrency(latest.expensesMinor, 'USD')}
+                {formatCurrency(latest.expensesMinor, currency)}
               </Text>
             </View>
             <View style={s.summaryCell}>
               <Text style={s.summaryLabel}>{t.wallChart.income}</Text>
               <Text style={[s.summaryValue, { color: palette.slate500 }]}>
-                {formatCurrency(latest.incomeMinor, 'USD')}
+                {formatCurrency(latest.incomeMinor, currency)}
               </Text>
             </View>
             <View style={s.summaryCell}>
               <Text style={s.summaryLabel}>{t.wallChart.investmentIncome}</Text>
               <Text style={[s.summaryValue, { color: palette.sage500 }]}>
-                {formatCurrency(latest.investmentIncomeMinor, 'USD')}
+                {formatCurrency(latest.investmentIncomeMinor, currency)}
               </Text>
             </View>
           </View>

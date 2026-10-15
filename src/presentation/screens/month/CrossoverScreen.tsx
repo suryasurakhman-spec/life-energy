@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getCrossoverProjection } from '@/application/get-crossover-projection';
-import { formatCurrency, formatDate } from '@/lib/format';
+import { formatCurrency, formatDate, toMinor } from '@/lib/format';
+import { useCurrentWage } from '@/presentation/hooks/useWage';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import { fontSize } from '@/theme/typography';
 import { radius, space } from '@/theme/layout';
 
-function parseMinor(text: string): bigint {
+function parseMinor(text: string, currency: string): bigint {
   const n = parseFloat(text.replace(/[^0-9.]/g, ''));
-  return isNaN(n) ? 0n : BigInt(Math.round(n * 100));
+  return isNaN(n) ? 0n : toMinor(n, currency);
 }
 
 export function CrossoverScreen() {
@@ -28,14 +30,17 @@ export function CrossoverScreen() {
     return parts.join(' ');
   }
 
+  const { data: wage } = useCurrentWage();
+  const currency = wage?.currency ?? homeCurrency();
+
   const [capitalText,  setCapitalText]  = useState('');
   const [expensesText, setExpensesText] = useState('');
   const [savingsText,  setSavingsText]  = useState('');
   const [ratePct,      setRatePct]      = useState('4');
 
-  const capitalMinor  = parseMinor(capitalText);
-  const expensesMinor = parseMinor(expensesText);
-  const savingsMinor  = parseMinor(savingsText);
+  const capitalMinor  = parseMinor(capitalText, currency);
+  const expensesMinor = parseMinor(expensesText, currency);
+  const savingsMinor  = parseMinor(savingsText, currency);
   const annualRate    = parseFloat(ratePct) || 4;
 
   const canProject = expensesMinor > 0n;
@@ -108,7 +113,7 @@ export function CrossoverScreen() {
                   <View style={s.resultRow}>
                     <Text style={s.resultRowLabel}>{t.crossover.capitalNeeded}</Text>
                     <Text style={s.resultRowValue}>
-                      {formatCurrency(result.crossoverCapitalMinor, 'USD')}
+                      {formatCurrency(result.crossoverCapitalMinor, currency)}
                     </Text>
                   </View>
                 </>

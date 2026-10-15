@@ -5,7 +5,8 @@ import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getMonthlySummary, type CategoryTotal } from '@/application/get-monthly-summary';
 import { SqliteExpenseRepository } from '@/infrastructure/sqlite/sqlite-expense-repository';
-import { useRealHourlyWage, useWorkDayMinutes } from '@/presentation/hooks/useWage';
+import { useCurrentWage, useRealHourlyWage, useWorkDayMinutes } from '@/presentation/hooks/useWage';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useHasProAccess } from '@/presentation/hooks/useEntitlement';
 import { formatCurrency, formatHours } from '@/lib/format';
 import { useTheme } from '@/theme';
@@ -63,6 +64,8 @@ export function MonthScreen() {
   const router = useRouter();
   const month = toMonthStr(new Date());
   const realHourly = useRealHourlyWage();
+  const { data: wage } = useCurrentWage();
+  const currency = wage?.currency ?? homeCurrency();
   const { hasAccess: hasPro } = useHasProAccess();
   /** Pro tools open the paywall until Pro is bought. */
   const pro = (open: () => void) => (hasPro ? open() : router.push('/paywall'));
@@ -70,8 +73,8 @@ export function MonthScreen() {
   const [reviewSheet, setReviewSheet] = useState<{ categoryId: string; categoryName: string } | null>(null);
 
   const { data: summary, isLoading } = useQuery({
-    queryKey: ['month-summary', month, realHourly],
-    queryFn: () => getMonthlySummary(repo, month, realHourly),
+    queryKey: ['month-summary', month, realHourly, currency],
+    queryFn: () => getMonthlySummary(repo, month, realHourly, currency),
     enabled: realHourly > 0,
   });
 

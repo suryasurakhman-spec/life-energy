@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIncomeByMonth, useLogIncome, useRemoveIncome } from '@/presentation/hooks/useIncome';
-import { formatCurrency } from '@/lib/format';
+import { currencySymbol, formatCurrency, toMinor } from '@/lib/format';
+import { useCurrentWage } from '@/presentation/hooks/useWage';
+import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTheme } from '@/theme';
 import { useTranslation } from '@/lib/i18n';
 import type { IncomeRecord } from '@/application/ports/income-repository.port';
@@ -58,6 +60,9 @@ export function IncomeLogScreen() {
   const theme = useTheme();
   const s = styles(theme);
 
+  const { data: wage } = useCurrentWage();
+  const currency = wage?.currency ?? homeCurrency();
+
   const [showForm, setShowForm] = useState(false);
   const [amountText, setAmountText] = useState('');
   const [sourceText, setSourceText] = useState('');
@@ -68,12 +73,12 @@ export function IncomeLogScreen() {
   const totalMinor = entries.reduce((sum, e) => sum + e.amountMinor, 0n);
 
   function handleSave() {
-    const cents = Math.round(parseFloat(amountText || '0') * 100);
-    if (cents <= 0) return;
+    const amountMinor = toMinor(parseFloat(amountText || '0'), currency);
+    if (amountMinor <= 0n) return;
     logIncome.mutate(
       {
-        amountMinor: BigInt(cents),
-        currency: 'USD',
+        amountMinor,
+        currency,
         month: CURRENT_MONTH,
         ...(sourceText.trim() ? { source: sourceText.trim() } : {}),
       },
@@ -98,7 +103,7 @@ export function IncomeLogScreen() {
           <Text style={s.title}>{t.income.title}</Text>
           <View style={s.totalRow}>
             <Text style={s.totalLabel}>{t.income.total}</Text>
-            <Text style={s.totalValue}>{formatCurrency(totalMinor, 'USD')}</Text>
+            <Text style={s.totalValue}>{formatCurrency(totalMinor, currency)}</Text>
           </View>
         </View>
 
@@ -108,7 +113,7 @@ export function IncomeLogScreen() {
             <View style={s.formRow}>
               <Text style={s.formLabel}>{t.income.amountLabel}</Text>
               <View style={s.amountInputRow}>
-                <Text style={s.currencySymbol}>$</Text>
+                <Text style={s.currencySymbol}>{currencySymbol(currency)}</Text>
                 <TextInput
                   style={s.amountInput}
                   value={amountText}

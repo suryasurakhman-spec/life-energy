@@ -22,6 +22,7 @@ export async function getMonthlySummary(
   repo: ExpenseRepository,
   month: string,
   realHourlyWage: number,
+  currency: string,
   categoryNames: Record<string, string> = {},
 ): Promise<MonthlySummary> {
   const expenses = await repo.findByMonth(month);
@@ -52,5 +53,5 @@ export async function getMonthlySummary(
   const totalMinor   = expenses.reduce((sum, e) => sum + e.amountMinor, 0n);
   const totalMinutes = expenses.reduce((sum, e) => sum + lifeEnergy(e.amountMinor, realHourlyWage, e.currency).totalMinutes, 0);
 
-  return { month, totalMinor, currency: 'USD', totalMinutes, categories };
+  return { month, totalMinor, currency, totalMinutes, categories };
 }
