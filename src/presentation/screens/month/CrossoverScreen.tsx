@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getCrossoverProjection } from '@/application/get-crossover-projection';
-import { formatCurrency, formatDate, toMinor } from '@/lib/format';
+import { currencySymbol, formatCurrency, formatDate, toMinor } from '@/lib/format';
 import { useCurrentWage } from '@/presentation/hooks/useWage';
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTheme } from '@/theme';
@@ -66,21 +66,21 @@ export function CrossoverScreen() {
           {/* Inputs */}
           <View style={s.card}>
             <InputRow
-              label={t.crossover.capitalLabel}
+              label={`${t.crossover.capitalLabel} (${currencySymbol(currency)})`}
               placeholder="e.g. 50000"
               value={capitalText}
               onChangeText={setCapitalText}
               theme={theme}
             />
             <InputRow
-              label={t.crossover.expensesLabel}
+              label={`${t.crossover.expensesLabel} (${currencySymbol(currency)})`}
               placeholder="e.g. 3000"
               value={expensesText}
               onChangeText={setExpensesText}
               theme={theme}
             />
             <InputRow
-              label={t.crossover.savingsLabel}
+              label={`${t.crossover.savingsLabel} (${currencySymbol(currency)})`}
               placeholder="e.g. 500"
               value={savingsText}
               onChangeText={setSavingsText}

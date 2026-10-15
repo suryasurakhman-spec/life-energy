@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIncomeByMonth, useLogIncome, useRemoveIncome } from '@/presentation/hooks/useIncome';
 import { currencySymbol, formatCurrency, toMinor } from '@/lib/format';
+import { minorDigits } from '@/domain/price/parser';
 import { useCurrentWage } from '@/presentation/hooks/useWage';
 import { homeCurrency } from '@/presentation/stores/currency.store';
 import { useTheme } from '@/theme';
@@ -119,7 +120,7 @@ export function IncomeLogScreen() {
                   value={amountText}
                   onChangeText={setAmountText}
                   keyboardType="decimal-pad"
-                  placeholder="0.00"
+                  placeholder={(0).toFixed(minorDigits(currency))}
                   placeholderTextColor={theme.textSecondary}
                   accessibilityLabel={t.income.amountLabel}
                   autoFocus
