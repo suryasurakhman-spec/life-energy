@@ -26,10 +26,12 @@ const CURRENCY_MARK = /[$¢€£¥₩₹]|Rp|zł/i;
  * cents is corrected, so words and codes that start with S stay as they are.
  * Japanese tags end a price with a dash or tilde ("¥4,600-", "¥7,600~"), which is dropped.
  * ML Kit's Latin model reads "¥" as "F" ("F4,725~"); only a whole amount in thousands groups is fixed.
+ * Price lists put a colon before the price ("NASI PECEL : Rp. 6000" reads as ": Rp. 6000").
  */
 function fixOcrNoise(text: string): string {
   return text
     .trim()
+    .replace(/^:\s*/, '')
     .replace(/(\d)[-~)]+$/, '$1')
     .replace(/^[Ss] ?(?=\d{1,4}[.,]\d{2}$)/, '$')
     .replace(/^F(?=\d{1,3}(?:,\d{3})+$)/, '¥');

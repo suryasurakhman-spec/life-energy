@@ -16,6 +16,12 @@ describe('parsePrice', () => {
   it('parses €4,99 as a decimal comma',    () => expect(parsePrice('€4,99')).toMatchObject({ minor: 499n, currency: 'EUR' }));
   it('parses €1.299,00 (EU thousands)',    () => expect(parsePrice('€1.299,00')).toMatchObject({ minor: 129900n, currency: 'EUR' }));
   it('parses Rp15.000 as fifteen thousand', () => expect(parsePrice('Rp15.000')).toMatchObject({ minor: 1500000n, currency: 'IDR' }));
+  it('parses Rp. 6000 with a dot and a space', () => expect(parsePrice('Rp. 6000')).toMatchObject({ minor: 600000n, currency: 'IDR' }));
+  it('parses a euro sign after the amount', () => expect(parsePrice('6,90€')).toMatchObject({ minor: 690n, currency: 'EUR' }));
+  it('parses whole euros written with a dash', () => {
+    expect(parsePrice('2.- €')).toMatchObject({ minor: 200n, currency: 'EUR' });
+    expect(parsePrice('3,-€')).toMatchObject({ minor: 300n, currency: 'EUR' });
+  });
   it('parses Rp1.299.000',                 () => expect(parsePrice('Rp1.299.000')).toMatchObject({ minor: 129900000n, currency: 'IDR' }));
   it('parses £3.50 as a decimal point',    () => expect(parsePrice('£3.50')).toMatchObject({ minor: 350n, currency: 'GBP' }));
   it('parses ¥1,299 with no minor units',  () => expect(parsePrice('¥1,299')).toMatchObject({ minor: 1299n, currency: 'JPY' }));

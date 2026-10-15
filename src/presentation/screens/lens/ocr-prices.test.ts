@@ -55,6 +55,10 @@ describe('parseTag OCR noise', () => {
     expect(parseTag('¥7,600~)')).toMatchObject({ minor: 7600n, currency: 'JPY' });
   });
 
+  it('drops the colon a price list puts before the price', () => {
+    expect(parseTag(': Rp. 6000', 'IDR')).toMatchObject({ minor: 600000n, currency: 'IDR' });
+  });
+
   it('reads an F before a thousands amount as a yen sign', () => {
     expect(parseTag('F4,725~')).toMatchObject({ minor: 4725n, currency: 'JPY' });
     expect(parseTag('F7,875', 'USD')).toMatchObject({ minor: 7875n, currency: 'JPY' });

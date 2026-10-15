@@ -95,10 +95,18 @@ export function parsePrice(text: string): ParsedPrice | null {
   const leadingDot = t.match(/^\.(\d{2})$/);
   if (leadingDot) return { minor: BigInt(parseInt(leadingDot[1]!)), currency: 'USD', confidence: 0.85 };
 
-  // Generic symbol-prefixed price: $4.99, €4,99, £3.50, C$12.00, Rp15.000, ¥1299, etc.
+  // Euro sign after the amount, as written across Europe: "6,90€", "2.- €" (a dash for no cents)
+  const euroAfter = t.match(/^(\d[\d.,]*?)(?:[.,]-)?\s?€$/);
+  if (euroAfter) {
+    const minor = parseNumeric(euroAfter[1]!, 'EUR');
+    return minor === null ? null : { minor, currency: 'EUR', confidence: 1 };
+  }
+
+  // Generic symbol-prefixed price: $4.99, €4,99, £3.50, C$12.00, Rp15.000, Rp. 6000, ¥1299, etc.
   const extracted = extractCurrency(t);
   if (extracted) {
-    const [currency, rest] = extracted;
+    const currency = extracted[0];
+    const rest = extracted[1].replace(/^\s/, '');
     // rest must look like a number (digits, commas, dots only)
     if (!/^[\d.,]+$/.test(rest)) return null;
     const minor = parseNumeric(rest, currency);
