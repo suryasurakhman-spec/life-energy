@@ -59,6 +59,13 @@ describe('parseTag OCR noise', () => {
     expect(parseTag(': Rp. 6000', 'IDR')).toMatchObject({ minor: 600000n, currency: 'IDR' });
   });
 
+  it('reads a dot after a yen amount as 円 when home is Japan', () => {
+    expect(parseTag('1140.', 'JPY')).toMatchObject({ minor: 1140n, currency: 'JPY' });
+    expect(parseTag('1,500.', 'JPY')).toMatchObject({ minor: 1500n, currency: 'JPY' });
+    expect(parseTag('12.', 'JPY')).toBeNull();
+    expect(parseTag('1140.', 'USD')?.currency).not.toBe('JPY');
+  });
+
   it('reads an F before a thousands amount as a yen sign', () => {
     expect(parseTag('F4,725~')).toMatchObject({ minor: 4725n, currency: 'JPY' });
     expect(parseTag('F7,875', 'USD')).toMatchObject({ minor: 7875n, currency: 'JPY' });

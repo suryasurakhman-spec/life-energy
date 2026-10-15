@@ -44,7 +44,9 @@ function fixOcrNoise(text: string): string {
  * marker is in the shopper's own currency, so those are re-read in `homeCurrency`.
  */
 export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | null {
-  const text = fixOcrNoise(rawText);
+  let text = fixOcrNoise(rawText);
+  // OCR reads the 円 after a yen price as a dot ("1140."); only trusted at home in Japan, where it is the price mark.
+  if (homeCurrency === 'JPY') text = text.replace(/^(\d{3,5}|\d{1,3}(?:,\d{3})+)\.$/, '¥$1');
   const usd = parsePrice(text);
   if (usd && usd.currency !== 'NOT_USD') {
     if (homeCurrency === 'USD' || CURRENCY_MARK.test(text)) return usd;
