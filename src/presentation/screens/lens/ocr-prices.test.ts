@@ -54,6 +54,12 @@ describe('parseTag OCR noise', () => {
     expect(parseTag('¥4,600-')).toMatchObject({ minor: 4600n, currency: 'JPY' });
     expect(parseTag('¥7,600~)')).toMatchObject({ minor: 7600n, currency: 'JPY' });
   });
+
+  it('reads an F before a thousands amount as a yen sign', () => {
+    expect(parseTag('F4,725~')).toMatchObject({ minor: 4725n, currency: 'JPY' });
+    expect(parseTag('F7,875', 'USD')).toMatchObject({ minor: 7875n, currency: 'JPY' });
+    expect(parseTag('F725')).toBeNull();
+  });
 });
 
 const word = (text: string, x = 0) => ({ text, x, y: 0, width: 10, height: 10 });

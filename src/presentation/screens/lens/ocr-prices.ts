@@ -25,12 +25,14 @@ const CURRENCY_MARK = /[$¢€£¥₩₹]|Rp|zł/i;
  * ML Kit often reads a "$" as "S" or "s" ("S22,90", "s99.90", "S 1.99"). Only a full amount with
  * cents is corrected, so words and codes that start with S stay as they are.
  * Japanese tags end a price with a dash or tilde ("¥4,600-", "¥7,600~"), which is dropped.
+ * ML Kit's Latin model reads "¥" as "F" ("F4,725~"); only a whole amount in thousands groups is fixed.
  */
 function fixOcrNoise(text: string): string {
   return text
     .trim()
     .replace(/(\d)[-~)]+$/, '$1')
-    .replace(/^[Ss] ?(?=\d{1,4}[.,]\d{2}$)/, '$');
+    .replace(/^[Ss] ?(?=\d{1,4}[.,]\d{2}$)/, '$')
+    .replace(/^F(?=\d{1,3}(?:,\d{3})+$)/, '¥');
 }
 
 /**
