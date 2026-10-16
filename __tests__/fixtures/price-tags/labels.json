@@ -1,8 +1,8 @@
 {
- "description": "Price-tag test set for the live lens (FR-1). Open-licence photos from Wikimedia Commons; prices read and labelled by hand. 'price' is the amount in major units as written on the tag. Fuel boards drop the tenth-of-a-cent fraction. 'also_ok' lists real prices that are fine to show but not required (unit, regular, crossed-out, cut-off or background prices). Batch 2 (ids d…, collected 2026-10-14) adds US, Canadian and Australian shop photos. Batch 3 (ids w…, collected 2026-10-15) adds Japanese, Indonesian, Korean and European photos found through Openverse; these images are kept out of git (see .gitignore) and only their labels and OCR are committed.",
+ "description": "Price-tag test set for the live lens (FR-1). Open-licence photos from Wikimedia Commons; prices read and labelled by hand. 'price' is the amount in major units as written on the tag. Fuel boards drop the tenth-of-a-cent fraction. 'also_ok' lists real prices that are fine to show but not required (unit, regular, crossed-out, cut-off or background prices). Batch 2 (ids d…, collected 2026-10-14) adds US, Canadian and Australian shop photos. Batch 3 (ids w…, collected 2026-10-15) adds Japanese, Indonesian, Korean and European photos found through Openverse; these images are kept out of git (see .gitignore) and only their labels and OCR are committed. Batch 4 (2026-10-16) adds UK market, Greek shelf and Walmart sign photos, also through Openverse and kept local.",
  "collected": "2026-10-12",
- "photos": 130,
- "tags": 305,
+ "photos": 139,
+ "tags": 321,
  "items": [
   {
    "id": "c003",
@@ -3823,6 +3823,226 @@
    "source": {
     "page": "https://www.flickr.com/photos/37151802@N07/9480076726",
     "title": "Marché de La Rochelle - Abricots",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w620",
+   "image": "images/w620.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "1.50",
+     "text": "1.50"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=27617667",
+    "title": "Stick beans for sale on a UK greengrocer's market stall in August 2013",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w621",
+   "image": "images/w621.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "1.20",
+     "text": "1.20"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [
+    "2.64"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=27617674",
+    "title": "Pink Lady apples for sale on a UK greengrocer's market stall in August 2013",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w622",
+   "image": "images/w622.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "2.65",
+     "text": "2.65"
+    },
+    {
+     "price": "1.20",
+     "text": "1.20"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=20913520",
+    "title": "Dual units tomatoes",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w623",
+   "image": "images/w623.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "2.65",
+     "text": "2.65"
+    },
+    {
+     "price": "1.20",
+     "text": "1.20"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=20913522",
+    "title": "Dual units greengages",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w625",
+   "image": "images/w625.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "1.20",
+     "text": "1.20"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=27617673",
+    "title": "Peas for sale on a UK greengrocer's market stall in August 2013",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w626",
+   "image": "images/w626.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "1.50",
+     "text": "1.50"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [
+    "3.30"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=27617668",
+    "title": "Apricots for sale on a UK greengrocer's market stall in August 2013",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w627",
+   "image": "images/w627.jpg",
+   "kind": "handwritten",
+   "region": "GB",
+   "currency": "GBP",
+   "tags": [
+    {
+     "price": "2.65",
+     "text": "2.65"
+    },
+    {
+     "price": "1.20",
+     "text": "1.20"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=20913521",
+    "title": "Dual units damson",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w772",
+   "image": "images/w772.jpg",
+   "kind": "shelf",
+   "region": "GR",
+   "currency": "EUR",
+   "tags": [
+    {
+     "price": "7.16",
+     "text": "7.16"
+    },
+    {
+     "price": "5.97",
+     "text": "5.97"
+    },
+    {
+     "price": "5.05",
+     "text": "5.05"
+    }
+   ],
+   "distractors": [
+    "small unit prices per kilo"
+   ],
+   "also_ok": [
+    "7.16",
+    "5.97",
+    "5.05"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=126470560",
+    "title": "Thasos Throumba Olives AB",
+    "local_only": true
+   }
+  },
+  {
+   "id": "w789",
+   "image": "images/w789.jpg",
+   "kind": "sign",
+   "region": "US",
+   "currency": "USD",
+   "tags": [
+    {
+     "price": "0.15",
+     "text": "15¢"
+    },
+    {
+     "price": "0.15",
+     "text": "15¢"
+    },
+    {
+     "price": "0.97",
+     "text": "97¢"
+    }
+   ],
+   "distractors": [],
+   "also_ok": [
+    "0.50"
+   ],
+   "source": {
+    "page": "https://commons.wikimedia.org/w/index.php?curid=24500004",
+    "title": "15-cent prices on notebooks at Walmart",
     "local_only": true
    }
   }

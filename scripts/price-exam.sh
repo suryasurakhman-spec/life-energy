@@ -8,13 +8,14 @@ cd "$(dirname "$0")/.."
 PKG=com.beapp.beapp
 FIXTURES=__tests__/fixtures/price-tags
 OUT=${1:-$FIXTURES/ocr-android.json}
+IMAGES=${2:-$FIXTURES/images} # or a folder of new photos only, to merge into the saved OCR
 METRO=http://localhost:8081
 
 curl -sf "$METRO/status" | grep -q running || { echo "Metro is not running on :8081 (yarn start)" >&2; exit 1; }
 adb reverse tcp:8081 tcp:8081 >/dev/null
 
 adb shell rm -rf /data/local/tmp/exam
-adb push "$FIXTURES/images" /data/local/tmp/exam >/dev/null
+adb push "$IMAGES" /data/local/tmp/exam >/dev/null
 adb shell chmod -R a+r /data/local/tmp/exam
 adb shell run-as "$PKG" sh -c "'rm -rf files/exam files/exam-ocr.json files/exam-ocr.json.part files/exam-started && mkdir -p files/exam && cp /data/local/tmp/exam/*.jpg files/exam/'"
 

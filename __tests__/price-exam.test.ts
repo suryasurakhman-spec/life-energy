@@ -135,10 +135,12 @@ describe.skipIf(!existsSync(OCR_FILE))('price-tag exam', () => {
   // Not reading "6.20" as yen and joining "3,-" "€" found 117, with 6 wrong.
   // Reading the tallest bare numbers in yen, won and rupiah found 129, with 13 wrong: each new one
   // is a real price with a misread digit ("4150" for ¥150), shown with "≈".
+  // Batch 4 (2026-10-16, 9 UK market, Greek shelf and Walmart photos) found none of its 18 tags: OCR
+  // can't read the marker pens, drops "¢", and splits "7¹⁶ €" into "716" and "€". One wrong chip, a misread "6,08".
   // Raise these as the parser improves, so a change can't quietly lose ground.
   it('finds at least the recorded number of tags without adding wrong chips', () => {
     const all = groups.get('all')!;
     expect(all.found).toBeGreaterThanOrEqual(129);
-    expect(all.wrong).toBeLessThanOrEqual(13);
+    expect(all.wrong).toBeLessThanOrEqual(14);
   });
 });
