@@ -1,4 +1,4 @@
-import type { ExpenseRepository, ExpenseRecord } from './ports/expense-repository.port';
+import type { ExpenseRepository } from './ports/expense-repository.port';
 import { lifeEnergy } from '@/lib/calc';
 
 export interface CategoryTotal {

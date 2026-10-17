@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 
+import { recordConversion } from './record-conversion';
+import type { ConversionRepository } from './ports/conversion-repository.port';
+
 vi.mock('expo-crypto', () => ({
   randomUUID: () => 'test-uuid-' + Math.random().toString(36).slice(2),
 }));
-
-import { recordConversion } from './record-conversion';
-import type { ConversionRepository } from './ports/conversion-repository.port';
 
 describe('recordConversion', () => {
   it('saves the conversion with a generated id', async () => {

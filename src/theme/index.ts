@@ -2,6 +2,10 @@
 // Central export for all design tokens.
 // useTheme() returns the correct light/dark token set based on the system color scheme.
 
+import { useColorScheme } from 'react-native';
+import { light, dark } from './colors';
+import type { ColorTokens } from './colors';
+
 export { palette, light, dark } from './colors';
 export type { ColorTokens } from './colors';
 
@@ -12,10 +16,6 @@ export { space, radius, hitSlop, hitSlopRect, shadow, screenGutter, cardPadding,
 
 export { CHIP_TIERS, getTier } from './chip-tiers';
 export type { ChipTier, TierStyle } from './chip-tiers';
-
-import { useColorScheme } from 'react-native';
-import { light, dark } from './colors';
-import type { ColorTokens } from './colors';
 
 /**
  * Returns the correct color token set for the current system color scheme.

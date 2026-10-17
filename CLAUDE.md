@@ -83,7 +83,7 @@ src/
     priceParser.ts      # USD price string → cents
   components/           # Shared UI components
   features/             # Feature folders (lens/, log/, wizard/, profile/)
-  db/                   # Drizzle schema + migrations
+  infrastructure/sqlite/drizzle/  # Drizzle schema + migrations
 supabase/               # Migrations, RLS policies, Edge Functions
 __tests__/              # Vitest test files (mirror src/ structure)
 docs/

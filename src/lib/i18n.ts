@@ -10,6 +10,8 @@
  *   - Arabic (ar) is RTL — I18nManager.forceRTL is handled in locale.store.ts.
  */
 
+import { useLocaleStore } from '@/presentation/stores/locale.store';
+
 export type Locale = 'en-US' | 'id' | 'ja' | 'ar';
 
 export const LOCALE_LABELS: Record<Locale, string> = {
@@ -1303,9 +1305,6 @@ export const translations: Record<Locale, Strings> = {
 };
 
 // ─── Hook ─────────────────────────────────────────────────────────────────────
-// Import is deferred so this file stays free of React/store deps at the top level.
-
-import { useLocaleStore } from '@/presentation/stores/locale.store';
 
 export function useTranslation(): Strings {
   const locale = useLocaleStore((s) => s.locale);

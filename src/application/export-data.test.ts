@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 
-vi.mock('expo-file-system', () => ({}));
-vi.mock('expo-sharing', () => ({}));
-
 import { toExportJson, toExportCsv } from './export-data';
 import { deleteAllData } from './delete-all-data';
 import type { UserDataDump, UserDataStore } from './ports/user-data.port';
+
+vi.mock('expo-file-system', () => ({}));
+vi.mock('expo-sharing', () => ({}));
 
 const dump: UserDataDump = {
   wage_profiles: [{ id: 'wp-1', real_wage_cached: 1344, currency: 'USD' }],

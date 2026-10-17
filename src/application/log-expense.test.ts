@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 
+import { logExpense } from './log-expense';
+import type { ExpenseRepository } from './ports/expense-repository.port';
+
 vi.mock('expo-crypto', () => ({
   randomUUID: () => 'test-uuid-' + Math.random().toString(36).slice(2),
 }));
-
-import { logExpense } from './log-expense';
-import type { ExpenseRepository } from './ports/expense-repository.port';
 
 describe('logExpense', () => {
   it('saves the expense with a generated id', async () => {

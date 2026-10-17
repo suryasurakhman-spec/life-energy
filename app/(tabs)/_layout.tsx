@@ -11,9 +11,10 @@ import { useCurrentWage } from '@/presentation/hooks/useWage';
 // can't resolve SvgProps. Cast icons to accept stroke/size at the call site.
 type IconProps = { stroke: string; size: number; strokeWidth: number };
 function icon(Icon: ComponentType<IconProps>) {
-  return ({ color, size }: { color: string; size: number }) => (
+  const TabIcon = ({ color, size }: { color: string; size: number }) => (
     <Icon stroke={color} size={size} strokeWidth={2} />
   );
+  return TabIcon;
 }
 
 // The tab bar uses dark chrome tokens — the lens is always dark regardless of system theme.

@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { PaymentPendingError, RevenueCatPurchaseService, toCustomerInfo } from './revenuecat-purchase-service';
+
 const sdk = vi.hoisted(() => ({
   configure: vi.fn(),
   getOfferings: vi.fn(),
@@ -11,8 +13,6 @@ vi.mock('react-native-purchases', () => ({
   default: sdk,
   PURCHASES_ERROR_CODE: { PURCHASE_CANCELLED_ERROR: '1', PAYMENT_PENDING_ERROR: '20' },
 }));
-
-import { PaymentPendingError, RevenueCatPurchaseService, toCustomerInfo } from './revenuecat-purchase-service';
 
 const info = (active: string[]) => ({
   entitlements: { active: Object.fromEntries(active.map((id) => [id, {}])) },
