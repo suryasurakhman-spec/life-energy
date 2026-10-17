@@ -17,6 +17,12 @@ describe('parseTag home currency', () => {
     expect(parseTag('6.00', 'JPY')).toMatchObject({ minor: 6n, currency: 'JPY' });
   });
 
+  it('skips a foreign amount with neither a thousands mark nor cents', () => {
+    expect(parseTag('S$7577-', 'JPY')).toBeNull();
+    expect(parseTag('S$75.77', 'JPY')).toMatchObject({ minor: 7577n, currency: 'SGD' });
+    expect(parseTag('S$7,577', 'JPY')).toMatchObject({ minor: 757700n, currency: 'SGD' });
+  });
+
   it('leaves foreign-marked prices to the currency-aware parser', () => {
     expect(parseTag('€4,99', 'USD')).toMatchObject({ minor: 499n, currency: 'EUR' });
   });
@@ -107,6 +113,11 @@ describe('pricesInLines fuel boards', () => {
     expect(pricesInLines([line('Regular'), line('Plus'), line('3399')]).map((p) => p.minor)).toEqual([339n]);
   });
 
+  it('skips bare numbers much smaller than the board prices', () => {
+    const tall = (text: string, height: number) => ({ ...word(text), height, words: [{ ...word(text), height }] });
+    expect(pricesInLines([line('UNLEADED'), tall('349', 150), tall('255', 60)]).map((p) => p.minor)).toEqual([349n]);
+  });
+
   it('leaves bare numbers alone without a grade name', () => {
     expect(pricesInLines([line('3399'), line('1090')])).toEqual([]);
   });
@@ -151,6 +162,7 @@ describe('pricesInLines', () => {
       line('SAVE: $2.20 Ls', [word('$2.20')]),
       line('free $10 GiftCard with purchase', [word('$10')]),
       line('$3 OFF', [word('$3')]),
+      line('$10'),
       line('$5.79'),
     ];
     expect(pricesInLines(lines).map((p) => p.minor)).toEqual([579n]);

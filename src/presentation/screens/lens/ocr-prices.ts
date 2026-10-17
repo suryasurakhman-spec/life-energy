@@ -62,7 +62,9 @@ export function parseTag(rawText: string, homeCurrency = 'USD'): ParsedTag | nul
     return { ...usd, minor: (usd.minor + scale / 2n) / scale, currency: homeCurrency };
   }
   const foreign = parseForeignPrice(text);
-  if (foreign && foreign.currency !== 'USD') return foreign;
+  // A foreign price prints a thousands mark or cents; "S$7577" in Japan is a code, not 7,577 Singapore dollars.
+  const ungrouped = foreign && foreign.currency !== homeCurrency && minorDigits(foreign.currency) > 0 && /\d{4}/.test(text) && !/\d[.,]\d/.test(text);
+  if (foreign && foreign.currency !== 'USD' && !ungrouped) return foreign;
   // OCR glues stray letters or a misread "$" to the amount ("AIMS9.98", "¢2.99").
   // Only amounts with cents, and never a currency code, which would turn into dollars.
   // Letters ending in O, I or l are usually misread digits ("Oo1.09" was the date 02.01.09).
@@ -106,6 +108,8 @@ const PROMO_WORDS = /\b(?:SAVE|SAVINGS|OFF|FREE|COUPON|REBATE|GIFT\s?CARD)\b|GIF
 /** Every price in one OCR pass, each with the box it was read from. */
 export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedPrice[] {
   const fuelBoard = isFuelBoard(lines);
+  // Board prices are the biggest digits in view; a smaller bare number is a pump display or a code.
+  const tallestDigits = Math.max(0, ...lines.flatMap((l) => l.words).map((w) => w.height));
   const detected: DetectedPrice[] = [];
   const add = (box: OcrBox, parsed: ParsedTag) => {
     detected.push({
@@ -117,8 +121,10 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
       height: box.height,
     });
   };
+  // A promo amount repeated on its own line ("free $10 GiftCard" beside a big "$10") is not a price either.
+  const promoAmounts = new Set(lines.filter((l) => PROMO_WORDS.test(l.text)).flatMap((l) => l.words.map((w) => w.text)));
   for (const line of lines) {
-    if (PROMO_WORDS.test(line.text)) continue;
+    if (PROMO_WORDS.test(line.text) || (line.words.length === 1 && promoAmounts.has(line.words[0]!.text))) continue;
     // Whole line first, so split-cent, sale and "with card" tags read as one price.
     const singleWord = line.words.length === 1 && line.words[0]!.text === line.text.trim();
     const whole = singleWord ? null : parseTag(line.text, homeCurrency);
@@ -130,7 +136,8 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
       // A euro sign OCR split off as its own word ("3,-" "€") belongs to the amount before it.
       const text = line.words[i + 1]?.text === '€' ? `${w.text} €` : w.text;
       const parsed =
-        (fuelBoard ? parseFuelPrice(text, homeCurrency) : null) ?? parseTag(text, homeCurrency);
+        (fuelBoard && w.height >= tallestDigits * 0.5 ? parseFuelPrice(text, homeCurrency) : null) ??
+        parseTag(text, homeCurrency);
       if (parsed) add(w, parsed);
     }
   }
