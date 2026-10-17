@@ -135,6 +135,7 @@ export function pricesInLines(lines: OcrLine[], homeCurrency = 'USD'): DetectedP
     }
   }
   if (BARE_PRICE_HOMES.has(homeCurrency) && detected.length === 0) addBarePrices(lines, homeCurrency, add);
+  if (homeCurrency === 'EUR') addRaisedCents(lines, add);
   return dropLostDots(detected);
 }
 
@@ -154,6 +155,20 @@ function addBarePrices(lines: OcrLine[], homeCurrency: string, add: (box: OcrBox
     if (w.height < tallest * 0.7) continue;
     const major = BigInt(w.text.replace(/[.,]/g, ''));
     add(w, { minor: major * 10n ** BigInt(minorDigits(homeCurrency)), currency: homeCurrency, confidence: 0.7 });
+  }
+}
+
+/**
+ * Shelf tags print "7¹⁶ €" with raised cents; OCR returns "716" and the € as its own word, often
+ * not beside it. With a lone € in view, the tallest 3–4 digit numbers are euros and cents, marked "≈".
+ */
+function addRaisedCents(lines: OcrLine[], add: (box: OcrBox, parsed: ParsedTag) => void) {
+  const words = lines.flatMap((l) => l.words);
+  if (!words.some((w) => w.text === '€')) return;
+  const bare = words.filter((w) => /^[1-9]\d{2,3}$/.test(w.text));
+  const tallest = Math.max(0, ...bare.map((w) => w.height));
+  for (const w of bare) {
+    if (w.height >= tallest * 0.6) add(w, { minor: BigInt(w.text), currency: 'EUR', confidence: 0.7 });
   }
 }
 
@@ -201,7 +216,7 @@ export function ocrLinesFromBlocks(blocks: MlKitBlock[]): OcrLine[] {
   for (const block of blocks) {
     for (const line of block.lines ?? []) {
       const lineText = line.lineText ?? '';
-      if (!/\d/.test(lineText) && !FUEL_WORDS.test(lineText)) continue;
+      if (!/\d|^€$/.test(lineText) && !FUEL_WORDS.test(lineText)) continue;
       const words = (line.elements ?? [])
         .filter((el) => /\d|^€$/.test(el.elementText ?? ''))
         .map((el) => box(el.elementFrame, el.elementText ?? ''));

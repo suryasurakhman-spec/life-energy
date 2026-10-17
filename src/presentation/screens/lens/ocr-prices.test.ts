@@ -138,6 +138,14 @@ describe('pricesInLines', () => {
     expect(pricesInLines([sign], 'EUR').map((p) => p.minor)).toEqual([300n]);
   });
 
+  it('reads raised-cent euro shelf tags when a lone € is in view', () => {
+    const tall = (text: string, height: number) => ({ ...word(text), height, words: [{ ...word(text), height }] });
+    const shelf = [tall('716', 152), tall('505', 236), tall('3137', 38), tall('11', 177)];
+    expect(pricesInLines([...shelf, line('€')], 'EUR').map((p) => [p.minor, p.confidence])).toEqual([[716n, 0.7], [505n, 0.7]]);
+    expect(pricesInLines(shelf, 'EUR')).toEqual([]);
+    expect(pricesInLines([...shelf, line('€')], 'USD')).toEqual([]);
+  });
+
   it('skips savings, coupon and gift-card amounts', () => {
     const lines = [
       line('SAVE: $2.20 Ls', [word('$2.20')]),

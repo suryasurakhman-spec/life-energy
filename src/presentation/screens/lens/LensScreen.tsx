@@ -253,14 +253,14 @@ export function LensScreen() {
           const lineText: string = line?.lineText ?? '';
           // A price always has a digit; fuel grade names (FUEL_WORDS in ocr-prices.ts) mark a price board.
           if (
-            !/\d/.test(lineText) &&
+            !/\d|^€$/.test(lineText) &&
             !/\b(?:UNL|UNLEADED|REG|REGULAR|MID|MIDGRADE|PLUS|PREM|PREMIUM|SUPER|ULTRA|DIESEL|GAS|GASOLINE|E85)\b/i.test(lineText)
           ) continue;
           const elements: any[] = line?.elements ?? [];
           const words: OcrBox[] = [];
           for (const el of elements) {
             const text: string = el?.elementText ?? '';
-            if (/\d/.test(text)) words.push(toView(el.elementFrame, text));
+            if (/\d|^€$/.test(text)) words.push(toView(el.elementFrame, text));
           }
           lines.push({ ...toView(line.lineFrame, lineText), words });
         }
