@@ -67,21 +67,21 @@ export function CrossoverScreen() {
           <View style={s.card}>
             <InputRow
               label={`${t.crossover.capitalLabel} (${currencySymbol(currency)})`}
-              placeholder="e.g. 50000"
+              placeholder="50000"
               value={capitalText}
               onChangeText={setCapitalText}
               theme={theme}
             />
             <InputRow
               label={`${t.crossover.expensesLabel} (${currencySymbol(currency)})`}
-              placeholder="e.g. 3000"
+              placeholder="3000"
               value={expensesText}
               onChangeText={setExpensesText}
               theme={theme}
             />
             <InputRow
               label={`${t.crossover.savingsLabel} (${currencySymbol(currency)})`}
-              placeholder="e.g. 500"
+              placeholder="500"
               value={savingsText}
               onChangeText={setSavingsText}
               theme={theme}
